@@ -10,10 +10,11 @@ using System.Windows.Navigation;
 using System.Windows.Controls;
 using System.Linq;
 using System.Windows.Controls.Primitives;
+using System.Diagnostics;
 
 namespace SeradexToolv2.ViewModels
 {
-    class EstimatesToolkit
+    class Toolkit
     {
         
         public DataTable populateEstimatesTable()
@@ -24,12 +25,12 @@ namespace SeradexToolv2.ViewModels
                 DataTable results = new DataTable("results_table");
                 new SqlDataAdapter(new SqlCommand(estimateQuery(), connect)).Fill(results);
 
-                SetPrimaryKeys(results, "EstimateID");
+                SetPrimaryKeys(results);
                 return results;
             }
 
         }
-        private void SetPrimaryKeys(DataTable data, string colName)
+        private void SetPrimaryKeys(DataTable data)
         {
             DataColumn[] key = { data.Columns[0] };
 
@@ -49,6 +50,10 @@ namespace SeradexToolv2.ViewModels
             }
         }
 
+        public void openFolder(string esNumber)
+        {
+            Process.Start(@"c:\");
+        }
 
         // Private Methods
 
@@ -75,14 +80,16 @@ namespace SeradexToolv2.ViewModels
             return queryString;
         }
 
-        private string ItemDetails = "SELECT a.[LineNo], a.[ItemNo], a.[QtyOrdered], a.[ListPrice], a.[UnitPrice], a.[DiscountPct], a.[DiscountAmt], a.[NetPrice] " +
+        private string ItemDetails = "SELECT a.[LineNo], a.[ItemNo], a.[Description], a.[QtyOrdered], a.[ListPrice], a.[UnitPrice], a.[DiscountPct], a.[DiscountAmt], a.[NetPrice] " +
                 "FROM EstimateDetails a " +
                 "WHERE EstimateID = ";
 
+
+        /*
         private string CustomerInfo;
 
         private string ShippingDetails;
         private string Comments;
-
+        */
     }// End of Class Estimates Functions
 }// End of Seradex Models Namespace

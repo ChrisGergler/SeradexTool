@@ -28,7 +28,7 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
     /// </summary>
     public partial class Estimates : Page
     {
-        Tools.EstimatesToolkit Utility = new Tools.EstimatesToolkit();
+        Toolkit Utility = new Toolkit();
 
 
 
@@ -60,6 +60,8 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
                     break;
 
                 case 2:
+
+                    searchString = "";
                     break;
 
                 case 3:
