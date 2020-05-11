@@ -1,0 +1,25 @@
+Goals
+ - Get Selected Row number
+ - Search for Column name 
+ - Get value from cell at coords
+
+ - Pass cell value to function
+ - Use value to submit a query
+
+ES # is selected by doiuble clicking the Row
+Row number scans the column count with a loop for the column that holds Estimate Number
+Query for
+
+SELECT [EstimateID], [LineNo], [ItemNo], [QtyOrdered], [ListPrice], [UnitPrice], [DiscountPct],	[DiscountAmt],[NetPrice] FROM [dbo].[EstimateDetails] WHERE [EstimateID] = XXXXX;
+
+XXXX is the estimate ID pulled from the Estimate number. Two part query pass, First from dbo.Estimate, then from dbo.EstimateDetails.
+
+Estimate Details uses the item numbers matched to the estimate ID.
+Estimate ID is unique in the Estimates Table, but non-unique to the Estimate Details table.
+
+Use this to populate the Details box below. From there repeat that action if possible for unique details. It should be shown in the description just as is.
+Gettingf Custmer AAInformation requires more investigation into the tables.
+
+Benched for now, get the parts search functioning first.
+
+

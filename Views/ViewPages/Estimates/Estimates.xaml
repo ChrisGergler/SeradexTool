@@ -1,0 +1,37 @@
+﻿<Page x:Class="SeradexToolv2.Views.ViewPages.Estimates.Estimates"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SeradexToolv2.Views.ViewPages.Estimates"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Estimates"
+      Loaded="Page_Loaded"
+      >
+
+    <Grid x:Name="MainBody" MinWidth="72" MinHeight="72">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="19*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="72"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label x:Name="EstimatesTitle" Content="Estimates Search" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,0,0" FontFamily="Open Sans ExtraBold" FontSize="24" Height="42" Width="223" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name="SearchParam" HorizontalAlignment="Center" Margin="0,33,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" SelectedIndex="0" Background="#FFE6FEFF" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" Height="22">
+            <ComboBoxItem Content="Estimate Number" FontFamily="Open Sans"/>
+            <ComboBoxItem Content="Customer Name" FontFamily="Open Sans"/>
+            <ComboBoxItem Content="Sales Order Number" FontFamily="Open Sans"/>
+            <ComboBoxItem Content="Customer Reference" FontFamily="Open Sans"/>
+        </ComboBox>
+        <Label x:Name="label_SearchParam" Content="Search By" HorizontalAlignment="Center" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26"/>
+        <DataGrid x:Name="EstimateResults" Grid.Row="2" Margin="4,0,4,4" Grid.ColumnSpan="3" IsReadOnly="True" MouseDoubleClick="DataGridCell_MouseDoubleClick" SelectionUnit="FullRow"/>
+        <TextBox x:Name="SearchBox" KeyUp="executeSearch" Grid.Column="1" Margin="0,33,110,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="22" MinWidth="100"/>
+        <Label x:Name="label_SearchParam_Copy" Content="Search for" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26" Grid.Column="1"/>
+        <Label x:Name="contentSelected" Content="Contents Select" Grid.Column="2" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="124"/>
+    </Grid>
+</Page>

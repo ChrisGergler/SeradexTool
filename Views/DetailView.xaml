@@ -1,0 +1,45 @@
+﻿<Window x:Class="SeradexToolv2.Views.DetailView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SeradexToolv2.Views"
+        mc:Ignorable="d"
+        Title="DetailView" Height="450" Width="800"
+        Loaded="Page_Loaded">
+    <Grid>
+        <TabControl>
+            <TabItem x:Name="Estimate_Details" Header="Estimate">
+
+                <Grid x:Name="MainBody" MinWidth="72" MinHeight="72">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160"/>
+                        <ColumnDefinition Width="13*"/>
+                        <ColumnDefinition Width="19*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="48"/>
+                        <RowDefinition Height="72"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="EstimatesTitle" Content="Details" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,0,0" FontFamily="Open Sans ExtraBold" FontSize="24" Height="42" Width="223" Grid.ColumnSpan="2"/>
+
+                    <Label x:Name="CustomerLabel" Content="Customer Name" HorizontalAlignment="Center" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26"/>
+                    <Label x:Name="CustomerName" Content="Customer Name" HorizontalAlignment="Center" Margin="0,28,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26"/>
+                    <DataGrid x:Name="ItemsQuoted" Grid.Row="2" Margin="4,0,4,4" Grid.ColumnSpan="3" IsReadOnly="True" SelectionUnit="FullRow"/>
+                    <TextBox x:Name="SearchBox" Grid.Column="1" Margin="0,33,110,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="22" MinWidth="100"/>
+                    <Label x:Name="label_SearchParam_Copy" Content="Search for" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26" Grid.Column="1"/>
+                    <Label x:Name="contentSelected" Content="Contents Select" Grid.Column="2" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="124"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="Sales_Order_Details" Header="Sales Order" Margin="-2,-2,-2,-1">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem x:Name="Customer_Info" Header="Work Order">
+
+                
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
