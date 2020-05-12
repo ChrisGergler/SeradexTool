@@ -78,7 +78,7 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             // hardcoded Queries locked behind the load event to prevent mistaken queries.
-            string estimateString = "SELECT e.EstimateNo, c.[name], e.CustomerShipToID, e.EntryDate, e.TermsCodeID, e." +
+            string estimateString = "SELECT e.EstimateNo, c.[name], e.CustomerShipToID, e.EntryDate, e.TermsCodeID, e.SubTotal, e.TotalTaxes, e." +
     "Approved, e.CustRefNo, e.TerritoryID, e.TaxGroupID, e.TotalTaxes, e.AddressID, e.ShipToAddressID, e." +
     "OrderDate, e.ShipDate, e.[Name], e.Comment, e.SubTotal, e.CSREmployeeID, e.UserCreated, e.DateCreated " +
     "UserModified, e.DateModified, e.CustomerBillToID, e.Closed, e.EstimateID " +

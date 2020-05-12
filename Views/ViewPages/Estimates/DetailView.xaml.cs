@@ -88,15 +88,22 @@ namespace SeradexToolv2.Views
         {
             // DataTable Customer = Utility.useQuery("SELECT [Name] FROM Customers WHERE Customers.CustomerID = " + EstimateKeys["CustomerID"]);
 
+            //Header
             EstimatesTitle.Content = EstimateKeys["EstimateNo"].ToString();
-            
+            try { SalesOrderNumber.Content = "Sales Order: " + Utility.useQuery("SELECT a.SalesOrderNo FROM SalesOrder a WHERE a.EstimateID = \'" + estimateID + "\'").Rows[0][0].ToString(); }
+            catch (Exception)
+            {
+                SalesOrderNumber.Content = "No Sales Number Available";
+            };
+
+
             CustomerName.Text =
-               Convert.ToString(Utility.useQuery("SELECT a.[Name] FROM Customers a, Estimate b WHERE b.CustomerID = a.CustomerID AND b.EstimateID = "+estimateID).Rows[0][0]);
+               Convert.ToString(Utility.useQuery("SELECT a.[Name] FROM Customers a, Estimate b WHERE b.CustomerID = a.CustomerID AND b.EstimateID = " + estimateID).Rows[0][0]);
 
 
 
             DataTable billingAddress = Utility.useQuery(
-                "SELECT DISTINCT e.EstimateNo, t1.CustomerBillToID, t1.CustomerID, t1.[Name], t2.AddressL1, t2.AddressL2, t2.AddressL3, t3.DescriptionShort, t4.DescriptionShort, t5.DescriptionTiny, t2.PostalCode FROM CustomerBillTo t1 INNER JOIN Addresses t2 ON t1.AddressID = t2.AddressID INNER JOIN Cities t3 ON t2.CityID = t3.CityID INNER JOIN StateProv t4 ON t2.StateProvID = t4.StateProvID INNER JOIN Countries t5 ON t2.CountryID = t5.CountryID INNER JOIN Estimate e on e.CustomerID = t1.CustomerID WHERE e.EstimateID = \'"+estimateID+"\'"
+                "SELECT DISTINCT e.EstimateNo, t1.CustomerBillToID, t1.CustomerID, t1.[Name], t2.AddressL1, t2.AddressL2, t2.AddressL3, t3.DescriptionShort, t4.DescriptionShort, t5.DescriptionTiny, t2.PostalCode FROM CustomerBillTo t1 INNER JOIN Addresses t2 ON t1.AddressID = t2.AddressID INNER JOIN Cities t3 ON t2.CityID = t3.CityID INNER JOIN StateProv t4 ON t2.StateProvID = t4.StateProvID INNER JOIN Countries t5 ON t2.CountryID = t5.CountryID INNER JOIN Estimate e on e.CustomerID = t1.CustomerID WHERE e.EstimateID = \'" + estimateID + "\'"
                 );
             billingAddress.Columns[7].ColumnName = "City";
             billingAddress.Columns[8].ColumnName = "State";
@@ -123,8 +130,10 @@ namespace SeradexToolv2.Views
             {
                 BillToStreet.Text = billingAddress.Rows[0]["AddressL1"].ToString();
                 BillToCity.Text = billingAddress.Rows[0]["City"].ToString();
-            
-            
+                BillToLine2.Text = billingAddress.Rows[0]["AddressL2"].ToString();
+                BillToLine3.Text = billingAddress.Rows[0]["AddressL3"].ToString();
+
+
             }
             catch (Exception)
             {
@@ -156,10 +165,10 @@ namespace SeradexToolv2.Views
             // Subtotal
             // Tax
             // Grand Total
-
+            GrandTotal.Content = GrandTotal + ":  " + EstimateKeys["SubTotal"] + EstimateKeys["TotalTaxes"];
 
             /*******************************************
-             * DEBUGGING TOOL
+             * DEBUGGING TOOL                         *
             *******************************************/
             string b = "** Billing **\n";
             for(int i = 0; i < billingAddress.Rows.Count; i++)
@@ -184,5 +193,16 @@ namespace SeradexToolv2.Views
             MessageBox.Show(b);
         }
 
+        private void OpenSalesorder(object sender, MouseButtonEventArgs e)
+        {
+            if (SalesOrderNumber.Content.ToString() != "No Sales Number Available")
+            {
+                MessageBox.Show("Sales Order Opens here. Complete fucntion, Chris. If you're seeing this after release, please go tell Chris to get his jazz together.");
+            }
+            else
+            {
+             
+            }
+        }
     }
 }
