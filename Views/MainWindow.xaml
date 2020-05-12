@@ -6,8 +6,10 @@
         xmlns:local="clr-namespace:SeradexToolv2.Views"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="450"
-        Width="800"
+        Height="720"
+        Width="1080"
+        MinHeight="300"
+        MinWidth="750"
         Source="ViewPages\Home.xaml">
 
     

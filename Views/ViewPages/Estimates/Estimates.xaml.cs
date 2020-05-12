@@ -37,6 +37,7 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
             InitializeComponent();
         }
 
+        bool loaded;
 
         DataTable Data = new DataTable("EstimatesSummary");
 
@@ -83,10 +84,16 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
     "UserModified, e.DateModified, e.CustomerBillToID, e.Closed, e.EstimateID " +
     "FROM Estimate e, Customers c WHERE e.CustomerID = c.CustomerID";
 
+            if (loaded == false)
+            { 
             //Data = Utility.populateEstimatesTable();
             Data = Utility.useQuery(estimateString);
+            
             View = new DataView(Data);
-            EstimateResults.ItemsSource = View;
+            EstimateResults.ItemsSource = View; 
+
+            loaded = true;
+            }
         }
 
         private void DataGridCell_MouseDoubleClick(object sender, MouseButtonEventArgs e)
