@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SeradexToolv2.Views"
         mc:Ignorable="d"
-        Title="DetailView" Height="450" Width="800"
+        Title="DetailView" Height="720" Width="1080"
         Loaded="Page_Loaded">
     <Grid>
         <TabControl>
@@ -13,9 +13,11 @@
 
                 <Grid x:Name="MainBody" MinWidth="72" MinHeight="72">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="160"/>
-                        <ColumnDefinition Width="13*"/>
-                        <ColumnDefinition Width="19*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="48"/>
@@ -26,9 +28,9 @@
 
                     <Label x:Name="CustomerLabel" Content="Customer Name" HorizontalAlignment="Center" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26"/>
                     <Label x:Name="CustomerName" Content="Customer Name" HorizontalAlignment="Center" Margin="0,28,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26"/>
-                    <DataGrid x:Name="ItemsQuoted" Grid.Row="2" Margin="4,0,4,4" Grid.ColumnSpan="3" IsReadOnly="True" SelectionUnit="FullRow"/>
-                    <Label x:Name="label_SearchParam_Copy" Content="Search for" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26" Grid.Column="1"/>
-                    <Label x:Name="contentSelected" Content="Contents Select" Grid.Column="2" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="124"/>
+                    <DataGrid x:Name="ItemsQuoted" Grid.Row="2" Margin="4,0,4,4" Grid.ColumnSpan="5" IsReadOnly="True" SelectionUnit="FullRow"/>
+                    <Label x:Name="label_SearchParam_Copy" Content="Search for" HorizontalAlignment="Left" Margin="158,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26" Grid.ColumnSpan="2"/>
+                    <Label x:Name="contentSelected" Content="Contents Select" Grid.Column="4" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="124"/>
                     <Button x:Name="Folder" Content="Open Folder" Grid.Column="1" HorizontalAlignment="Left" Margin="89,10,0,0" VerticalAlignment="Top" Click="GoToFolder" ClickMode="Release"/>
                 </Grid>
             </TabItem>
