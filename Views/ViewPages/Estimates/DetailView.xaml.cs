@@ -95,12 +95,12 @@ namespace SeradexToolv2.Views
 
 
 
-            DataTable address = Utility.useQuery(
+            DataTable billingAddress = Utility.useQuery(
                 "SELECT DISTINCT e.EstimateNo, t1.CustomerBillToID, t1.CustomerID, t1.[Name], t2.AddressL1, t2.AddressL2, t2.AddressL3, t3.DescriptionShort, t4.DescriptionShort, t5.DescriptionTiny, t2.PostalCode FROM CustomerBillTo t1 INNER JOIN Addresses t2 ON t1.AddressID = t2.AddressID INNER JOIN Cities t3 ON t2.CityID = t3.CityID INNER JOIN StateProv t4 ON t2.StateProvID = t4.StateProvID INNER JOIN Countries t5 ON t2.CountryID = t5.CountryID INNER JOIN Estimate e on e.CustomerID = t1.CustomerID WHERE e.EstimateID = \'"+estimateID+"\'"
                 );
-            address.Columns[7].ColumnName = "City";
-            address.Columns[8].ColumnName = "State";
-            address.Columns[9].ColumnName = "County";
+            billingAddress.Columns[7].ColumnName = "City";
+            billingAddress.Columns[8].ColumnName = "State";
+            billingAddress.Columns[9].ColumnName = "County";
             //Customer Billing
 
 
@@ -121,8 +121,8 @@ namespace SeradexToolv2.Views
             *************************************/
             try
             {
-                BillToStreet.Text = address.Rows[0]["AddressL1"].ToString();
-                BillToCity.Text = address.Rows[0]["City"].ToString();
+                BillToStreet.Text = billingAddress.Rows[0]["AddressL1"].ToString();
+                BillToCity.Text = billingAddress.Rows[0]["City"].ToString();
             
             
             }
@@ -138,6 +138,15 @@ namespace SeradexToolv2.Views
             // Billing Country
             // Billing Zip
 
+
+            DataTable shippingAddress = Utility.useQuery(
+    "SELECT DISTINCT e.EstimateNo, t1.CustomerShipToID, t1.CustomerID, t1.[Name], t2.AddressL1, t2.AddressL2, t2.AddressL3, t3.DescriptionShort, t4.DescriptionShort, t5.DescriptionTiny, t2.PostalCode FROM CustomerShipTo t1 INNER JOIN Addresses t2 ON t1.AddressID = t2.AddressID INNER JOIN Cities t3 ON t2.CityID = t3.CityID INNER JOIN StateProv t4 ON t2.StateProvID = t4.StateProvID INNER JOIN Countries t5 ON t2.CountryID = t5.CountryID INNER JOIN Estimate e on e.CustomerID = t1.CustomerID WHERE e.EstimateID = \'" + estimateID + "\'"
+    );
+            shippingAddress.Columns[7].ColumnName = "City";
+            shippingAddress.Columns[8].ColumnName = "State";
+            shippingAddress.Columns[9].ColumnName = "County";
+
+
             //Customer ShipTo
             // Ship Street
             // Ship City
@@ -148,6 +157,31 @@ namespace SeradexToolv2.Views
             // Tax
             // Grand Total
 
+
+            /*******************************************
+             * DEBUGGING TOOL
+            *******************************************/
+            string b = "** Billing **\n";
+            for(int i = 0; i < billingAddress.Rows.Count; i++)
+            {
+                for(int j = 0; j < billingAddress.Columns.Count; j++)
+                {
+                    b = b + "\n" + billingAddress.Columns[j].ColumnName + ": " + billingAddress.Rows[i][j].ToString();
+                }
+            }
+
+            b = b + "\n\n ** Shipping**";
+
+            for (int i = 0; i < shippingAddress.Rows.Count; i++)
+            {
+                for (int j = 0; j < shippingAddress.Columns.Count; j++)
+                {
+                    b = b + "\n" + shippingAddress.Columns[j].ColumnName + ": " + shippingAddress.Rows[i][j].ToString();
+                }
+                b = b + "\n";
+            }
+
+            MessageBox.Show(b);
         }
 
     }
