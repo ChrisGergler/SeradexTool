@@ -76,8 +76,15 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
         // On page load, populate the table
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            // hardcoded Queries locked behind the load event to prevent mistaken queries.
+            string estimateString = "SELECT e.EstimateNo, c.[name], e.CustomerShipToID, e.EntryDate, e.TermsCodeID, e." +
+    "Approved, e.CustRefNo, e.TerritoryID, e.TaxGroupID, e.TotalTaxes, e.AddressID, e.ShipToAddressID, e." +
+    "OrderDate, e.ShipDate, e.[Name], e.Comment, e.SubTotal, e.CSREmployeeID, e.UserCreated, e.DateCreated " +
+    "UserModified, e.DateModified, e.CustomerBillToID, e.Closed, e.EstimateID " +
+    "FROM Estimate e, Customers c WHERE e.CustomerID = c.CustomerID";
 
-            Data = Utility.populateEstimatesTable();
+            //Data = Utility.populateEstimatesTable();
+            Data = Utility.useQuery(estimateString);
             View = new DataView(Data);
             EstimateResults.ItemsSource = View;
         }
@@ -92,11 +99,12 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
         {
             // Get Row index
             int y = grid.SelectedIndex;
+            DataRow passToNextWindow = view[y].Row;
             string answer = "";
             try { answer = ((string)view[y][colName].ToString()); }
             catch { MessageBox.Show("You dun goofed, buddy.");
             };
-            Window detailView = new DetailView(answer);
+            Window detailView = new DetailView(answer, passToNextWindow);
 
             detailView.Show();
 

@@ -32,11 +32,13 @@ namespace SeradexToolv2.Views
         // Used by multiple methods in here
         public string estimateID;
 
-        public DetailView(string value)
+        public DetailView(string value, DataRow row)
         {
             InitializeComponent();
             estimateID = value;
-            EstimateKeys = Utility.useQuery("SELECT * FROM Estimate WHERE Estimate.EstimateID = "+estimateID).NewRow();
+            EstimateKeys = row;
+
+
         }
 
         //DataSet detailedInfo = new DataSet("Details");
@@ -48,14 +50,11 @@ namespace SeradexToolv2.Views
             View = new DataView(Items);
             ItemsQuoted.ItemsSource = View;
 
-            //Utility.useQuery("SELECT a.[Name] FROM Customers a, Estimate b WHERE b.CustomerID = a.CustomerID And b.EstimateID = 45" );
-
-            //CustomerName.Content = row[0] + " Check";
-
-           
+            fillInfo();
 
         }
 
+        // This method is supposed to launch the folder for the estimate
         void GoToFolder(object sender, RoutedEventArgs e)
         {
             try
@@ -70,16 +69,40 @@ namespace SeradexToolv2.Views
         }
 
 
-    private void On_Clicked(object sender, MouseButtonEventArgs e)
-    {
-            /*
-            string findEstimate = EstimateNo.Text;
-            string query = "SELECT a.EstimateID FROM Estimate a WHERE a.EstimateNo = " + findEstimate;
-            itemList = Utility.useQuery(query);
-            itemDisplay = new DataView(itemList);
-            ItemsQuoted.ItemsSource = itemDisplay;
-            */
-            MessageBox.Show(Utility.getItemDetails(estimateID));
+        private void On_Clicked(object sender, MouseButtonEventArgs e)
+        {
+                /*
+                string findEstimate = EstimateNo.Text;
+                string query = "SELECT a.EstimateID FROM Estimate a WHERE a.EstimateNo = " + findEstimate;
+                itemList = Utility.useQuery(query);
+                itemDisplay = new DataView(itemList);
+                ItemsQuoted.ItemsSource = itemDisplay;
+                */
+                MessageBox.Show(Utility.getItemDetails(estimateID));
         }
+
+        private void fillInfo()
+        {
+           // DataTable Customer = Utility.useQuery("SELECT [Name] FROM Customers WHERE Customers.CustomerID = " + EstimateKeys["CustomerID"]);
+
+            CustomerName.Content = "";
+            //Customer Billing
+            // Billing Street
+            // Billing City
+            // Billing Country
+            // Billing Zip
+
+            //Customer ShipTo
+            // Ship Street
+            // Ship City
+            // Ship Country
+            // Ship Zip
+
+            // Subtotal
+            // Tax
+            // Grand Total
+        
+        }
+
     }
 }
