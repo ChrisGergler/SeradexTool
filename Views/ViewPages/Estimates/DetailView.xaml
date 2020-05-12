@@ -27,9 +27,9 @@
                     <Label x:Name="CustomerLabel" Content="Customer Name" HorizontalAlignment="Center" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26"/>
                     <Label x:Name="CustomerName" Content="Customer Name" HorizontalAlignment="Center" Margin="0,28,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26"/>
                     <DataGrid x:Name="ItemsQuoted" Grid.Row="2" Margin="4,0,4,4" Grid.ColumnSpan="3" IsReadOnly="True" SelectionUnit="FullRow"/>
-                    <TextBox x:Name="SearchBox" Grid.Column="1" Margin="0,33,110,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="22" MinWidth="100"/>
                     <Label x:Name="label_SearchParam_Copy" Content="Search for" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26" Grid.Column="1"/>
                     <Label x:Name="contentSelected" Content="Contents Select" Grid.Column="2" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="124"/>
+                    <Button x:Name="Folder" Content="Open Folder" Grid.Column="1" HorizontalAlignment="Left" Margin="89,10,0,0" VerticalAlignment="Top" Click="GoToFolder" ClickMode="Release"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="Sales_Order_Details" Header="Sales Order" Margin="-2,-2,-2,-1">
@@ -37,7 +37,7 @@
             </TabItem>
             <TabItem x:Name="Customer_Info" Header="Work Order">
 
-                
+
             </TabItem>
         </TabControl>
 

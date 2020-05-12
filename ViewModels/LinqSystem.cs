@@ -18,14 +18,7 @@ namespace SeradexToolv2.ViewModels
             linqView = view;
         }
 
-        public object searchFor(string value)
-        {
-            return linqTable.Select(value);
-        }
-        public void searchFor(object cell)
-        {
 
-        }
 
 
 

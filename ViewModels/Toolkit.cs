@@ -10,26 +10,14 @@ using System.Windows.Navigation;
 using System.Windows.Controls;
 using System.Linq;
 using System.Windows.Controls.Primitives;
+using System.Diagnostics;
 
 namespace SeradexToolv2.ViewModels
 {
-    class EstimatesToolkit
+    class Toolkit
     {
         
-        public DataTable populateEstimatesTable()
-        {
-            using (SqlConnection connect = new SqlConnection(connectString()))
-            {
-                connect.Open();
-                DataTable results = new DataTable("results_table");
-                new SqlDataAdapter(new SqlCommand(estimateQuery(), connect)).Fill(results);
-
-                SetPrimaryKeys(results, "EstimateID");
-                return results;
-            }
-
-        }
-        private void SetPrimaryKeys(DataTable data, string colName)
+        private void SetPrimaryKeys(DataTable data)
         {
             DataColumn[] key = { data.Columns[0] };
 
@@ -49,6 +37,10 @@ namespace SeradexToolv2.ViewModels
             }
         }
 
+        public void openFolder(string esNumber)
+        {
+           // Process.Start(@"c:\");
+        }
 
         // Private Methods
 
@@ -56,18 +48,6 @@ namespace SeradexToolv2.ViewModels
         private string connectString() {return "Data Source=LSG-SQL\\Seradex;Initial Catalog=ActiveM_Lauretano;Integrated Security=SSPI;applicationIntent=ReadOnly;";}
 
         
-
-        //Set as a hard-coded private function for security. Can't fuck it up if it's locked up tight.
-        private string estimateQuery()
-        {
-            string estimateString = "SELECT e.EstimateNo, c.[name], e.CustomerShipToID, e.EntryDate, e.TermsCodeID, e." +
-                "Approved, e.CustRefNo, e.TerritoryID, e.TaxGroupID, e.TotalTaxes, e.AddressID, e.ShipToAddressID, e." +
-                "OrderDate, e.ShipDate, e.[Name], e.Comment, e.SubTotal, e.CSREmployeeID, e.UserCreated, e.DateCreated " +
-                "UserModified, e.DateModified, e.CustomerBillToID, e.Closed, e.EstimateID " +
-                "FROM Estimate e, Customers c WHERE e.CustomerID = c.CustomerID";
-            return estimateString;
-        }
-
         // Same as above, hard coded for safety.
         public string getItemDetails(string a)
         {
@@ -75,14 +55,9 @@ namespace SeradexToolv2.ViewModels
             return queryString;
         }
 
-        private string ItemDetails = "SELECT a.[LineNo], a.[ItemNo], a.[QtyOrdered], a.[ListPrice], a.[UnitPrice], a.[DiscountPct], a.[DiscountAmt], a.[NetPrice] " +
+        private string ItemDetails = "SELECT a.[LineNo], a.[ItemNo], a.[Description], a.[QtyOrdered], a.[ListPrice], a.[UnitPrice], a.[DiscountPct], a.[DiscountAmt], a.[NetPrice] " +
                 "FROM EstimateDetails a " +
                 "WHERE EstimateID = ";
-
-        private string CustomerInfo;
-
-        private string ShippingDetails;
-        private string Comments;
 
     }// End of Class Estimates Functions
 }// End of Seradex Models Namespace
