@@ -66,6 +66,19 @@ namespace SeradexToolv2.Views
             }
         }
 
+        private void OpenSalesorder(object sender, MouseButtonEventArgs e)
+        {
+            if (SalesOrderNumber.Content.ToString() != "No Sales Number Available")
+            {
+                MessageBox.Show("This should launch the Sales order Window.");
+            }
+            else
+            {
+
+            }
+        }
+
+
         private void fillInfo()
         {
             // DataTable Customer = Utility.useQuery("SELECT [Name] FROM Customers WHERE Customers.CustomerID = " + EstimateKeys["CustomerID"]);
@@ -154,6 +167,12 @@ namespace SeradexToolv2.Views
             SubtotalDisplay.Content = "$" + subtotal.ToString();
             TaxTotalDisplay.Content = "$" + taxtotal.ToString();
             GrandTotalDisplay.Content = GrandTotalDisplay.Content +Convert.ToString(Math.Round(subtotal + taxtotal, 2));
+
+            PaymentTermsDisplay.Content = Utility.useQuery("SELECT a.TermsCode FROM TermsCodes a WHERE a.TermsCodeID = " + EstimateKeys["TermsCodeID"]).Rows[0][0].ToString();
+            /////////////////////////////////////////////
+            ///End of Displays
+
+
             /*******************************************
              * DEBUGGING TOOL                         *
             *******************************************
@@ -180,16 +199,6 @@ namespace SeradexToolv2.Views
             //MessageBox.Show(b);
         }
 
-        private void OpenSalesorder(object sender, MouseButtonEventArgs e)
-        {
-            if (SalesOrderNumber.Content.ToString() != "No Sales Number Available")
-            {
-                MessageBox.Show("This should launch the Sales order Window.");
-            }
-            else
-            {
 
-            }
-        }
     }
 }
