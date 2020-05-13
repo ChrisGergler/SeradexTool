@@ -47,17 +47,5 @@ namespace SeradexToolv2.ViewModels
         //Use to connect to DB. This one could be changed to less-hardcoded as needed. But for the most part we'll keep it safe. May replace with a config file later which will be easier to patch as needed
         private string connectString() {return "Data Source=LSG-SQL\\Seradex;Initial Catalog=ActiveM_Lauretano;Integrated Security=SSPI;applicationIntent=ReadOnly;";}
 
-        
-        // Same as above, hard coded for safety.
-        public string getItemDetails(string a)
-        {
-            string queryString = ItemDetails+a;
-            return queryString;
-        }
-
-        private string ItemDetails = "SELECT a.[LineNo], a.[ItemNo], a.[Description], a.[QtyOrdered], a.[ListPrice], a.[UnitPrice], a.[DiscountPct], a.[DiscountAmt], a.[NetPrice] " +
-                "FROM EstimateDetails a " +
-                "WHERE EstimateID = ";
-
     }// End of Class Estimates Functions
 }// End of Seradex Models Namespace

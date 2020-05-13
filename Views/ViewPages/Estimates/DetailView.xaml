@@ -5,31 +5,78 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SeradexToolv2.Views"
         mc:Ignorable="d"
-        Title="DetailView" Height="450" Width="800"
+        Title="DetailView" Height="720" Width="1080"
         Loaded="Page_Loaded">
     <Grid>
         <TabControl>
             <TabItem x:Name="Estimate_Details" Header="Estimate">
 
-                <Grid x:Name="MainBody" MinWidth="72" MinHeight="72">
+                <Grid x:Name="MainBody" MinWidth="72" MinHeight="72" Margin="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="160"/>
-                        <ColumnDefinition Width="13*"/>
-                        <ColumnDefinition Width="19*"/>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="48"/>
-                        <RowDefinition Height="72"/>
+                        <RowDefinition Height="39"/>
+                        <RowDefinition Height="128"/>
                         <RowDefinition/>
+                        <RowDefinition Height="128"/>
                     </Grid.RowDefinitions>
-                    <Label x:Name="EstimatesTitle" Content="Details" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,0,0" FontFamily="Open Sans ExtraBold" FontSize="24" Height="42" Width="223" Grid.ColumnSpan="2"/>
+                    <Label x:Name="EstimatesTitle" Content="Details" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Open Sans ExtraBold" FontSize="24" Height="34" Width="199"/>
+                    <Label x:Name="SalesOrderNumber" Content="SO Number" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Open Sans ExtraBold" FontSize="16" Height="34" Width="358" Grid.Column="1" MouseDoubleClick="OpenSalesorder"/>
 
-                    <Label x:Name="CustomerLabel" Content="Customer Name" HorizontalAlignment="Center" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26"/>
-                    <Label x:Name="CustomerName" Content="Customer Name" HorizontalAlignment="Center" Margin="0,28,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26"/>
-                    <DataGrid x:Name="ItemsQuoted" Grid.Row="2" Margin="4,0,4,4" Grid.ColumnSpan="3" IsReadOnly="True" SelectionUnit="FullRow"/>
-                    <Label x:Name="label_SearchParam_Copy" Content="Search for" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26" Grid.Column="1"/>
-                    <Label x:Name="contentSelected" Content="Contents Select" Grid.Column="2" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="124"/>
-                    <Button x:Name="Folder" Content="Open Folder" Grid.Column="1" HorizontalAlignment="Left" Margin="89,10,0,0" VerticalAlignment="Top" Click="GoToFolder" ClickMode="Release"/>
+                    <!-- Billing Address Information -->
+
+                    <Label x:Name="CustomerLabel" Content="Customer" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="15" FontFamily="Lucida Sans" FontSize="10" Padding="0" Grid.Column="0"/>
+                    <TextBlock x:Name="CustomerName" Text="Customer Name" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="92,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="256" Height="26" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="0"/>
+
+                    <Label x:Name="BillingAddress" Content="Bill To Address" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="0,31,0,0" Grid.Column="0"/>
+                    <TextBlock x:Name="BillToStreet" Text="123 Default Avenue" HorizontalAlignment="Left" Margin="92,31,0,0" Grid.Row="1" VerticalAlignment="Top" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="0"/>
+                    <TextBlock x:Name="BillToLine2" Text="Building A" HorizontalAlignment="Left" Margin="92,44,0,0" Grid.Row="1" VerticalAlignment="Top" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="0"/>
+                    <TextBlock x:Name="BillToLine3" Text="Suite Z" HorizontalAlignment="Left" Margin="92,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="0"/>
+
+                    <Label x:Name="BillingCity" Content="Billing City" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="0,92,0,0" Grid.Column="0"/>
+                    <TextBlock x:Name="BillToCity" Text="The City of Townsville" HorizontalAlignment="Left" Margin="92,92,0,0" Grid.Row="1" VerticalAlignment="Top" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="0"/>
+
+
+                    <!-- Shipping Address Information -->
+
+                    <Label x:Name="ShipToLabel" Content="Shipping Name" HorizontalAlignment="Left" VerticalAlignment="Top" Width="87" Height="15" FontFamily="Lucida Sans" FontSize="10" Padding="0" Grid.Column="1" Grid.Row="1" Margin="3,0,0,0"/>
+                    <TextBlock x:Name="ShipToName" Text="Customer Name" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="102,0,0,0" VerticalAlignment="Top" Width="256" Height="26" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1" Grid.Row="1"/>
+
+                    <Label x:Name="ShipToAddress" Content="Ship To Address" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="3,26,0,0" Grid.Column="1"/>
+                    <TextBlock x:Name="ShipToStreet" Text="123 Default Avenue" HorizontalAlignment="Left" Margin="102,26,0,0" Grid.Row="1" VerticalAlignment="Top" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1"/>
+                    <TextBlock x:Name="ShipToLine2" Text="Building A" HorizontalAlignment="Left" Margin="102,41,0,0" Grid.Row="1" VerticalAlignment="Top" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1"/>
+                    <TextBlock x:Name="ShipToLine3" Text="Suite Z" HorizontalAlignment="Left" Margin="102,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1"/>
+
+                    <Label x:Name="ShipingCity" Content="Shiping City" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="3,92,0,0" Grid.Column="1"/>
+                    <TextBlock x:Name="ShipToCity" Text="The City of Townsville" HorizontalAlignment="Left" Margin="102,92,0,0" Grid.Row="1" VerticalAlignment="Top" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1"/>
+
+                    <Label x:Name="ContactLabel" Content="Contact" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Padding="0" FontFamily="Lucida Sans" FontSize="11"/>
+                    <TextBlock x:Name="ContactName" Text="Contact Name Goes here" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="1" Margin="0,13,0,0" FontFamily="Lucida Sans" FontSize="11"/>
+
+
+                    <!-- Product Information-->
+                    <DataGrid x:Name="ItemsQuoted" Grid.Row="2" Margin="4,0,4,4" Grid.ColumnSpan="5" IsReadOnly="True" SelectionUnit="FullRow"/>
+                    <Button x:Name="Folder" Content="Open Folder" Grid.Column="4" HorizontalAlignment="Left" Margin="99,0,0,0" VerticalAlignment="Center" Click="GoToFolder" ClickMode="Release" Height="20" Width="70"/>
+
+                    <!-- Math and/or Totals (if saved correctly)-->
+                    <Label x:Name="GrandTotalLabel" Content="Grand Total" Grid.Column="2" Grid.Row="3" Margin="6,48,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label x:Name="SubtotalLabel" Content="Subtotal" Grid.Column="2" Grid.Row="3" Margin="6,27,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label x:Name="TaxTotalLabel" Content="Tax Total" Grid.Column="2" Grid.Row="3" Margin="6,10,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+                    <Label x:Name="GrandTotalDisplay" Content="$" Grid.Column="2" Grid.Row="3" Margin="81,48,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label x:Name="SubtotalDisplay" Content="$" Grid.Column="2" Grid.Row="3" Margin="81,27,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label x:Name="TaxTotalDisplay" Content="$" Grid.Column="2" Grid.Row="3" Margin="81,10,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                   
+                    
+                    <Label x:Name="PaymentTermsLabel" Content="Payment Terms" Grid.Column="3" Grid.Row="3" Margin="0,10,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label x:Name="PaymentTermsDisplay" Content="Payment Terms" Grid.Column="3" Grid.Row="3" Margin="0,27,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+
+
                 </Grid>
             </TabItem>
             <TabItem x:Name="Sales_Order_Details" Header="Sales Order" Margin="-2,-2,-2,-1">
