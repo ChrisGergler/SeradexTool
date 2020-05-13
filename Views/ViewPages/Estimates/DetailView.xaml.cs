@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using SeradexToolv2.ViewModels;
+using System;
 using System.Data;
-using SeradexToolv2.ViewModels;
-using SeradexToolv2.Views.ViewPages.Estimates;
 using System.Diagnostics;
+using System.Windows;
+using System.Windows.Input;
 
 namespace SeradexToolv2.Views
 {
@@ -61,7 +52,7 @@ namespace SeradexToolv2.Views
             {
                 Process.Start("explorer.exe",
                     // String built from comments
-                    @""+Utility.useQuery("SELECT FileAttachment FROM Comments WHERE EstimateID = " + estimateID).Rows[0][0].ToString()
+                    @"" + Utility.useQuery("SELECT FileAttachment FROM Comments WHERE EstimateID = " + estimateID).Rows[0][0].ToString()
                     );
             }
             catch (Exception)
@@ -74,14 +65,14 @@ namespace SeradexToolv2.Views
 
         private void On_Clicked(object sender, MouseButtonEventArgs e)
         {
-                /*
-                string findEstimate = EstimateNo.Text;
-                string query = "SELECT a.EstimateID FROM Estimate a WHERE a.EstimateNo = " + findEstimate;
-                itemList = Utility.useQuery(query);
-                itemDisplay = new DataView(itemList);
-                ItemsQuoted.ItemsSource = itemDisplay;
-                */
-                MessageBox.Show(Utility.getItemDetails(estimateID));
+            /*
+            string findEstimate = EstimateNo.Text;
+            string query = "SELECT a.EstimateID FROM Estimate a WHERE a.EstimateNo = " + findEstimate;
+            itemList = Utility.useQuery(query);
+            itemDisplay = new DataView(itemList);
+            ItemsQuoted.ItemsSource = itemDisplay;
+            */
+            MessageBox.Show(Utility.getItemDetails(estimateID));
         }
 
         private void fillInfo()
@@ -156,7 +147,7 @@ namespace SeradexToolv2.Views
             shippingAddress.Columns[9].ColumnName = "County";
 
 
-            //Customer ShipTo
+            //Customer ShipTo //HOW IS THIS EVEN SELECTED?!
             // Ship Street
             // Ship City
             // Ship Country
@@ -164,16 +155,21 @@ namespace SeradexToolv2.Views
 
             // Subtotal
             // Tax
-            // Grand Total
-            GrandTotal.Content = GrandTotal + ":  " + EstimateKeys["SubTotal"] + EstimateKeys["TotalTaxes"];
 
+
+            double subtotal = Math.Round(Convert.ToDouble(EstimateKeys["SubTotal"]), 2);
+            double taxtotal = Math.Round(Convert.ToDouble(EstimateKeys["TotalTaxes"]), 2);
+
+            SubtotalDisplay.Content = "$" + subtotal.ToString();
+            TaxTotalDisplay.Content = "$" + taxtotal.ToString();
+            GrandTotalDisplay.Content = GrandTotalDisplay.Content +Convert.ToString(Math.Round(subtotal + taxtotal, 2));
             /*******************************************
              * DEBUGGING TOOL                         *
-            *******************************************/
+            *******************************************
             string b = "** Billing **\n";
-            for(int i = 0; i < billingAddress.Rows.Count; i++)
+            for (int i = 0; i < billingAddress.Rows.Count; i++)
             {
-                for(int j = 0; j < billingAddress.Columns.Count; j++)
+                for (int j = 0; j < billingAddress.Columns.Count; j++)
                 {
                     b = b + "\n" + billingAddress.Columns[j].ColumnName + ": " + billingAddress.Rows[i][j].ToString();
                 }
@@ -189,19 +185,19 @@ namespace SeradexToolv2.Views
                 }
                 b = b + "\n";
             }
-
-            MessageBox.Show(b);
+            /******************************************/
+            //MessageBox.Show(b);
         }
 
         private void OpenSalesorder(object sender, MouseButtonEventArgs e)
         {
             if (SalesOrderNumber.Content.ToString() != "No Sales Number Available")
             {
-                MessageBox.Show("Sales Order Opens here. Complete fucntion, Chris. If you're seeing this after release, please go tell Chris to get his jazz together.");
+                MessageBox.Show("This should launch the Sales order Window.");
             }
             else
             {
-             
+
             }
         }
     }
