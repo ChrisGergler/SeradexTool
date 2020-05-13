@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SalesOrders">
 
-<!--
+
     <Grid x:Name="MainBody" MinWidth="72" MinHeight="72">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="160"/>
@@ -22,15 +22,16 @@
         </Grid.RowDefinitions>
         <Label x:Name="SalesOrderTitle" Content="Sales Order Search" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,0,0" FontFamily="Open Sans ExtraBold" FontSize="24" Height="42" Width="223" Grid.ColumnSpan="2"/>
         <ComboBox x:Name="SearchParam" HorizontalAlignment="Center" Margin="0,33,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" SelectedIndex="0" Background="#FFE6FEFF" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" Height="22">
-            <ComboBoxItem Content="Sales Order Number" FontFamily="Open Sans"/>
+            <ComboBoxItem Content="Sales Order No." FontFamily="Open Sans"/>
             <ComboBoxItem Content="Customer Name" FontFamily="Open Sans"/>
-            <ComboBoxItem Content="Sales Order Number" FontFamily="Open Sans"/>
+            <ComboBoxItem Content="Estimate No." FontFamily="Open Sans"/>
             <ComboBoxItem Content="Customer Reference" FontFamily="Open Sans"/>
         </ComboBox>
         <Label x:Name="label_SearchParam" Content="Search By" HorizontalAlignment="Center" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26"/>
-        <DataGrid x:Name="EstimateResults" Grid.Row="2" Margin="4,0,4,4" Grid.ColumnSpan="3" IsReadOnly="True" MouseDoubleClick="DataGridCell_MouseDoubleClick" SelectionUnit="FullRow"/>
+        <DataGrid x:Name="SalesOrderGrid" Grid.Row="2" Margin="4,0,4,4" Grid.ColumnSpan="3" IsReadOnly="True"  SelectionUnit="FullRow"/>
+        
         <TextBox x:Name="SearchBox" KeyUp="executeSearch" Grid.Column="1" Margin="0,33,110,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="22" MinWidth="100"/>
         <Label x:Name="label_SearchParam_Copy" Content="Search for" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26" Grid.Column="1"/>
         <Label x:Name="contentSelected" Content="Contents Select" Grid.Column="2" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="124"/>
-    </Grid> -->
+    </Grid> 
 </Page>

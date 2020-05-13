@@ -102,7 +102,7 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
         }
 
 
-        private string findCell(string colName, DataView view, DataGrid grid)
+        private void findCell(string colName, DataView view, DataGrid grid)
         {
             // Get Row index
             int y = grid.SelectedIndex;
@@ -116,7 +116,6 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
             detailView.Show();
 
             
-            return "";
         }
 
     }
