@@ -52,7 +52,7 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
             {
                 case 0:
 
-                    searchString = "EstimateNo LIKE '*" + SearchBox.Text + "*'";
+                    searchString = "EstimateNo LIKE \'*" + SearchBox.Text + "*\'";
                     break;
 
                 case 1:

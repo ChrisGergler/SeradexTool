@@ -30,7 +30,7 @@
         <Label x:Name="label_SearchParam" Content="Search By" HorizontalAlignment="Center" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26"/>
         <DataGrid x:Name="SalesOrderGrid" Grid.Row="2" Margin="4,0,4,4" Grid.ColumnSpan="3" IsReadOnly="True"  SelectionUnit="FullRow"/>
         
-        <TextBox x:Name="SearchBox" KeyUp="executeSearch" Grid.Column="1" Margin="0,33,110,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="22" MinWidth="100"/>
+        <TextBox x:Name="SearchBox"  Grid.Column="1" Margin="0,33,110,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="22" MinWidth="100"/>
         <Label x:Name="label_SearchParam_Copy" Content="Search for" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26" Grid.Column="1"/>
         <Label x:Name="contentSelected" Content="Contents Select" Grid.Column="2" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="124"/>
     </Grid> 

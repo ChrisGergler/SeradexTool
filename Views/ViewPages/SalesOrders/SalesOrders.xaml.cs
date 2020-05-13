@@ -23,76 +23,24 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
     {
         Toolkit Utility = new Toolkit();
 
-        DataTable SalesOrderTable = new DataTable("SalesOrderResults");
-        DataView View;
-
-        bool Loaded=false;
-
         public SalesOrders()
         {
             InitializeComponent();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        DataTable Data = new DataTable("SalesOrderSummary");
+        DataView View;
+
+        //bool Loaded=false;
+
+
+
+       private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            string salesOrderString = ""; //Query Goes here
-
-            if (Loaded == false)
-            {
-                SalesOrderTable = Utility.useQuery(salesOrderString); // Pass Query here
-                View = new DataView(SalesOrderTable);
-                SalesOrderGrid.ItemsSource = View;
-
-                Loaded = true;
-            }
+            string query = "SELECT * From SalesOrder";
+            Data = Utility.useQuery(query);
+            View = new DataView(Data);
+            SalesOrderGrid.ItemsSource = View;
         }
-
-        private void DataGridCell_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            findCell("SalesOrderID", View, SalesOrderGrid);
-        }
-
-        private void findCell(string colName, DataView view, DataGrid grid)
-        {
-            // get Row Index 
-            int y = grid.SelectedIndex;
-            DataRow passToNextWindow = view[y].Row;
-            string answer = "";
-            try
-            {
-                answer = ((string)view[y][colName].ToString()); 
-            }
-            catch
-            {
-                MessageBox.Show("Steve, what did you do?");
-            };
-            //Show Detailed Sales order View
-
-        }
-
-        private void executeSearch(Object sender, KeyEventArgs e)
-        {
-            string searchString = "";
-            switch (SearchParam.SelectedIndex)
-            {
-                case 0:
-                    searchString = "SalesOrderNo LIKE '*" + SearchBox.Text + "*'";
-                    break;
-
-                case 1:
-
-                    break;
-
-                case 2:
-
-                    break;
-
-                case 3:
-
-                    break;
-            }
-            View.RowFilter = searchString;
-        }
-
     }
 }
