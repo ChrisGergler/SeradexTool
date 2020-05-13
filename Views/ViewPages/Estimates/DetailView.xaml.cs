@@ -37,7 +37,11 @@ namespace SeradexToolv2.Views
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            Items = Utility.useQuery(Utility.getItemDetails(estimateID));
+            string getItemDetails = "SELECT a.[LineNo], a.[ItemNo], a.[Description], a.[QtyOrdered], a.[ListPrice], a.[UnitPrice], a.[DiscountPct], a.[DiscountAmt], a.[TotalTaxes], a.[NetPrice] " +
+                "FROM EstimateDetails a " +
+                "WHERE EstimateID = \'"+estimateID+"\'";
+
+            Items = Utility.useQuery(getItemDetails);
             View = new DataView(Items);
             ItemsQuoted.ItemsSource = View;
 
@@ -60,19 +64,6 @@ namespace SeradexToolv2.Views
                 MessageBox.Show("Error opening folder. Please find the folder manually.");
                 return;
             }
-        }
-
-
-        private void On_Clicked(object sender, MouseButtonEventArgs e)
-        {
-            /*
-            string findEstimate = EstimateNo.Text;
-            string query = "SELECT a.EstimateID FROM Estimate a WHERE a.EstimateNo = " + findEstimate;
-            itemList = Utility.useQuery(query);
-            itemDisplay = new DataView(itemList);
-            ItemsQuoted.ItemsSource = itemDisplay;
-            */
-            MessageBox.Show(Utility.getItemDetails(estimateID));
         }
 
         private void fillInfo()
