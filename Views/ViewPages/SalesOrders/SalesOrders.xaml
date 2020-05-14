@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:SeradexToolv2.Views.ViewPages.SalesOrders"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="SalesOrders">
+      Title="SalesOrders"
+      Loaded="Page_Loaded">
 
 
     <Grid x:Name="MainBody" MinWidth="72" MinHeight="72">

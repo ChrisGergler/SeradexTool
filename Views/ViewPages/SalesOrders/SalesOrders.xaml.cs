@@ -35,12 +35,23 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
 
 
-       private void Page_Loaded(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            string query = "SELECT * From SalesOrder";
-            Data = Utility.useQuery(query);
+            string estimateString = "SELECT e.EstimateNo, c.[name], e.CustomerShipToID, e.EntryDate, e.TermsCodeID, e.SubTotal, e.TotalTaxes, e." +
+    "Approved, e.CustRefNo, e.TerritoryID, e.TaxGroupID, e.TotalTaxes, e.AddressID, e.ShipToAddressID, e." +
+    "OrderDate, e.ShipDate, e.[Name], e.Comment, e.SubTotal, e.CSREmployeeID, e.UserCreated, e.DateCreated " +
+    "UserModified, e.DateModified, e.CustomerBillToID, e.Closed, e.EstimateID " +
+    "FROM Estimate e, Customers c WHERE e.CustomerID = c.CustomerID";
+
+
+
+            //Data = Utility.populateEstimatesTable();
+            Data = Utility.useQuery(estimateString);
+
             View = new DataView(Data);
             SalesOrderGrid.ItemsSource = View;
+
+
         }
     }
 }
