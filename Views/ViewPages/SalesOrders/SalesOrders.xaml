@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SeradexToolv2.Views.ViewPages.SalesOrders"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="720" d:DesignWidth="1080"
       Title="SalesOrders"
       Loaded="Page_Loaded">
 
@@ -29,7 +29,7 @@
             <ComboBoxItem Content="Customer Reference" FontFamily="Open Sans"/>
         </ComboBox>
         <Label x:Name="label_SearchParam" Content="Search By" HorizontalAlignment="Center" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26"/>
-        <DataGrid x:Name="SalesOrderGrid" Grid.Row="2" Margin="4,0,4,4" Grid.ColumnSpan="3" IsReadOnly="True"  SelectionUnit="FullRow"/>
+        <DataGrid x:Name="SalesOrderGrid" Grid.Row="2" Margin="4,0,4,4" Grid.ColumnSpan="3" IsReadOnly="True"  SelectionUnit="FullRow" MouseDoubleClick="GridDoubleClick"/>
         
         <TextBox x:Name="SearchBox" KeyUp="executeSearch" Grid.Column="1" Margin="0,33,110,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="22" MinWidth="100"/>
         <Label x:Name="label_SearchParam_Copy" Content="Search for" HorizontalAlignment="Left" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26" Grid.Column="1"/>
