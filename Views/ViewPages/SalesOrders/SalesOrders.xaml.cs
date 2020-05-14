@@ -26,6 +26,7 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
         public SalesOrders()
         {
             InitializeComponent();
+
         }
 
         DataTable Data = new DataTable("SalesOrderSummary");
@@ -37,21 +38,64 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            string estimateString = "SELECT e.EstimateNo, c.[name], e.CustomerShipToID, e.EntryDate, e.TermsCodeID, e.SubTotal, e.TotalTaxes, e." +
-    "Approved, e.CustRefNo, e.TerritoryID, e.TaxGroupID, e.TotalTaxes, e.AddressID, e.ShipToAddressID, e." +
-    "OrderDate, e.ShipDate, e.[Name], e.Comment, e.SubTotal, e.CSREmployeeID, e.UserCreated, e.DateCreated " +
-    "UserModified, e.DateModified, e.CustomerBillToID, e.Closed, e.EstimateID " +
-    "FROM Estimate e, Customers c WHERE e.CustomerID = c.CustomerID";
+            string fillString = "SELECT so.SalesOrderID, so.SalesOrderNo, c.[Name], so.ShipViaID, so.ShipToAddressID, so.CustomerPO, so.SubTotal, so.TotalTaxes, so.CustomerBillToID, so.OrderDate, so.ShipDate, so.ShipViaID FROM SalesOrder so "+
+"LEFT OUTER JOIN Customers c on so.CustomerID = c.CustomerID Order By so.SalesOrderID";
 
 
 
             //Data = Utility.populateEstimatesTable();
-            Data = Utility.useQuery(estimateString);
+            Data = Utility.useQuery(fillString);
 
             View = new DataView(Data);
             SalesOrderGrid.ItemsSource = View;
 
+        }
+
+        string searchString;
+        private void executeSearch(object sender, KeyEventArgs e)
+        {
+            switch(SearchParam.SelectedIndex)
+            {
+                case 0:
+                    searchString = "SalesOrderNo LIKE \'*"+SearchBox.Text+"*\'";
+                    break;
+
+                case 1:
+                    searchString = "[Name] LIKE \'*" + SearchBox.Text + "*\'";
+                    break;
+
+                case 2:
+                    // More search options
+                    break;
+
+                case 3:
+                    // More search options
+                    break;
+            }
+
+            View.RowFilter = searchString;
+        }
+
+        private void GridDoubleClick(object sender, RoutedEventArgs e)
+        {
+            findCell("SalesOrderID", View, SalesOrderGrid);
 
         }
+
+        private void findCell(string s, DataView v, DataGrid g)
+        {
+            int y = g.SelectedIndex;
+            DataRow passToNextWindow = v[y].Row;
+            try { string answer = ((string)View[y][s].ToString());
+                Window detailView = new SalesOrderDetails(answer, passToNextWindow);
+
+            }
+            catch (Exception) { MessageBox.Show("Cannot return answer. \n The stars aren't aligned. Can't do it tonight. The stars. \n" + s);
+            }
+
+            //thing.Show();
+
+        }
+
     }
 }

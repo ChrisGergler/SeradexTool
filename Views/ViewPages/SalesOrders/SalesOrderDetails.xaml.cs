@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,13 +14,15 @@ using System.Windows.Shapes;
 namespace SeradexToolv2.Views.ViewPages.SalesOrders
 {
     /// <summary>
-    /// Interaction logic for DetailsView.xaml
+    /// Interaction logic for SalesOrderDetails.xaml
     /// </summary>
-    public partial class DetailsView : Window
+    public partial class SalesOrderDetails : Window
     {
-        public DetailsView()
+        DataRow SalesOrder;
+        public SalesOrderDetails(string a, DataRow info)
         {
             InitializeComponent();
+            SalesOrder = info;
         }
     }
 }
