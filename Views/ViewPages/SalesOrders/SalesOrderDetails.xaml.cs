@@ -62,8 +62,44 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
             billingAddress.Columns[7].ColumnName = "City";
             billingAddress.Columns[8].ColumnName = "State";
             billingAddress.Columns[9].ColumnName = "County";
+
+            try
+            {
+                BillToStreet.Text = billingAddress.Rows[0]["AddressL1"].ToString();
+                BillToCity.Text = billingAddress.Rows[0]["City"].ToString();
+                BillToLine2.Text = billingAddress.Rows[0]["AddressL2"].ToString();
+                BillToLine3.Text = billingAddress.Rows[0]["AddressL3"].ToString();
+
+
+            }
+            catch (Exception)
+            {
+                BillToStreet.Text = "No Address Listed";
+                BillingAddress.Content = "";
+                BillingCity.Content = "";
+                BillToLine2.Text = "";
+                BillToLine3.Text = "";
+            }
+
+            DataTable shippingAddress = Utility.useQuery(
+"SELECT DISTINCT e.SalesOrderNo, t1.CustomerShipToID, t1.CustomerID, t1.[Name], t2.AddressL1, t2.AddressL2, t2.AddressL3, t3.DescriptionShort, t4.DescriptionShort, t5.DescriptionTiny, t2.PostalCode FROM CustomerShipTo t1 INNER JOIN Addresses t2 ON t1.AddressID = t2.AddressID INNER JOIN Cities t3 ON t2.CityID = t3.CityID INNER JOIN StateProv t4 ON t2.StateProvID = t4.StateProvID INNER JOIN Countries t5 ON t2.CountryID = t5.CountryID INNER JOIN SalesOrder e on e.CustomerID = t1.CustomerID WHERE e.SalesOrderID = \'" + salesOrderID + "\'"
+);
+            shippingAddress.Columns[7].ColumnName = "City";
+            shippingAddress.Columns[8].ColumnName = "State";
+            shippingAddress.Columns[9].ColumnName = "County";
+
+
+            double subtotal = Math.Round(Convert.ToDouble(SalesOrderKeys["SubTotal"]), 2);
+            double taxtotal = Math.Round(Convert.ToDouble(SalesOrderKeys["TotalTaxes"]), 2);
+
+            SubtotalDisplay.Content = "$" + subtotal.ToString();
+            TaxTotalDisplay.Content = "$" + taxtotal.ToString();
+            GrandTotalDisplay.Content = GrandTotalDisplay.Content + Convert.ToString(Math.Round(subtotal + taxtotal, 2));
+
+            //PaymentTermsDisplay.Content = Utility.useQuery("SELECT a.TermsCode FROM TermsCodes a WHERE a.TermsCodeID = " + SalesOrderKeys["TermsCodeID"]).Rows[0][0].ToString();
+
         }
-      
+
 
 
 
