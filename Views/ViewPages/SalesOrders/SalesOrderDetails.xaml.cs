@@ -38,13 +38,16 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            string getItemDetails = "SELECT * FROM SalesOrderDetails";
+            string getItemDetails = "SELECT a.* FROM SalesOrderDetails a, SalesOrder b WHERE b.SalesOrderID = a.SalesOrderID AND a.SalesOrderID = \'"+salesOrderID+"\'";
             Items = Utility.useQuery(getItemDetails);
             View = new DataView(Items);
             ItemsQuoted.ItemsSource = View;
 
            fillInfo();
+           itemNumbersForBOM();
         }
+
+
   private void fillInfo()
         {
             SalesOrderTitle.Content = SalesOrderKeys["SalesOrderNo"].ToString();
@@ -101,8 +104,50 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
         }
 
 
+        DataTable BoMData = new DataTable();
+        private void itemNumbersForBOM()
+        {
+            for( int i = 0; i < View.Count; i++ )
+            {
+                LineItems.Items.Add((i+1)+" - "+
+                    Utility.useQuery(
+                        "Select a.[ItemNo] FROM Items a, SalesOrderDetails b WHERE a.ItemID = b.ItemID AND b.SalesOrderID = \'" + salesOrderID + "\'"
+                    ).Rows[i]["ItemNo"].ToString());
+                //BoMData.Rows.Add(Utility.useQuery("SELECT a.* FROM ItemSpecs a, SalesOrderDetails b WHERE b.ItemID = a.ItemID AND b.[LineNo = \'"+(i+1)+"\'").NewRow()); 
+            }
 
 
+            //BoMData = Utility.useQuery("SELECT a.* FROM ItemSpecs a, SalesOrderDetails b WHERE b.ItemID = a.ItemID AND b.SalesOrderDetailID = \'"+"\'");
+
+            // Grab DataGrid items
+            // Iterate through count for line items
+            // Make new Item per line item
+            // String of Line# + Item name
+
+        }
+
+        private void laborDetails()
+        {
+            // This prints the labor details into a view
+        }
+
+        private void materialDetails()
+        {
+            //Like Labor details but with materials
+        }
+
+
+        private void LineItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int lineNumber = LineItems.SelectedIndex;
+            DataView view = new DataView(BoMData);
+            BoMGrid.ItemsSource= view;
+        }
+
+        private void getItemSpecs()
+        {
+
+        }
 
         ////////////////////////////////////// End
     }

@@ -110,11 +110,11 @@
                     </Grid.RowDefinitions>
 
                     <Label Grid.ColumnSpan="2" Content="Line Number" HorizontalAlignment="Center" MinWidth="72px"/>
-                    <ComboBox Grid.Column="2" Grid.ColumnSpan="3" Margin="4,4,4,4">
-                        <!-- List out the line items here, easy switch of info below -->
-                        
-                        
+                    <ComboBox x:Name="LineItems" Grid.Column="2" Grid.ColumnSpan="3" Margin="4,4,4,4" SelectionChanged="LineItems_SelectionChanged" >
+                        <!-- List out the line items here, easy switch of info below -->                        
                     </ComboBox>
+                    
+                    <DataGrid x:Name="BoMGrid" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="5" Grid.RowSpan="5"/>
                 </Grid>
             </TabItem>
             
