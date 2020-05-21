@@ -84,37 +84,45 @@
             <TabItem x:Name="Customer_Info" Header="Bill of Materials">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="10*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition Height="5*"/>
-                        <RowDefinition Height="5*"/>
-                        <RowDefinition Height="5*"/>
-                        <RowDefinition Height="5*"/>
-                        <RowDefinition Height="5*"/>
-                        <RowDefinition Height="5*"/>
-                        <RowDefinition Height="5*"/>
-                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="2*"/> <!-- 1 -->
+                        <RowDefinition Height="2*"/> <!-- 2 -->
+                        <RowDefinition Height="5*"/> <!-- 3 -->
+                        <RowDefinition Height="5*"/> <!-- 4 -->
+                        <RowDefinition Height="5*"/> <!-- 5 -->
+                        <RowDefinition Height="5*"/> <!-- 6 -->
+                        <RowDefinition Height="2*"/> <!-- 7 -->
+                        <RowDefinition Height="5*"/> <!-- 8 -->
+                        <RowDefinition Height="5*"/> <!-- 9 -->
+                        <RowDefinition Height="5*"/> <!-- 10 -->
                     </Grid.RowDefinitions>
 
                     <Label Grid.ColumnSpan="2" Content="Line Number" HorizontalAlignment="Center" MinWidth="72px"/>
                     <ComboBox x:Name="LineItems" Grid.Column="2" Grid.ColumnSpan="3" Margin="4,4,4,4" SelectionChanged="LineItems_SelectionChanged" >
                         <!-- List out the line items here, easy switch of info below -->                        
                     </ComboBox>
+                    <Label x:Name="Vendors" Content="Vendor" Grid.Row="6" Grid.Column="0" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold"/> 
+                    <DataGrid x:Name="VendorGrid" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="13" Grid.RowSpan="3" Margin="4px" />
+
+                    <Label Content="Materials" Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold"/>
+                    <DataGrid x:Name="MaterialsGrid" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="13" Grid.RowSpan="4" Margin="4px"
+                              CurrentCellChanged="updateVendor"
+                              />
                     
-                    <DataGrid x:Name="BoMGrid" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="5" Grid.RowSpan="5"/>
                 </Grid>
             </TabItem>
             

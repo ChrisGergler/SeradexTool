@@ -1,4 +1,5 @@
-﻿using SeradexToolv2.ViewModels;
+﻿using Microsoft.IdentityModel.Tokens;
+using SeradexToolv2.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -44,7 +45,7 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
             ItemsQuoted.ItemsSource = View;
 
            fillInfo();
-           itemNumbersForBOM();
+           itemNumbersForBOM("x");
         }
 
 
@@ -104,49 +105,105 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
         }
 
 
-        DataTable BoMData = new DataTable();
-        private void itemNumbersForBOM()
+        DataTable BoMData = new DataTable("BillOfMaterials");
+        DataTable OpsData = new DataTable("Operations");
+
+
+        private void itemNumbersForBOM(string lineItem)
         {
+
+            LineItems.Items.Add("All");
+
             for( int i = 0; i < View.Count; i++ )
             {
                 LineItems.Items.Add((i+1)+" - "+
                     Utility.useQuery(
                         "Select a.[ItemNo] FROM Items a, SalesOrderDetails b WHERE a.ItemID = b.ItemID AND b.SalesOrderID = \'" + salesOrderID + "\'"
                     ).Rows[i]["ItemNo"].ToString());
-                //BoMData.Rows.Add(Utility.useQuery("SELECT a.* FROM ItemSpecs a, SalesOrderDetails b WHERE b.ItemID = a.ItemID AND b.[LineNo = \'"+(i+1)+"\'").NewRow()); 
+                
+
+              //  filters = filters + "SalesOrderDetails.ItemID = ";
+
+                //lineID = Utility.useQuery("SELECT [ItemSpecID] FROM SalesorderDetails WHERE SalesOrderId = \'" + salesOrderID + "\'");
+
             }
 
-
-            //BoMData = Utility.useQuery("SELECT a.* FROM ItemSpecs a, SalesOrderDetails b WHERE b.ItemID = a.ItemID AND b.SalesOrderDetailID = \'"+"\'");
 
             // Grab DataGrid items
             // Iterate through count for line items
             // Make new Item per line item
             // String of Line# + Item name
+            //BoMData = Utility.useQuery("SELECT ")
+
+            materialDetails();
+            //MessageBox.Show(filters);
+
 
         }
 
         private void laborDetails()
         {
-            // This prints the labor details into a view
+            /* This prints the labor details into a view
+            OpsData = Utility.useQuery("SELECT" +
+                "FROM" +
+                "JOIN" +
+                "ON" +
+                "WHERE");
+
+           * */
+
+
         }
 
         private void materialDetails()
         {
-            //Like Labor details but with materials
+            BoMData = Utility.useQuery(//"SELECT ItemSpecStruc.*, UOMs.[UOMCode]" +
+                "Select ItemSpecStruc.ItemSpecID, ItemSpecStruc.ItemSpecStrucID, ItemSpecStruc.ItemID, ItemSpecStruc.[Name], UOMs.[UOMCode], ItemSpecStruc.PropText, ItemSpecStruc.QtyRequired "+
+" FROM SalesOrderDetails, ItemSpecStruc FULL OUTER JOIN UOMs on UOMs.UOMID = ItemSpecStruc.UOMID Where ItemSpecStruc.UOMID is NOT NULL and SalesOrderDetails.ItemSpecID = ItemSpecStruc.ItemSpecID " +
+"and SalesOrderDetails.SalesOrderID = \'" + salesOrderID + "\'"//and SalesOrderDetails.ItemSpecID = \'"
+);
+
         }
 
 
         private void LineItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int lineNumber = LineItems.SelectedIndex;
+
+
+            //string SpecID = Utility.useQuery("SELECT a.[ItemSpecID] FROM ItemSpec a").ToString();
+
             DataView view = new DataView(BoMData);
-            BoMGrid.ItemsSource= view;
+
+
+            
+            
+
+            
+            
+
+            MaterialsGrid.ItemsSource= view;
+            if (lineNumber == 0)
+            {
+            }
+            else
+            {
+                string debugNumbers = Items.Rows[lineNumber-1]["ItemSpecID"].ToString();
+                view.RowFilter = "ItemSpecID = " + debugNumbers;
+            }
+
+  
         }
 
         private void getItemSpecs()
         {
 
+
+        }
+
+        private void updateVendor(object sender, EventArgs e)
+        {
+            // Run function to put vendor information in grid beneath each time cell changes on material grid
         }
 
         ////////////////////////////////////// End
