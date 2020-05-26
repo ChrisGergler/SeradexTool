@@ -26,7 +26,7 @@
             <ComboBoxItem Content="Sales Order No." FontFamily="Open Sans"/>
             <ComboBoxItem Content="Customer Name" FontFamily="Open Sans"/>
             <ComboBoxItem Content="Estimate No." FontFamily="Open Sans"/>
-            <ComboBoxItem Content="Customer Reference" FontFamily="Open Sans"/>
+            <ComboBoxItem Content="City Name" FontFamily="Open Sans"/>
         </ComboBox>
         <Label x:Name="label_SearchParam" Content="Search By" HorizontalAlignment="Center" Margin="0,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Height="26"/>
         <DataGrid x:Name="SalesOrderGrid" Grid.Row="2" Margin="4,0,4,4" Grid.ColumnSpan="3" IsReadOnly="True"  SelectionUnit="FullRow" MouseDoubleClick="GridDoubleClick"/>

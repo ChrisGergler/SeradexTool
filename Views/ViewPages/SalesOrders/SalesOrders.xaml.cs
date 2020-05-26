@@ -38,8 +38,17 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            string fillString = "SELECT so.SalesOrderID, so.SalesOrderNo, c.[Name], so.ShipViaID, so.ShipToAddressID, so.CustomerPO, so.SubTotal, so.TotalTaxes, so.CustomerBillToID, so.OrderDate, so.ShipDate, so.ShipViaID FROM SalesOrder so "+
-"LEFT OUTER JOIN Customers c on so.CustomerID = c.CustomerID Order By so.SalesOrderID";
+            string fillString = "SELECT SalesOrder.SalesOrderID, SalesOrderNo, Estimate.EstimateNo, c.[Name] as [Customer Name]," +
+                " city.DescriptionShort as [City Name], st.StateProvCode as [State], SalesOrder.SubTotal, SalesOrder.TotalTaxes, " +
+                "SalesOrder.EntryDate, SalesOrder.DueDate, e.UserName " +
+                " FROM SalesOrder " +
+"Inner Join Customers c on SalesOrder.CustomerID = c.CustomerID " +
+"Inner Join Addresses a on SalesOrder.AddressID = a.AddressID " +
+"Inner Join Cities city on a.CityID = city.CityID " +
+"Inner Join StateProv st on a.StateProvID = st.StateProvID " +
+"Inner Join Estimate on Estimate.EstimateID = SalesOrder.EstimateID " +
+"Inner Join SalesReps sr on SalesOrder.SalesRepID = sr.SalesRepID " +
+"Inner Join Employees e on sr.EmployeeID = e.EmployeeID;";
 
 
 
@@ -48,7 +57,7 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
             View = new DataView(Data);
             SalesOrderGrid.ItemsSource = View;
-
+            SalesOrderGrid.Columns[0].Visibility = Visibility.Hidden;
         }
 
         string searchString;
@@ -61,14 +70,18 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
                     break;
 
                 case 1:
-                    searchString = "[Name] LIKE \'*" + SearchBox.Text + "*\'";
+                    searchString = "[Customer Name] LIKE \'*" + SearchBox.Text + "*\'";
                     break;
 
                 case 2:
+
+                    searchString = "[EstimateNo] LIKE \'*" + SearchBox.Text + "*\'";
                     // More search options
                     break;
 
                 case 3:
+
+                    searchString = "[City Name] LIKE \'*" + SearchBox.Text + "*\'";
                     // More search options
                     break;
             }
