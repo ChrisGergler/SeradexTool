@@ -46,10 +46,20 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
            fillInfo();
            itemNumbersForBOM("x");
+
+            /**/
+            ItemsQuoted.Columns[0].Visibility = Visibility.Hidden;
+            ItemsQuoted.Columns[1].Visibility = Visibility.Hidden;
+            ItemsQuoted.Columns[3].Visibility = Visibility.Hidden;
+            ItemsQuoted.Columns[4].Visibility = Visibility.Hidden;
+            ItemsQuoted.Columns[6].Visibility = Visibility.Hidden;
+            ItemsQuoted.Columns[9].Visibility = Visibility.Hidden;
+            ItemsQuoted.Columns[9].Visibility = Visibility.Hidden;
+            /**/
         }
 
 
-  private void fillInfo()
+        private void fillInfo()
         {
             SalesOrderTitle.Content = SalesOrderKeys["SalesOrderNo"].ToString();
 
@@ -223,8 +233,8 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
             if (MaterialsGrid.SelectedIndex < 1) { y = 1; }
             else { y = MaterialsGrid.SelectedIndex; }
 
-            
-            
+
+
 
 
             try { info = bomview[y]["ItemSpecID"].ToString(); }
@@ -251,7 +261,12 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
             //laborDetails("X");
 
-            //if ()
+            /*/if ()
+            if (VendorGrid.Columns.Count > 0)
+            {
+                VendorGrid.Columns.
+                VendorGrid.Columns[0].Visibility = Visibility.Hidden;
+            }*/
         }
 
         private void MaterialsGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
