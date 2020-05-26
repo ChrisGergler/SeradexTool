@@ -120,7 +120,7 @@
 
                     <Label Content="Materials" Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold"/>
                     <DataGrid x:Name="MaterialsGrid" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="13" Grid.RowSpan="4" Margin="4px"
-                              CurrentCellChanged="updateVendor"
+                              MouseLeftButtonUp="updateVendor" KeyUp="updateVendor" SelectedCellsChanged="updateVendor"
                               />
                     
                 </Grid>

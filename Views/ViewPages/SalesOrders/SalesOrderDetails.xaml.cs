@@ -107,6 +107,7 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
         DataTable BoMData = new DataTable("BillOfMaterials");
         DataTable OpsData = new DataTable("Operations");
+        DataView bomview;
 
 
         private void itemNumbersForBOM(string lineItem)
@@ -136,33 +137,48 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
             //BoMData = Utility.useQuery("SELECT ")
 
             materialDetails();
+
             //MessageBox.Show(filters);
 
 
         }
 
-        private void laborDetails()
+        private void laborDetails(string value)
         {
-            /* This prints the labor details into a view
-            OpsData = Utility.useQuery("SELECT" +
-                "FROM" +
-                "JOIN" +
-                "ON" +
-                "WHERE");
+            OpsData = Utility.useQuery(
+                
 
-           * */
-
+            "SELECT DISTINCT ItemSpecFullStruc.ParentItemSpecID as [RefItemSpecID], "+
+"CellCode, DescriptionMed, SetupUnits, RunUnits as [Run Time], CostPerHour, TotalCost, WOComment, \'\' as [RefRowNum], " +
+"OpNo, UOM_1.UOMCode, UOM_2.UOMCode, PercentComplete, "+
+"Notes, ItemSpecOps.JobCostCatID, CellTasks.TaskNo, "+
+"UserDefined1, UserDefined2, UserDefined3, UserDefined4, ItemSpecOps.RopeLength "+
+"FROM ItemSpecFullStruc "+
+"INNER JOIN ItemSpecOps on ItemSpecOps.ItemSpecOpID = ItemSpecFullStruc.ItemSpecOpID "+
+"INNER JOIN Cell on Cell.CellID = ItemSpecOps.CellID "+
+"INNER JOIN UOMs as [UOM_1] on UOM_1.UOMID = SetupUOMID "+
+"INNER JOIN UOMs as [UOM_2] on UOM_2.UOMID = RunUOMID "+
+"LEFT OUTER JOIN CellTasks on CellTasks.CellTaskID = ItemSpecOps.CellTaskID "+
+"WHERE ItemSpecFullStruc.RootItemSpecID = \'"+value +"\' and ItemSpecStrucID IS NULL ");
 
         }
 
         private void materialDetails()
         {
             BoMData = Utility.useQuery(//"SELECT ItemSpecStruc.*, UOMs.[UOMCode]" +
-                "Select ItemSpecStruc.ItemSpecID, ItemSpecStruc.ItemSpecStrucID, ItemSpecStruc.ItemID, ItemSpecStruc.[Name], UOMs.[UOMCode], ItemSpecStruc.PropText, ItemSpecStruc.QtyRequired "+
-" FROM SalesOrderDetails, ItemSpecStruc FULL OUTER JOIN UOMs on UOMs.UOMID = ItemSpecStruc.UOMID Where ItemSpecStruc.UOMID is NOT NULL and SalesOrderDetails.ItemSpecID = ItemSpecStruc.ItemSpecID " +
+                "Select ItemSpecStruc.ItemSpecID, ItemSpecStruc.ItemSpecStrucID, ItemSpecStruc.[Name], ItemSpecStruc.ItemID, " +
+                "ItemSpecStruc.QtyRequired, UOMs.[UOMCode], " +
+                "ItemSpecStruc.TotalQty, ItemSpecStruc.WeightUOMID, " +
+                "ItemSpecStruc.StdCost " + // Last Column
+"FROM SalesOrderDetails, ItemSpecStruc " +
+"INNER JOIN UOMs on UOMs.UOMID = ItemSpecStruc.UOMID " +
+//"and UOMs.UOMID = ItemSpecStruc.WeightUOMID " +
+"Where ItemSpecStruc.UOMID is NOT NULL and SalesOrderDetails.ItemSpecID = ItemSpecStruc.ItemSpecID " +
 "and SalesOrderDetails.SalesOrderID = \'" + salesOrderID + "\'"//and SalesOrderDetails.ItemSpecID = \'"
 );
 
+
+            BoMData.Columns["StdCost"].ColumnName = "Calculated Cost";
         }
 
 
@@ -170,26 +186,19 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
         {
             int lineNumber = LineItems.SelectedIndex;
 
-
+            bomview = new DataView(BoMData);
             //string SpecID = Utility.useQuery("SELECT a.[ItemSpecID] FROM ItemSpec a").ToString();
 
-            DataView view = new DataView(BoMData);
-
-
-            
             
 
-            
-            
-
-            MaterialsGrid.ItemsSource= view;
+            MaterialsGrid.ItemsSource= bomview;
             if (lineNumber == 0)
             {
             }
             else
             {
                 string debugNumbers = Items.Rows[lineNumber-1]["ItemSpecID"].ToString();
-                view.RowFilter = "ItemSpecID = " + debugNumbers;
+                bomview.RowFilter = "ItemSpecID = " + debugNumbers;
             }
 
   
@@ -203,8 +212,53 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
         private void updateVendor(object sender, EventArgs e)
         {
+            int value = MaterialsGrid.SelectedIndex;
+
+
             // Run function to put vendor information in grid beneath each time cell changes on material grid
+            DataView laborview = new DataView(OpsData);
+            VendorGrid.ItemsSource = laborview;
+            string info = "";
+            int y;
+            if (MaterialsGrid.SelectedIndex < 1) { y = 1; }
+            else { y = MaterialsGrid.SelectedIndex; }
+
+            
+            
+
+
+            try { info = bomview[y]["ItemSpecID"].ToString(); }
+            catch
+            {
+
+            };
+           // MessageBox.Show(info);
+            laborDetails(info);
+            /*
+             * 
+             *             int y = g.SelectedIndex;
+            DataRow passToNextWindow = v[y].Row;
+            try { string answer = ((string)View[y][s].ToString());
+                Window openWindow = new SalesOrderDetails(answer, passToNextWindow);
+                openWindow.Show();
+            }
+            catch (Exception) { MessageBox.Show("Cannot return answer. \n The stars aren't aligned. Can't do it tonight. The stars. \n" + s);
+            }
+             * 
+             */
+
+
+
+            //laborDetails("X");
+
+            //if ()
         }
+
+        private void MaterialsGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+
+        }
+
 
         ////////////////////////////////////// End
     }
