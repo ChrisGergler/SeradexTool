@@ -97,13 +97,16 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
         private void findCell(string s, DataView v, DataGrid g)
         {
-            int y = g.SelectedIndex;
+            try
+            {
+                int y = g.SelectedIndex;
             DataRow passToNextWindow = v[y].Row;
-            try { string answer = ((string)View[y][s].ToString());
+             string answer = ((string)View[y][s].ToString());
                 Window openWindow = new SalesOrderDetails(answer, passToNextWindow);
                 openWindow.Show();
             }
-            catch (Exception) { MessageBox.Show("Cannot return answer. \n The stars aren't aligned. Can't do it tonight. The stars. \n" + s);
+            catch (Exception) { //MessageBox.Show("Double-clicked something before selecting a Sales order. \nTry selecting your sales order first.", "NoSo Error");
+
             }
 
            

@@ -105,6 +105,7 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
         private void findCell(string colName, DataView view, DataGrid grid)
         {
             // Get Row index
+            try { 
             int y = grid.SelectedIndex;
             DataRow passToNextWindow = view[y].Row;
             string answer = "";
@@ -114,8 +115,13 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
             Window detailView = new DetailView(answer, passToNextWindow);
 
             detailView.Show();
+            }
+            catch(Exception)
+            {
 
-            
+            }
+
+
         }
 
     }

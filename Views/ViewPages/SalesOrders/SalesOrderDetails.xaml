@@ -24,7 +24,8 @@
                         <RowDefinition Height="128"/>
                     </Grid.RowDefinitions>
                     <Label x:Name="SalesOrderTitle" Content="Details" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Open Sans ExtraBold" FontSize="24" Height="34" Width="199"/>
-                    <Label x:Name="EstimateNumber" Content="ES Number" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Open Sans ExtraBold" FontSize="16" Height="34" Width="358" Grid.Column="1" />
+                    <Label x:Name="EstimateLabel" Content="Estimate No: " HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Open Sans ExtraBold" FontSize="16" Height="34" Width="140" Grid.Column="1" />
+                    <Label x:Name="EstimateNumber" Content="ES Number" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Open Sans ExtraBold" FontSize="16" Height="34" Width="256" Grid.Column="1" Margin="102,0,0,0" />
 
                     <!-- Billing Address Information -->
 
@@ -99,33 +100,43 @@
                         <ColumnDefinition Width="10*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"/> <!-- 1 -->
-                        <RowDefinition Height="2*"/> <!-- 2 -->
-                        <RowDefinition Height="5*"/> <!-- 3 -->
-                        <RowDefinition Height="5*"/> <!-- 4 -->
-                        <RowDefinition Height="5*"/> <!-- 5 -->
-                        <RowDefinition Height="5*"/> <!-- 6 -->
-                        <RowDefinition Height="2*"/> <!-- 7 -->
-                        <RowDefinition Height="5*"/> <!-- 8 -->
-                        <RowDefinition Height="5*"/> <!-- 9 -->
-                        <RowDefinition Height="5*"/> <!-- 10 -->
+                        <RowDefinition Height="2*"/>
+                        <!-- 1 -->
+                        <RowDefinition Height="2*"/>
+                        <!-- 2 -->
+                        <RowDefinition Height="5*"/>
+                        <!-- 3 -->
+                        <RowDefinition Height="5*"/>
+                        <!-- 4 -->
+                        <RowDefinition Height="5*"/>
+                        <!-- 5 -->
+                        <RowDefinition Height="5*"/>
+                        <!-- 6 -->
+                        <RowDefinition Height="2*"/>
+                        <!-- 7 -->
+                        <RowDefinition Height="5*"/>
+                        <!-- 8 -->
+                        <RowDefinition Height="5*"/>
+                        <!-- 9 -->
+                        <RowDefinition Height="5*"/>
+                        <!-- 10 -->
                     </Grid.RowDefinitions>
 
                     <Label Grid.ColumnSpan="2" Content="Line Number" HorizontalAlignment="Center" MinWidth="72px"/>
                     <ComboBox x:Name="LineItems" Grid.Column="2" Grid.ColumnSpan="3" Margin="4,4,4,4" SelectionChanged="LineItems_SelectionChanged" >
-                        <!-- List out the line items here, easy switch of info below -->                        
+                        <!-- List out the line items here, easy switch of info below -->
                     </ComboBox>
-                    <Label x:Name="Vendors" Content="Vendor" Grid.Row="6" Grid.Column="0" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold"/> 
+                    <Label x:Name="Vendors" Content="Vendor" Grid.Row="6" Grid.Column="0" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold"/>
                     <DataGrid x:Name="VendorGrid" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="13" Grid.RowSpan="3" Margin="4px" />
 
                     <Label Content="Materials" Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold"/>
                     <DataGrid x:Name="MaterialsGrid" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="13" Grid.RowSpan="4" Margin="4px"
                               MouseLeftButtonUp="updateVendor" KeyUp="updateVendor" SelectedCellsChanged="updateVendor"
                               />
-                    
+
                 </Grid>
             </TabItem>
-            
+
 
 
         </TabControl>
