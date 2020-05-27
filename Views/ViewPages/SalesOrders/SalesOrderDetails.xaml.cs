@@ -198,24 +198,9 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
                         "Select a.[ItemNo] FROM Items a, SalesOrderDetails b WHERE a.ItemID = b.ItemID AND b.SalesOrderID = \'" + salesOrderID + "\'"
                     ).Rows[i]["ItemNo"].ToString());
                 
-
-              //  filters = filters + "SalesOrderDetails.ItemID = ";
-
-                //lineID = Utility.useQuery("SELECT [ItemSpecID] FROM SalesorderDetails WHERE SalesOrderId = \'" + salesOrderID + "\'");
-
             }
 
-
-            // Grab DataGrid items
-            // Iterate through count for line items
-            // Make new Item per line item
-            // String of Line# + Item name
-            //BoMData = Utility.useQuery("SELECT ")
-
             materialDetails();
-
-            //MessageBox.Show(filters);
-
 
         }
 

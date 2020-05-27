@@ -3,7 +3,9 @@ using System;
 using System.Data;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Media3D;
 
 namespace SeradexToolv2.Views
 {
@@ -39,7 +41,8 @@ namespace SeradexToolv2.Views
         {
             string getItemDetails = "SELECT a.[LineNo], a.[ItemNo], a.[Description], a.[QtyOrdered], a.[ListPrice], a.[UnitPrice], a.[DiscountPct], a.[DiscountAmt], a.[TotalTaxes], a.[NetPrice] " +
                 "FROM EstimateDetails a " +
-                "WHERE EstimateID = \'"+estimateID+"\'";
+                "WHERE EstimateID = \'"+estimateID+"\'" +
+                "Order by a.[LineNo]";
 
             Items = Utility.useQuery(getItemDetails);
             View = new DataView(Items);
@@ -164,33 +167,73 @@ namespace SeradexToolv2.Views
             /////////////////////////////////////////////
             ///End of Displays
 
+            
+            
 
-            /*******************************************
-             * DEBUGGING TOOL                         *
-            *******************************************
-            string b = "** Billing **\n";
-            for (int i = 0; i < billingAddress.Rows.Count; i++)
-            {
-                for (int j = 0; j < billingAddress.Columns.Count; j++)
-                {
-                    b = b + "\n" + billingAddress.Columns[j].ColumnName + ": " + billingAddress.Rows[i][j].ToString();
-                }
-            }
-
-            b = b + "\n\n ** Shipping**";
-
-            for (int i = 0; i < shippingAddress.Rows.Count; i++)
-            {
-                for (int j = 0; j < shippingAddress.Columns.Count; j++)
-                {
-                    b = b + "\n" + shippingAddress.Columns[j].ColumnName + ": " + shippingAddress.Rows[i][j].ToString();
-                }
-                b = b + "\n";
-            }
-            /******************************************/
-            //MessageBox.Show(b);
         }
 
+        DataTable BoMData = new DataTable("BillOfMaterials");
+        DataTable OpsData = new DataTable("Operations");
+        DataView bomview;
+
+        private void itemNumbersForBOM(string lineItem)
+        {
+            LineItems.Items.Add("All");
+
+            for( int i = 0; i < View.Count; i++ )
+            {
+                LineItems.Items.Add((i + 1) + " - " +
+                    Utility.useQuery(
+                        "Select a.[ItemNo] FROM Items a, EstimateDetails b WHERE a.ItemID = b.ItemID AND b.EstimateID = \'" + estimateID + "\'"
+                    ).Rows[i]["ItemNo"].ToString());
+            }
+
+            materialDetails();
+        }
+
+        private void materialDetails()
+        {
+            BoMData = Utility.useQuery(
+                                "Select ItemSpecStruc.ItemSpecID, ItemSpecStruc.ItemSpecStrucID, ItemSpecStruc.[Name], ItemSpecStruc.ItemID, " +
+                "ItemSpecStruc.QtyRequired, UOMs.[UOMCode], " +
+                "ItemSpecStruc.TotalQty, ItemSpecStruc.WeightUOMID, " +
+                "ItemSpecStruc.StdCost " + // Last Column
+"FROM EstimateDetails, ItemSpecStruc " +
+"INNER JOIN UOMs on UOMs.UOMID = ItemSpecStruc.UOMID " +
+//"and UOMs.UOMID = ItemSpecStruc.WeightUOMID " +
+"Where ItemSpecStruc.UOMID is NOT NULL and EstimateDetails.ItemSpecID = ItemSpecStruc.ItemSpecID " +
+"and EstimateDetails.EstimateID = \'" + estimateID + "\'"//and SalesOrderDetails.ItemSpecID = \'"
+                );
+
+            BoMData.Columns["StdCost"].ColumnName = "Calculated Cost";
+        }
+
+        private void LineItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int lineNumber = LineItems.SelectedIndex;
+
+            bomview = new DataView(BoMData);
+
+            MaterialsGrid.ItemsSource = bomview;
+
+            if(lineNumber == 0)
+            {
+            }
+            else
+            {
+                string debugNumbers = Items.Rows[lineNumber - 1]["ItemSpecID"].ToString();
+                bomview.RowFilter = "ItemSpecID = " + debugNumbers;
+            }
+
+        }
+
+
+        private void updateVendor(object sender, EventArgs e)
+        {
+
+        }
+
+       
 
     }
 }
