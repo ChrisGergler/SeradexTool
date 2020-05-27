@@ -3,6 +3,7 @@ using SeradexToolv2.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -339,7 +340,21 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
         }
 
-
+        private void openFolder(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Process.Start("explorer.exe",
+                    @"" + Utility.useQuery("Select com.FileAttachment " +
+                    "FROM Comments com " +
+                    "Inner Join SalesOrder so on so.EstimateID = com.EstimateID " +
+                    "WHERE so.SalesOrderID = \'" + salesOrderID + "\'").Rows[0][0].ToString());
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error opening Folder. Please find the folder manually.");
+            }
+        }
         ////////////////////////////////////// End
     }
 }

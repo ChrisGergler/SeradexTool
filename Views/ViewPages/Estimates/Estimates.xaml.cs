@@ -57,15 +57,16 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
 
                 case 1:
 
-                    searchString = "name LIKE '" + SearchBox.Text + "*'";
+                    searchString = "name LIKE \'" + SearchBox.Text + "*\'";
                     break;
 
                 case 2:
 
-                    searchString = "";
+                    searchString = "SalesOrderNo LIKE \'*" + SearchBox.Text + "*\'";
                     break;
 
                 case 3:
+                    searchString = "[City name] LIKE \'*" + SearchBox.Text + "*\'";
                     break;
 
                 case 4:
@@ -102,6 +103,8 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
 
             loaded = true;
             }
+
+            EstimateResults.Columns[0].Visibility = Visibility.Hidden;
         }
 
         private void DataGridCell_MouseDoubleClick(object sender, MouseButtonEventArgs e)
