@@ -78,11 +78,19 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             // hardcoded Queries locked behind the load event to prevent mistaken queries.
-            string estimateString = "SELECT e.EstimateNo, c.[name], e.CustomerShipToID, e.EntryDate, e.TermsCodeID, e.SubTotal, e.TotalTaxes, e." +
-    "Approved, e.CustRefNo, e.TerritoryID, e.TaxGroupID, e.TotalTaxes, e.AddressID, e.ShipToAddressID, e." +
-    "OrderDate, e.ShipDate, e.[Name], e.Comment, e.SubTotal, e.CSREmployeeID, e.UserCreated, e.DateCreated " +
-    "UserModified, e.DateModified, e.CustomerBillToID, e.Closed, e.EstimateID " +
-    "FROM Estimate e, Customers c WHERE e.CustomerID = c.CustomerID";
+            string estimateString = "SELECT es.EstimateID, es.EstimateNo, so.SalesOrderNo, c.[Name] as [Customer Name]," +
+                "city.DescriptionShort as [City name], st.StateProvCode as [State], es.SubTotal, es.TotalTaxes, " +
+                "es.EntryDate, es.DueDate, e.UserName, es.TermsCodeID " +
+                "FROM Estimate es " +
+                "INNER JOIN Customers c on es.CustomerID = c.CustomerID " +
+                "INNER JOIN Addresses a on es.AddressID = a.AddressID " +
+                "INNER JOIN Cities city on a.CityID = city.CityID " +
+                "INNER JOIN StateProv st on a.StateProvID = st.StateProvID " +
+                "INNER JOIN SalesOrder so on es.EstimateID = so.EstimateID " +
+                "INNER JOIN SalesReps sr on es.SalesRepID = sr.SalesRepID " +
+                "INNER JOIN Employees e on sr.EmployeeID = e.EmployeeID;";
+    
+    //"WHERE e.CustomerID = c.CustomerID";
 
             if (loaded == false)
             { 

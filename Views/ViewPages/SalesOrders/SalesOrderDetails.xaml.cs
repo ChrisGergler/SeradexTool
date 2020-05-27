@@ -39,7 +39,11 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            string getItemDetails = "SELECT a.* FROM SalesOrderDetails a, SalesOrder b WHERE b.SalesOrderID = a.SalesOrderID AND a.SalesOrderID = \'"+salesOrderID+"\'";
+            string getItemDetails = "SELECT a.* " +
+                "FROM SalesOrderDetails a, SalesOrder b " +
+               // "Inner Join Addresses c on a.AddressID = c.AddressID " +
+               // "Inner Join Addresses d on a.ShipToAddressID = d.AddressID " +
+                "WHERE b.SalesOrderID = a.SalesOrderID AND a.SalesOrderID = \'"+salesOrderID+"\'";
             Items = Utility.useQuery(getItemDetails);
             View = new DataView(Items);
             ItemsQuoted.ItemsSource = View;
@@ -68,10 +72,19 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
                 + SalesOrderKeys["SalesOrderID"].ToString() + " AND so.EstimateID = es. EstimateID").Rows[0]["EstimateNo"].ToString();
            
             CustomerName.Text =
-               Convert.ToString(Utility.useQuery("SELECT a.[Name] FROM Customers a, SalesOrder b WHERE b.CustomerID = a.CustomerID AND b.SalesOrderID = " + salesOrderID).Rows[0]["Name"]);
+               Convert.ToString(Utility.useQuery("SELECT a.[Name] FROM Customers a, SalesOrder b " +
+               "WHERE b.CustomerID = a.CustomerID AND b.SalesOrderID = " + salesOrderID).Rows[0]["Name"]);
 
             DataTable billingAddress = Utility.useQuery(
-                "SELECT DISTINCT so.SalesOrderNo, t1.CustomerBillToID, t1.CustomerID, t1.[Name], t2.AddressL1, t2.AddressL2, t2.AddressL3, t3.DescriptionShort, t4.DescriptionShort, t5.DescriptionTiny, t2.PostalCode FROM CustomerBillTo t1 INNER JOIN Addresses t2 ON t1.AddressID = t2.AddressID INNER JOIN Cities t3 ON t2.CityID = t3.CityID INNER JOIN StateProv t4 ON t2.StateProvID = t4.StateProvID INNER JOIN Countries t5 ON t2.CountryID = t5.CountryID INNER JOIN SalesOrder so on so.CustomerID = t1.CustomerID WHERE so.SalesOrderID = \'" + salesOrderID + "\'"
+                "SELECT DISTINCT so.SalesOrderNo, t1.CustomerBillToID, t1.CustomerID, t1.[Name], " +
+                "t2.AddressL1, t2.AddressL2, t2.AddressL3, t3.DescriptionShort, t4.DescriptionShort, t5.DescriptionTiny, t2.PostalCode " +
+                "FROM CustomerBillTo t1 " +
+                "INNER JOIN Addresses t2 ON t1.AddressID = t2.AddressID " +
+                "INNER JOIN Cities t3 ON t2.CityID = t3.CityID " +
+                "INNER JOIN StateProv t4 ON t2.StateProvID = t4.StateProvID " +
+                "INNER JOIN Countries t5 ON t2.CountryID = t5.CountryID " +
+                "INNER JOIN SalesOrder so on so.CustomerID = t1.CustomerID " +
+                "WHERE so.SalesOrderID = \'" + salesOrderID + "\'"
                 );
             billingAddress.Columns[7].ColumnName = "City";
             billingAddress.Columns[8].ColumnName = "State";
@@ -96,12 +109,64 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
             }
 
             DataTable shippingAddress = Utility.useQuery(
-"SELECT DISTINCT e.SalesOrderNo, t1.CustomerShipToID, t1.CustomerID, t1.[Name], t2.AddressL1, t2.AddressL2, t2.AddressL3, t3.DescriptionShort, t4.DescriptionShort, t5.DescriptionTiny, t2.PostalCode FROM CustomerShipTo t1 INNER JOIN Addresses t2 ON t1.AddressID = t2.AddressID INNER JOIN Cities t3 ON t2.CityID = t3.CityID INNER JOIN StateProv t4 ON t2.StateProvID = t4.StateProvID INNER JOIN Countries t5 ON t2.CountryID = t5.CountryID INNER JOIN SalesOrder e on e.CustomerID = t1.CustomerID WHERE e.SalesOrderID = \'" + salesOrderID + "\'"
+"SELECT DISTINCT SalesOrder.CustomerShipToID, CustomerShipTo.[Name] as CustomerName, t1a.AddressL1, t1a.AddressL2, t1a.AddressL3, t1a.AddressL4, " +
+"t1b.AddressL1 as BackUpAdd1, t1b.AddressL2 as BackUpAdd2, t1b.AddressL3 as BackUpAdd3, t1b.AddressL4 as BackUpAdd4, " +
+"city.[DescriptionShort] as City, state.[StateProvCode] as State, t1a.PostalCode, country.[DescriptionTiny] as Country " +
+"From SalesOrder " +
+"Inner Join CustomerShipTo on CustomerShipTo.CustomerShipToID = SalesOrder.CustomerShipToID " +
+"Inner Join Addresses t1a on t1a.AddressID = SalesOrder.CustomerShipToID " +
+"Inner Join Addresses t1b on t1b.AddressID = SalesOrder.AddressID " +
+"Inner Join Cities city on t1a.CityID = city.CityID and t1b.CityID = city.CityID " +
+"Inner join StateProv state on t1a.StateProvID = state.StateProvID and t1b.StateProvID = state.StateProvID " +
+"Inner Join Countries country on t1a.CountryID = country.CountryID and t1b.CountryID = country.CountryID "+
+"WHERE SalesOrderID = \'" + salesOrderID + "\'"
 );
-            shippingAddress.Columns[7].ColumnName = "City";
-            shippingAddress.Columns[8].ColumnName = "State";
-            shippingAddress.Columns[9].ColumnName = "County";
+            
+            try
+            {
+                string blah;
+                for(int x = 0; x < shippingAddress.Rows.Count; x++)
+                {
+                    blah = shippingAddress.Rows[x].ToString();
+                }
 
+                ShipToName.Text = shippingAddress.Rows[0]["CustomerName"].ToString();
+                ShipToStreet.Text = shippingAddress.Rows[0]["AddressL1"].ToString();
+                ShipToCity.Text = shippingAddress.Rows[0]["City"].ToString();
+                ShipToLine2.Text = shippingAddress.Rows[0]["AddressL2"].ToString();
+                ShipToLine3.Text = shippingAddress.Rows[0]["AddressL3"].ToString();
+
+
+            }
+            catch (Exception)
+            {
+
+
+                {
+                    try
+                    {
+                        if (shippingAddress.Rows[0]["AddressL1"] == null &&
+    shippingAddress.Rows[0]["City"] == null)
+                        {
+                            ShipToName.Text = shippingAddress.Rows[0]["CustomerName"].ToString();
+                            ShipToStreet.Text = shippingAddress.Rows[0]["BackUpAdd1"].ToString();
+                            ShipToCity.Text = shippingAddress.Rows[0]["City"].ToString();
+                            ShipToLine2.Text = shippingAddress.Rows[0]["BackUpAdd2"].ToString();
+                            ShipToLine3.Text = shippingAddress.Rows[0]["BackUpAdd3"].ToString();
+                        }
+                    }
+                    catch(Exception)
+                    {
+
+                    }
+                }
+
+                ShipToStreet.Text = "No Address Listed";
+                ShipToAddress.Content = "";
+                ShippingCity.Content = "";
+                ShipToLine2.Text = "";
+                ShipToLine3.Text = "";
+            }
 
             double subtotal = Math.Round(Convert.ToDouble(SalesOrderKeys["SubTotal"]), 2);
             double taxtotal = Math.Round(Convert.ToDouble(SalesOrderKeys["TotalTaxes"]), 2);

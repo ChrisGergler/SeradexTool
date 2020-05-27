@@ -38,7 +38,7 @@
                     <TextBlock x:Name="BillToLine3" Text="Suite Z" HorizontalAlignment="Left" Margin="92,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="0"/>
 
                     <Label x:Name="BillingCity" Content="Billing City" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="0,92,0,0" Grid.Column="0"/>
-                    <TextBlock x:Name="BillToCity" Text="The City of Townsville" HorizontalAlignment="Left" Margin="92,92,0,0" Grid.Row="1" VerticalAlignment="Top" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="0"/>
+                    <TextBlock x:Name="BillToCity" Text="" HorizontalAlignment="Left" Margin="92,92,0,0" Grid.Row="1" VerticalAlignment="Top" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="0"/>
 
 
                     <!-- Shipping Address Information -->
@@ -51,8 +51,8 @@
                     <TextBlock x:Name="ShipToLine2" Text="Building A" HorizontalAlignment="Left" Margin="102,41,0,0" Grid.Row="1" VerticalAlignment="Top" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1"/>
                     <TextBlock x:Name="ShipToLine3" Text="Suite Z" HorizontalAlignment="Left" Margin="102,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1"/>
 
-                    <Label x:Name="ShipingCity" Content="Shiping City" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="3,92,0,0" Grid.Column="1"/>
-                    <TextBlock x:Name="ShipToCity" Text="The City of Townsville" HorizontalAlignment="Left" Margin="102,92,0,0" Grid.Row="1" VerticalAlignment="Top" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1"/>
+                    <Label x:Name="ShippingCity" Content="Shiping City" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="3,92,0,0" Grid.Column="1"/>
+                    <TextBlock x:Name="ShipToCity" Text="" HorizontalAlignment="Left" Margin="102,92,0,0" Grid.Row="1" VerticalAlignment="Top" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1"/>
 
                     <Label x:Name="ContactLabel" Content="Contact" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Padding="0" FontFamily="Lucida Sans" FontSize="11"/>
                     <TextBlock x:Name="ContactName" Text="Contact Name Goes here" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="1" Margin="0,13,0,0" FontFamily="Lucida Sans" FontSize="11"/>

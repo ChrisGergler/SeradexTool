@@ -151,14 +151,6 @@ namespace SeradexToolv2.Views
             shippingAddress.Columns[9].ColumnName = "County";
 
 
-            //Customer ShipTo //HOW IS THIS EVEN SELECTED?!
-            // Ship Street
-            // Ship City
-            // Ship Country
-            // Ship Zip
-
-            // Subtotal
-            // Tax
 
 
             double subtotal = Math.Round(Convert.ToDouble(EstimateKeys["SubTotal"]), 2);
