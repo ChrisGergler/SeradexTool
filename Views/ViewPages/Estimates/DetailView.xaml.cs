@@ -49,7 +49,7 @@ namespace SeradexToolv2.Views
             ItemsQuoted.ItemsSource = View;
 
             fillInfo();
-
+            itemNumbersForBOM("");
         }
 
         // This method is supposed to launch the folder for the estimate
@@ -96,34 +96,29 @@ namespace SeradexToolv2.Views
 
 
             CustomerName.Text =
-               Convert.ToString(Utility.useQuery("SELECT a.[Name] FROM Customers a, Estimate b WHERE b.CustomerID = a.CustomerID AND b.EstimateID = " + estimateID).Rows[0][0]);
+               Convert.ToString(Utility.useQuery("SELECT a.[Name] " +
+               "FROM Customers a, Estimate b " +
+               "WHERE b.CustomerID = a.CustomerID AND b.EstimateID = " + estimateID).Rows[0][0]);
 
 
 
             DataTable billingAddress = Utility.useQuery(
-                "SELECT DISTINCT e.EstimateNo, t1.CustomerBillToID, t1.CustomerID, t1.[Name], t2.AddressL1, t2.AddressL2, t2.AddressL3, t3.DescriptionShort, t4.DescriptionShort, t5.DescriptionTiny, t2.PostalCode FROM CustomerBillTo t1 INNER JOIN Addresses t2 ON t1.AddressID = t2.AddressID INNER JOIN Cities t3 ON t2.CityID = t3.CityID INNER JOIN StateProv t4 ON t2.StateProvID = t4.StateProvID INNER JOIN Countries t5 ON t2.CountryID = t5.CountryID INNER JOIN Estimate e on e.CustomerID = t1.CustomerID WHERE e.EstimateID = \'" + estimateID + "\'"
+                "SELECT DISTINCT e.EstimateNo, t1.CustomerBillToID, t1.CustomerID, t1.[Name], t2.AddressL1, " +
+                "t2.AddressL2, t2.AddressL3, t3.DescriptionShort, t4.DescriptionShort, " +
+                "t5.DescriptionTiny, t2.PostalCode " +
+                "FROM CustomerBillTo t1 " +
+                "INNER JOIN Addresses t2 ON t1.AddressID = t2.AddressID " +
+                "INNER JOIN Cities t3 ON t2.CityID = t3.CityID " +
+                "INNER JOIN StateProv t4 ON t2.StateProvID = t4.StateProvID " +
+                "INNER JOIN Countries t5 ON t2.CountryID = t5.CountryID " +
+                "INNER JOIN Estimate e on e.CustomerID = t1.CustomerID " +
+                "WHERE e.EstimateID = \'" + estimateID + "\'"
                 );
             billingAddress.Columns[7].ColumnName = "City";
             billingAddress.Columns[8].ColumnName = "State";
             billingAddress.Columns[9].ColumnName = "County";
             //Customer Billing
 
-
-
-            //I'm leaving this in here so that I can debug this later in case multiple rows show up. It should only pass back one singular row, but if it passes back two it'll print out a HUGE text volume.
-
-            /***********************************
-            string dumbBuildingString="";
-            for (int j = 0; j < address.Rows.Count; j++)
-            {
-                for (int i = 0; i < address.Columns.Count; i++)
-                {
-                    dumbBuildingString = dumbBuildingString + "\n" +address.Columns[i].ColumnName.ToString() +": "+ address.Rows[j][i].ToString();
-                }
-            }
-            
-            MessageBox.Show(dumbBuildingString);
-            *************************************/
             try
             {
                 BillToStreet.Text = billingAddress.Rows[0]["AddressL1"].ToString();
