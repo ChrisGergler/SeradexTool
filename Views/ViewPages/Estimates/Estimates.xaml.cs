@@ -48,7 +48,7 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             // hardcoded Queries locked behind the load event to prevent mistaken queries.
-            string estimateString = "SELECT es.EstimateID, es.EstimateNo, so.SalesOrderNo, c.[Name] as [Customer Name]," +
+            string estimateString = "SELECT es.EstimateID, es.EstimateNo, so.SalesOrderNo, es.CustRefNo, c.[Name] as [Customer Name]," +
                 "city.DescriptionShort as [City name], st.StateProvCode as [State], es.SubTotal, es.TotalTaxes, " +
                 "es.EntryDate, es.DueDate, e.UserName, es.TermsCodeID " +
                 "FROM Estimate es " +
@@ -72,6 +72,8 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
             }
 
             //EstimateResults.Columns[0].Visibility = Visibility.Hidden;
+
+            EstimateResults.Columns[0].Visibility = Visibility.Hidden;
         }
 
         string searchString;
@@ -122,6 +124,10 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
             };
 
         }
+
+
+
+        //Context menu for Estimates
 
     }
 }

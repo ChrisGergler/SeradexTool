@@ -38,7 +38,7 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            string fillString = "SELECT SalesOrder.SalesOrderID, SalesOrderNo, Estimate.EstimateNo, c.[Name] as [Customer Name], " +
+            string fillString = "SELECT SalesOrder.SalesOrderID, SalesOrderNo, Estimate.EstimateNo, SalesOrder.CustRefNo, c.[Name] as [Customer Name], " +
                 "city.DescriptionShort as [City Name], st.StateProvCode as [State], SalesOrder.SubTotal, SalesOrder.TotalTaxes, " +
                 "SalesOrder.EntryDate, SalesOrder.DueDate, e.UserName, SalesOrder.TermsCodeID " +
                 "FROM SalesOrder " +

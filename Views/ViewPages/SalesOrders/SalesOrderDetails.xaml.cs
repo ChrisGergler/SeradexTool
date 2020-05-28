@@ -179,8 +179,17 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
             //PaymentTermsDisplay.Content = Utility.useQuery("SELECT a.TermsCode FROM TermsCodes a WHERE a.TermsCodeID = " + SalesOrderKeys["TermsCodeID"]).Rows[0][0].ToString();
 
-        }
+            string debugtext = "Numbers";//SalesOrderKeys["CustRefNo"].ToString();
+            VantageNo.Content = debugtext;
 
+        }
+        /// <summary>
+        /// ////////////////////////////////////////////////////////////////////////
+        /// 
+        /// END OF INFO FILL
+        /// 
+        /// ////////////////////////////////////////////////////////////////////////
+        /// </summary>
 
         DataTable BoMData = new DataTable("BillOfMaterials");
         DataTable OpsData = new DataTable("Operations");
@@ -203,10 +212,12 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
             }
 
             materialDetails();
-
-            MaterialsGrid.Columns[0].Visibility = Visibility.Hidden;
-            MaterialsGrid.Columns[1].Visibility = Visibility.Hidden;
-
+            try
+            {
+                MaterialsGrid.Columns[0].Visibility = Visibility.Hidden;
+                MaterialsGrid.Columns[1].Visibility = Visibility.Hidden;
+            }
+            catch { };
         }
 
         private void materialDetails()

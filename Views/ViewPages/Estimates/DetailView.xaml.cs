@@ -230,11 +230,18 @@ namespace SeradexToolv2.Views
             /////////////////////////////////////////////
             ///End of Displays
 
+            string debugstring = EstimateKeys["CustRefNo"].ToString();
 
-            //VantageNumber.Text = EstimateKeys["CustRefNo"].ToString();
+            VantageNumber.Text = debugstring;
 
         }
-
+        /// <summary>
+        /// ////////////////////////////////////////////////////////////////////////
+        /// 
+        /// END OF INFO FILL
+        /// 
+        /// ////////////////////////////////////////////////////////////////////////
+        /// </summary>
         DataTable BoMData = new DataTable("BillOfMaterials");
         DataTable OpsData = new DataTable("Operations");
         DataView bomview;
