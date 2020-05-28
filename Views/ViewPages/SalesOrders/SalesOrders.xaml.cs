@@ -38,7 +38,8 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            string fillString = "SELECT SalesOrder.SalesOrderID, SalesOrderNo, Estimate.EstimateNo, SalesOrder.CustRefNo, c.[Name] as [Customer Name], " +
+            string fillString = "SELECT SalesOrder.SalesOrderID, SalesOrderNo, Estimate.EstimateNo, " +
+                "SalesOrder.CustRefNo, c.[Name] as [Customer Name], con.[Name] as [Contact Name], " +
                 "city.DescriptionShort as [City Name], st.StateProvCode as [State], SalesOrder.SubTotal, SalesOrder.TotalTaxes, " +
                 "SalesOrder.EntryDate, SalesOrder.DueDate, e.UserName, SalesOrder.TermsCodeID " +
                 "FROM SalesOrder " +
@@ -48,7 +49,8 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
                 "Inner Join StateProv st on a.StateProvID = st.StateProvID " +
                 "Inner Join Estimate on Estimate.EstimateID = SalesOrder.EstimateID " +
                 "Inner Join SalesReps sr on SalesOrder.SalesRepID = sr.SalesRepID " +
-                "Inner Join Employees e on sr.EmployeeID = e.EmployeeID;";
+                "Inner Join Employees e on sr.EmployeeID = e.EmployeeID " +
+                "Inner Join Contacts con on SalesOrder.ContactID = con.ContactID;";
 
 
 

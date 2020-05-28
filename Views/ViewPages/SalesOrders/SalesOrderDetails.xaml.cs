@@ -177,10 +177,11 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
             TaxTotalDisplay.Content = "$" + taxtotal.ToString();
             GrandTotalDisplay.Content = GrandTotalDisplay.Content + Convert.ToString(Math.Round(subtotal + taxtotal, 2));
 
-            //PaymentTermsDisplay.Content = Utility.useQuery("SELECT a.TermsCode FROM TermsCodes a WHERE a.TermsCodeID = " + SalesOrderKeys["TermsCodeID"]).Rows[0][0].ToString();
+            PaymentTermsDisplay.Content = Utility.useQuery("SELECT a.TermsCode FROM TermsCodes a WHERE a.TermsCodeID = " + SalesOrderKeys["TermsCodeID"]).Rows[0][0].ToString();
 
-            string debugtext = "Numbers";//SalesOrderKeys["CustRefNo"].ToString();
-            VantageNo.Content = debugtext;
+            ContactName.Text = SalesOrderKeys["Contact Name"].ToString();
+            VantageNo.Content = SalesOrderKeys["CustRefNo"].ToString();
+            
 
         }
         /// <summary>
@@ -280,7 +281,11 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
                 bomview.RowFilter = "ItemSpecID = " + debugNumbers;
             }
 
-            VendorGrid.Columns[0].Visibility = Visibility.Hidden;
+            try // We're only using try here because the system loads the columns faster than the data.
+            {
+                VendorGrid.Columns[0].Visibility = Visibility.Hidden;
+            }
+            catch { }
         }
 
         private void getItemSpecs()
