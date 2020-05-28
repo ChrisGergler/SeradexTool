@@ -30,8 +30,6 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
     {
         Toolkit Utility = new Toolkit();
 
-
-
         public Estimates()
         {
             InitializeComponent();
@@ -40,40 +38,11 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
         bool loaded;
 
         DataTable Data = new DataTable("EstimatesSummary");
-
         DataView View;
 
 
 
-        private void executeSearch(object sender, KeyEventArgs e)
-        {
-            string searchString = "";
-            switch (SearchParam.SelectedIndex)
-            {
-                case 0:
 
-                    searchString = "EstimateNo LIKE \'*" + SearchBox.Text + "*\'";
-                    break;
-
-                case 1:
-
-                    searchString = "name LIKE \'" + SearchBox.Text + "*\'";
-                    break;
-
-                case 2:
-
-                    searchString = "SalesOrderNo LIKE \'*" + SearchBox.Text + "*\'";
-                    break;
-
-                case 3:
-                    searchString = "[City name] LIKE \'*" + SearchBox.Text + "*\'";
-                    break;
-
-                case 4:
-                    break;
-            }
-            View.RowFilter = searchString;
-        }
 
         // On page load, populate the table
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -97,14 +66,40 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
             { 
             //Data = Utility.populateEstimatesTable();
             Data = Utility.useQuery(estimateString);
-            
             View = new DataView(Data);
             EstimateResults.ItemsSource = View; 
-
             loaded = true;
             }
 
-            EstimateResults.Columns[0].Visibility = Visibility.Hidden;
+            //EstimateResults.Columns[0].Visibility = Visibility.Hidden;
+        }
+
+        string searchString;
+        private void executeSearch(object sender, KeyEventArgs e)
+        {
+            
+            switch (SearchParam.SelectedIndex)
+            {
+                case 0:
+                    searchString = "EstimateNo LIKE \'*" + SearchBox.Text + "*\'";
+                    break;
+
+                case 1:
+                    searchString = "[Customer Name] LIKE \'" + SearchBox.Text + "*\'";
+                    break;
+
+                case 2:
+                    searchString = "SalesOrderNo LIKE \'*" + SearchBox.Text + "*\'";
+                    break;
+
+                case 3:
+                    searchString = "[City name] LIKE \'*" + SearchBox.Text + "*\'";
+                    break;
+
+                case 4:
+                    break;
+            }
+            View.RowFilter = searchString;
         }
 
         private void DataGridCell_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -113,25 +108,18 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
         }
 
 
-        private void findCell(string colName, DataView view, DataGrid grid)
+        private void findCell(string s, DataView v, DataGrid g)
         {
             // Get Row index
-            try { 
-            int y = grid.SelectedIndex;
-            DataRow passToNextWindow = view[y].Row;
-            string answer = "";
-            try { answer = ((string)view[y][colName].ToString()); }
-            catch { MessageBox.Show("You dun goofed, buddy.");
+            try {
+                int y = g.SelectedIndex;
+                DataRow passToNextWindow = v[y].Row;
+                string answer = (string)v[y][s].ToString();
+                Window detailView = new DetailView(answer, passToNextWindow);
+                detailView.Show();
+            }
+            catch { //MessageBox.Show("You dun goofed, buddy.");
             };
-            Window detailView = new DetailView(answer, passToNextWindow);
-
-            detailView.Show();
-            }
-            catch(Exception)
-            {
-
-            }
-
 
         }
 

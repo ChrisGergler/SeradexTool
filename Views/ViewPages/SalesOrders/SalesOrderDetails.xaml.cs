@@ -50,7 +50,7 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
             ItemsQuoted.ItemsSource = View;
 
            fillInfo();
-           itemNumbersForBOM("x");
+           itemNumbersForBOM();
 
             /**/
             ItemsQuoted.Columns[0].Visibility = Visibility.Hidden;
@@ -90,6 +90,7 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
             billingAddress.Columns[7].ColumnName = "City";
             billingAddress.Columns[8].ColumnName = "State";
             billingAddress.Columns[9].ColumnName = "County";
+            //Customer Billing
 
             try
             {
@@ -110,17 +111,17 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
             }
 
             DataTable shippingAddress = Utility.useQuery(
-"SELECT DISTINCT SalesOrder.CustomerShipToID, CustomerShipTo.[Name] as CustomerName, t1a.AddressL1, t1a.AddressL2, t1a.AddressL3, t1a.AddressL4, " +
-"t1b.AddressL1 as BackUpAdd1, t1b.AddressL2 as BackUpAdd2, t1b.AddressL3 as BackUpAdd3, t1b.AddressL4 as BackUpAdd4, " +
-"city.[DescriptionShort] as City, state.[StateProvCode] as State, t1a.PostalCode, country.[DescriptionTiny] as Country " +
-"From SalesOrder " +
-"Inner Join CustomerShipTo on CustomerShipTo.CustomerShipToID = SalesOrder.CustomerShipToID " +
-"Inner Join Addresses t1a on t1a.AddressID = SalesOrder.CustomerShipToID " +
-"Inner Join Addresses t1b on t1b.AddressID = SalesOrder.AddressID " +
-"Inner Join Cities city on t1a.CityID = city.CityID and t1b.CityID = city.CityID " +
-"Inner join StateProv state on t1a.StateProvID = state.StateProvID and t1b.StateProvID = state.StateProvID " +
-"Inner Join Countries country on t1a.CountryID = country.CountryID and t1b.CountryID = country.CountryID "+
-"WHERE SalesOrderID = \'" + salesOrderID + "\'"
+    "SELECT DISTINCT SalesOrder.CustomerShipToID, CustomerShipTo.[Name] as CustomerName, t1a.AddressL1, t1a.AddressL2, t1a.AddressL3, t1a.AddressL4, " +
+    "t1b.AddressL1 as BackUpAdd1, t1b.AddressL2 as BackUpAdd2, t1b.AddressL3 as BackUpAdd3, t1b.AddressL4 as BackUpAdd4, " +
+    "city.[DescriptionShort] as City, state.[StateProvCode] as State, t1a.PostalCode, country.[DescriptionTiny] as Country " +
+    "From SalesOrder " +
+    "Inner Join CustomerShipTo on CustomerShipTo.CustomerShipToID = SalesOrder.CustomerShipToID " +
+    "Inner Join Addresses t1a on t1a.AddressID = SalesOrder.CustomerShipToID " +
+    "Inner Join Addresses t1b on t1b.AddressID = SalesOrder.AddressID " +
+    "Inner Join Cities city on t1a.CityID = city.CityID and t1b.CityID = city.CityID " +
+    "Inner join StateProv state on t1a.StateProvID = state.StateProvID and t1b.StateProvID = state.StateProvID " +
+    "Inner Join Countries country on t1a.CountryID = country.CountryID and t1b.CountryID = country.CountryID "+
+    "WHERE SalesOrderID = \'" + salesOrderID + "\'"
 );
             
             try
@@ -147,7 +148,7 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
                     try
                     {
                         if (shippingAddress.Rows[0]["AddressL1"] == null &&
-    shippingAddress.Rows[0]["City"] == null)
+                            shippingAddress.Rows[0]["City"] == null)
                         {
                             ShipToName.Text = shippingAddress.Rows[0]["CustomerName"].ToString();
                             ShipToStreet.Text = shippingAddress.Rows[0]["BackUpAdd1"].ToString();
@@ -186,22 +187,41 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
         DataView bomview;
 
 
-        private void itemNumbersForBOM(string lineItem)
+        private void itemNumbersForBOM()
         {
 
             LineItems.Items.Add("All");
 
             for( int i = 0; i < View.Count; i++ )
             {
-                LineItems.Items.Add((i+1)+" - "+
+                LineItems.Items.Add((i+1) + " - " +
                     Utility.useQuery(
-                        "Select a.[ItemNo] FROM Items a, SalesOrderDetails b WHERE a.ItemID = b.ItemID AND b.SalesOrderID = \'" + salesOrderID + "\'"
+                        "Select a.[ItemNo] FROM Items a, SalesOrderDetails b " +
+                        "WHERE a.ItemID = b.ItemID AND b.SalesOrderID = \'" + salesOrderID + "\'"
                     ).Rows[i]["ItemNo"].ToString());
                 
             }
 
             materialDetails();
 
+        }
+
+        private void materialDetails()
+        {
+            BoMData = Utility.useQuery(//"SELECT ItemSpecStruc.*, UOMs.[UOMCode]" +
+                "Select ItemSpecStruc.ItemSpecID, ItemSpecStruc.ItemSpecStrucID, ItemSpecStruc.[Name], ItemSpecStruc.ItemID, " +
+                "ItemSpecStruc.QtyRequired, UOMs.[UOMCode], " +
+                "ItemSpecStruc.TotalQty, ItemSpecStruc.WeightUOMID, " +
+                "ItemSpecStruc.StdCost " + // Last Column
+                "FROM SalesOrderDetails, ItemSpecStruc " +
+                "INNER JOIN UOMs on UOMs.UOMID = ItemSpecStruc.UOMID " +
+                //"and UOMs.UOMID = ItemSpecStruc.WeightUOMID " +
+                "Where ItemSpecStruc.UOMID is NOT NULL and SalesOrderDetails.ItemSpecID = ItemSpecStruc.ItemSpecID " +
+                "and SalesOrderDetails.SalesOrderID = \'" + salesOrderID + "\'"//and SalesOrderDetails.ItemSpecID = \'"
+                );
+
+
+            BoMData.Columns["StdCost"].ColumnName = "Calculated Cost";
         }
 
         private void laborDetails(string value)
@@ -224,23 +244,7 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
         }
 
-        private void materialDetails()
-        {
-            BoMData = Utility.useQuery(//"SELECT ItemSpecStruc.*, UOMs.[UOMCode]" +
-                "Select ItemSpecStruc.ItemSpecID, ItemSpecStruc.ItemSpecStrucID, ItemSpecStruc.[Name], ItemSpecStruc.ItemID, " +
-                "ItemSpecStruc.QtyRequired, UOMs.[UOMCode], " +
-                "ItemSpecStruc.TotalQty, ItemSpecStruc.WeightUOMID, " +
-                "ItemSpecStruc.StdCost " + // Last Column
-"FROM SalesOrderDetails, ItemSpecStruc " +
-"INNER JOIN UOMs on UOMs.UOMID = ItemSpecStruc.UOMID " +
-//"and UOMs.UOMID = ItemSpecStruc.WeightUOMID " +
-"Where ItemSpecStruc.UOMID is NOT NULL and SalesOrderDetails.ItemSpecID = ItemSpecStruc.ItemSpecID " +
-"and SalesOrderDetails.SalesOrderID = \'" + salesOrderID + "\'"//and SalesOrderDetails.ItemSpecID = \'"
-);
 
-
-            BoMData.Columns["StdCost"].ColumnName = "Calculated Cost";
-        }
 
 
         private void LineItems_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -52,7 +52,7 @@
                     <TextBlock x:Name="ShipToLine2" Text="Building A" HorizontalAlignment="Left" Margin="102,41,0,0" Grid.Row="1" VerticalAlignment="Top" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="2"/>
                     <TextBlock x:Name="ShipToLine3" Text="Suite Z" HorizontalAlignment="Left" Margin="102,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="256" Height="14" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="2"/>
 
-                    <Label x:Name="ShipingCity" Content="Shiping City" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="3,92,0,0" Grid.Column="2"/>
+                    <Label x:Name="ShippingCity" Content="Shiping City" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="3,92,0,0" Grid.Column="2"/>
                     <TextBlock x:Name="ShipToCity" Text="The City of Townsville" HorizontalAlignment="Left" Margin="102,92,0,0" Grid.Row="1" VerticalAlignment="Top" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="2"/>
 
                     <Label x:Name="ContactLabel" Content="Contact" HorizontalAlignment="Left" Grid.Column="3" Grid.Row="1" VerticalAlignment="Top" Padding="0" FontFamily="Lucida Sans" FontSize="11"/>
@@ -79,9 +79,6 @@
 
 
                 </Grid>
-            </TabItem>
-            <TabItem x:Name="Sales_Order_Details" Header="Sales Order" Margin="-2,-2,-2,-1">
-                <Grid Background="#FFE5E5E5"/>
             </TabItem>
             <TabItem x:Name="Customer_Info" Header="Bill of Materials">
                 <Grid>
