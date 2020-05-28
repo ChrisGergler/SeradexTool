@@ -204,6 +204,9 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
             materialDetails();
 
+            MaterialsGrid.Columns[0].Visibility = Visibility.Hidden;
+            MaterialsGrid.Columns[1].Visibility = Visibility.Hidden;
+
         }
 
         private void materialDetails()
@@ -266,7 +269,7 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
                 bomview.RowFilter = "ItemSpecID = " + debugNumbers;
             }
 
-  
+            VendorGrid.Columns[0].Visibility = Visibility.Hidden;
         }
 
         private void getItemSpecs()

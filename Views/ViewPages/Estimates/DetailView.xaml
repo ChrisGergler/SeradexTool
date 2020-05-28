@@ -55,9 +55,13 @@
                     <Label x:Name="ShippingCity" Content="Shiping City" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="3,92,0,0" Grid.Column="2"/>
                     <TextBlock x:Name="ShipToCity" Text="The City of Townsville" HorizontalAlignment="Left" Margin="102,92,0,0" Grid.Row="1" VerticalAlignment="Top" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="2"/>
 
+
+                    <!-- Additional informtaion -->
                     <Label x:Name="ContactLabel" Content="Contact" HorizontalAlignment="Left" Grid.Column="3" Grid.Row="1" VerticalAlignment="Top" Padding="0" FontFamily="Lucida Sans" FontSize="11"/>
                     <TextBlock x:Name="ContactName" Text="Contact Name Goes here" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="3" Grid.Row="1" Margin="0,13,0,0" FontFamily="Lucida Sans" FontSize="11"/>
 
+                    <Label x:Name="VantageLabel" Content="Vantage:" Grid.Column="3" Grid.Row="1" Padding="0" Margin="0,33,118,76"/>
+                    <TextBlock x:Name="VantageNumber" Text="No Number" Grid.Column="3" Grid.Row="1" Padding="0" Margin="61,33,0,76"/>
 
                     <!-- Product Information-->
                     <DataGrid x:Name="ItemsQuoted" Grid.Row="2" Margin="4,0,4,4" Grid.ColumnSpan="5" IsReadOnly="True" SelectionUnit="FullRow"/>

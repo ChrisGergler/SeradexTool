@@ -50,7 +50,9 @@ namespace SeradexToolv2.Views
 
             string getItemDetails = "SELECT a.ItemNo, * " +
                 "FROM EstimateDetails a " +
-                "WHERE a.EstimateID = \'" + estimateID +"\'";
+                "WHERE a.EstimateID = \'" + estimateID +"\' " //+
+//                "Order By EstimateDetails.LineNo"
+                ;
 
             Items = Utility.useQuery(getItemDetails);
             View = new DataView(Items);
@@ -163,7 +165,7 @@ namespace SeradexToolv2.Views
     "Inner join StateProv state on t1a.StateProvID = state.StateProvID and t1b.StateProvID = state.StateProvID " +
     "Inner Join Countries country on t1a.CountryID = country.CountryID and t1b.CountryID = country.CountryID " +
     "WHERE EstimateID = \'" + estimateID + "\'"
-    );
+                );
             /*
             shippingAddress.Columns[7].ColumnName = "City";
             shippingAddress.Columns[8].ColumnName = "State";
@@ -228,8 +230,8 @@ namespace SeradexToolv2.Views
             /////////////////////////////////////////////
             ///End of Displays
 
-            
-            
+
+            //VantageNumber.Text = EstimateKeys["CustRefNo"].ToString();
 
         }
 
