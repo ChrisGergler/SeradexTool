@@ -48,12 +48,12 @@
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShipToTextBox" Text="Shipping Name" HorizontalAlignment="Left" VerticalAlignment="Top" Width="87" Height="15" FontFamily="Lucida Sans" FontSize="10" Padding="0" Grid.Column="1" Grid.Row="1" Margin="3,0,0,0"/>
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShipToName" Text="Customer Name" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="102,0,0,0" VerticalAlignment="Top" Width="218" Height="15" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1" Grid.Row="1"/>
 
-                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShipToAddress" Text="Ship To Address" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="3,26,0,0" Grid.Column="1"/>
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShipToAddress" Text="Address" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="3,26,0,0" Grid.Column="1"/>
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShipToStreet" Text="123 Default Avenue" HorizontalAlignment="Left" Margin="102,26,0,0" Grid.Row="1" VerticalAlignment="Top" Width="218" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1"/>
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShipToLine2" Text="Building A" HorizontalAlignment="Left" Margin="102,41,0,0" Grid.Row="1" VerticalAlignment="Top" Width="223" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1"/>
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShipToLine3" Text="Suite Z" HorizontalAlignment="Left" Margin="102,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="223" Height="14" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1"/>
 
-                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShippingCity" Text="Shipping City" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="3,71,0,0" Grid.Column="1"/>
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShippingCity" Text="City" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="3,71,0,0" Grid.Column="1"/>
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShipToCity" Text="The City of Townsville" HorizontalAlignment="Left" Margin="102,71,0,0" Grid.Row="1" VerticalAlignment="Top" Width="218" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1"/>
 
 
@@ -72,20 +72,22 @@
                     <Button x:Name="Folder" Content="Open Folder" Grid.Column="3" Margin="20,0,30,0" VerticalAlignment="Center" Click="GoToFolder" ClickMode="Release" Height="20" MaxHeight="20" MaxWidth="96" MinHeight="20" MinWidth="82"/>
 
                     <!-- Math and/or Totals (if saved correctly)-->
-                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="GrandTotalTextBox" Text="Grand Total" Grid.Column="2" Grid.Row="3" Margin="6,48,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="61"/>
-                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="SubtotalTextBox" Text="Subtotal" Grid.Column="2" Grid.Row="3" Margin="6,27,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="44"/>
-                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="TaxTotalTextBox" Text="Tax Total" Grid.Column="2" Grid.Row="3" Margin="6,10,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="45"/>
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="GrandTotalTextBox" Text="Grand Total" Grid.Column="2" Grid.Row="3" Margin="0,54,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="76"/>
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="SubtotalTextBox" Text="Subtotal" Grid.Column="2" Grid.Row="3" Margin="0,27,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="76"/>
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="TaxTotalTextBox" Text="Tax Total" Grid.Column="2" Grid.Row="3" Margin="0,10,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="76"/>
 
-                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="GrandTotalDisplay" Text="$" Grid.Column="2" Grid.Row="3" Margin="81,48,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="6"/>
-                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="SubtotalDisplay" Text="$" Grid.Column="2" Grid.Row="3" Margin="81,27,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="6"/>
-                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="TaxTotalDisplay" Text="$" Grid.Column="2" Grid.Row="3" Margin="81,10,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="6"/>
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="GrandTotalDisplay" Text="$" Grid.Column="2" Grid.Row="3" Margin="81,54,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" />
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="SubtotalDisplay" Text="$" Grid.Column="2" Grid.Row="3" Margin="81,27,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" />
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="TaxTotalDisplay" Text="$" Grid.Column="2" Grid.Row="3" Margin="81,10,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" />
 
 
-                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="PaymentTermsTextBox" Text="Payment Terms" Grid.Column="3" Grid.Row="3" Margin="0,10,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="80"/>
-                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="PaymentTermsDisplay" Text="Payment Terms" Grid.Column="3" Grid.Row="3" Margin="0,27,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="80"/>
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="PaymentTermsTextBox" Text="Payment Terms" Grid.Column="3" Grid.Row="3" Margin="0,10,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" />
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="PaymentTermsDisplay" Text="Payment Terms" Grid.Column="3" Grid.Row="3" Margin="0,27,0,0" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" />
                     <Button x:Name="CopyDetails" Content="Copy Details" Grid.Column="3" Margin="20,0,30,0" VerticalAlignment="Top" Click="CopyDetails_Click" ClickMode="Release" Height="20" MaxHeight="20" MaxWidth="96" MinHeight="20" MinWidth="82" Grid.Row="1"/>
-                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShippingState" Text="Shipping State" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="14" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="3,85,0,0" Grid.Column="1"/>
-                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShipToState" Text="State" HorizontalAlignment="Left" Margin="102,86,0,0" Grid.Row="1" VerticalAlignment="Top" Width="218" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1"/>
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShippingState" Text="State" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="14" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="3,88,0,0" Grid.Column="1"/>
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShipToState" Text="State" HorizontalAlignment="Left" Margin="102,89,0,0" Grid.Row="1" VerticalAlignment="Top" Width="218" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1"/>
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShippingZip" Text="Zip Code" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="14" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="3,104,0,0" Grid.Column="1" TextChanged="ShippingState_Copy_TextChanged"/>
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShipToZip" Text="Zip" HorizontalAlignment="Left" Margin="102,105,0,0" Grid.Row="1" VerticalAlignment="Top" Width="218" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1"/>
                     <!--<ToolTip x:Name="CopyFunction"/> -->
 
 

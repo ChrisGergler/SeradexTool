@@ -44,7 +44,8 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
                 "SalesOrder.EntryDate, SalesOrder.DueDate, e.UserName, SalesOrder.TermsCodeID " +
                 "FROM SalesOrder " +
                 "Inner Join Customers c on SalesOrder.CustomerID = c.CustomerID " +
-                "Inner Join Addresses a on SalesOrder.AddressID = a.AddressID " +
+                "Inner join CustomerShipTo b on SalesOrder.CustomerShipToID = b.CustomerShipToID " +
+                "Inner Join Addresses a on b.AddressID = a.AddressID " +
                 "Inner Join Cities city on a.CityID = city.CityID " +
                 "Inner Join StateProv st on a.StateProvID = st.StateProvID " +
                 "Inner Join Estimate on Estimate.EstimateID = SalesOrder.EstimateID " +

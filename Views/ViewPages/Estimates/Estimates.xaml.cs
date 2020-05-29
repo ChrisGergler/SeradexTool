@@ -61,7 +61,8 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
                 "con.CellPhone " +
                 "FROM Estimate es " +
                 "INNER JOIN Customers c on es.CustomerID = c.CustomerID " +
-                "INNER JOIN Addresses a on es.AddressID = a.AddressID " +
+                "INNER JOIN CustomerShipTo ship on es.CustomerShipToID = ship.CustomerShipToID "+
+                "INNER JOIN Addresses a on ship.AddressID = a.AddressID " +
                 "INNER JOIN Cities city on a.CityID = city.CityID " +
                 "INNER JOIN StateProv st on a.StateProvID = st.StateProvID " +
                 "INNER JOIN SalesOrder so on es.EstimateID = so.EstimateID " +

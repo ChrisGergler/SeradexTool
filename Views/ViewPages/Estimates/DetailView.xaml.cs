@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Media3D;
 
 namespace SeradexToolv2.Views
 {
@@ -50,8 +49,8 @@ namespace SeradexToolv2.Views
 
             string getItemDetails = "SELECT a.ItemNo, * " +
                 "FROM EstimateDetails a " +
-                "WHERE a.EstimateID = \'" + estimateID +"\' " //+
-//                "Order By EstimateDetails.LineNo"
+                "WHERE a.EstimateID = \'" + estimateID + "\' " //+
+                                                               //                "Order By EstimateDetails.LineNo"
                 ;
 
             Items = Utility.useQuery(getItemDetails);
@@ -154,69 +153,36 @@ namespace SeradexToolv2.Views
 
 
             DataTable shippingAddress = Utility.useQuery(
-    "SELECT DISTINCT Estimate.CustomerShipToID, CustomerShipTo.[Name] as CustomerName, t1a.AddressL1, t1a.AddressL2, t1a.AddressL3, t1a.AddressL4, " +
-    "t1b.AddressL1 as BackUpAdd1, t1b.AddressL2 as BackUpAdd2, t1b.AddressL3 as BackUpAdd3, t1b.AddressL4 as BackUpAdd4, " +
-    "city.[DescriptionShort] as City, state.[StateProvCode] as State, t1a.PostalCode, country.[DescriptionTiny] as Country " +
-    "From Estimate " +
-    "Inner Join CustomerShipTo on CustomerShipTo.CustomerShipToID = Estimate.CustomerShipToID " +
-    "Inner Join Addresses t1a on t1a.AddressID = Estimate.CustomerShipToID " +
-    "Inner Join Addresses t1b on t1b.AddressID = Estimate.AddressID " +
-    "Inner Join Cities city on t1a.CityID = city.CityID and t1b.CityID = city.CityID " +
-    "Inner join StateProv state on t1a.StateProvID = state.StateProvID and t1b.StateProvID = state.StateProvID " +
-    "Inner Join Countries country on t1a.CountryID = country.CountryID and t1b.CountryID = country.CountryID " +
-    "WHERE EstimateID = \'" + estimateID + "\'"
-                );
-            /*
-            shippingAddress.Columns[7].ColumnName = "City";
-            shippingAddress.Columns[8].ColumnName = "State";
-            shippingAddress.Columns[9].ColumnName = "County";
-            */
+                "SELECT Estimate.EstimateID, Estimate.CustomerShipToID, ship.[Name] as [Customer Name], " +
+                "ship.AddressID, a.AddressL1, a.AddressL2, a.AddressL3, city.DescriptionShort as [City], st.StateProvCode as [State], " +
+                "ship.SalesRepID, a.PostalCode " +
+                "FROM Estimate " +
+                "INNER JOIN CustomerShipTo ship on ship.CustomerShipToID = Estimate.CustomerShipToID " +
+                "INNER JOIN Addresses a on ship.AddressID = a.AddressID " +
+                "INNER JOIN Cities city on a.CityID = city.CityID " +
+                "INNER JOIN StateProv st on a.StateProvID = st.StateProvID " +
+                "WHERE Estimate.EstimateID = \'" + estimateID + "\'");
 
-            try
-            {
-                string blah;
-                for (int x = 0; x < shippingAddress.Rows.Count; x++)
-                {
-                    blah = shippingAddress.Rows[x].ToString();
-                }
-
-                ShipToName.Text = shippingAddress.Rows[0]["CustomerName"].ToString();
-                ShipToStreet.Text = shippingAddress.Rows[0]["AddressL1"].ToString();
-                ShipToCity.Text = shippingAddress.Rows[0]["City"].ToString();
-                ShipToLine2.Text = shippingAddress.Rows[0]["AddressL2"].ToString();
-                ShipToLine3.Text = shippingAddress.Rows[0]["AddressL3"].ToString();
+            try {ShipToName.Text = shippingAddress.Rows[0]["Customer Name"].ToString(); }
+            catch (Exception) {ShipToStreet.Text = "No Address Listed"; };
+            try {ShipToStreet.Text = shippingAddress.Rows[0][4].ToString(); } 
+            catch (Exception) {ShipToAddress.Text = ""; }
+            try {ShipToCity.Text = shippingAddress.Rows[0]["City"].ToString(); } 
+            catch (Exception) {ShippingCity.Text = ""; }
+            try {ShipToLine2.Text = shippingAddress.Rows[0]["AddressL2"].ToString(); } 
+            catch (Exception) { ShipToLine2.Text = ""; }
+            try {ShipToLine3.Text = shippingAddress.Rows[0]["AddressL3"].ToString(); } 
+            catch (Exception) {ShipToLine3.Text = ""; }
+            try {ShipToState.Text = shippingAddress.Rows[0]["State"].ToString(); } 
+            catch (Exception) {ShipToCity.Text = ""; }
+            try { ShipToZip.Text = shippingAddress.Rows[0]["PostalCode"].ToString(); }
+            catch (Exception) { ShipToCity.Text = ""; }
 
 
-            }
-            catch (Exception)
-            {
 
 
-                {
-                    try
-                    {
-                        if (shippingAddress.Rows[0]["AddressL1"] == null &&
-                            shippingAddress.Rows[0]["City"] == null)
-                        {
-                            ShipToName.Text = shippingAddress.Rows[0]["CustomerName"].ToString();
-                            ShipToStreet.Text = shippingAddress.Rows[0]["BackUpAdd1"].ToString();
-                            ShipToCity.Text = shippingAddress.Rows[0]["City"].ToString();
-                            ShipToLine2.Text = shippingAddress.Rows[0]["BackUpAdd2"].ToString();
-                            ShipToLine3.Text = shippingAddress.Rows[0]["BackUpAdd3"].ToString();
-                        }
-                    }
-                    catch (Exception)
-                    {
 
-                    }
-                }
 
-                ShipToStreet.Text = "No Address Listed";
-                ShipToAddress.Text = "";
-                ShippingCity.Text = "";
-                ShipToLine2.Text = "";
-                ShipToLine3.Text = "";
-            }
 
 
             double subtotal = Math.Round(Convert.ToDouble(EstimateKeys["SubTotal"]), 2);
@@ -256,18 +222,18 @@ namespace SeradexToolv2.Views
 
 
 
-          
-            for( int i = 0; i < View.Count; i++ )
+
+            for (int i = 0; i < View.Count; i++)
             {
 
-                    LineItems.Items.Add((i + 1) + " - " +
-                        Utility.useQuery(
-                            "Select b.[ItemNo] FROM EstimateDetails b " +
-                            "WHERE b.EstimateID = \'" + estimateID + "\'"
-                        ).Rows[i]["ItemNo"].ToString());
+                LineItems.Items.Add((i + 1) + " - " +
+                    Utility.useQuery(
+                        "Select b.[ItemNo] FROM EstimateDetails b " +
+                        "WHERE b.EstimateID = \'" + estimateID + "\'"
+                    ).Rows[i]["ItemNo"].ToString());
 
             }
-            
+
             materialDetails();
         }
 
@@ -298,7 +264,7 @@ namespace SeradexToolv2.Views
 
 
             MaterialsGrid.ItemsSource = bomview;
-            if(lineNumber == 0)
+            if (lineNumber == 0)
             {
             }
             else
@@ -340,7 +306,7 @@ namespace SeradexToolv2.Views
             VendorGrid.ItemsSource = laborView;
             string info = "";
             int y;
-            if(MaterialsGrid.SelectedIndex < 1) { y = 1; }
+            if (MaterialsGrid.SelectedIndex < 1) { y = 1; }
             else { y = MaterialsGrid.SelectedIndex; }
 
             try { info = bomview[y]["ItemSpecID"].ToString(); }
@@ -362,29 +328,42 @@ namespace SeradexToolv2.Views
             Clipboard.SetText(
 
                 // ES and SO numbers
-                "EstimateNumber: "+EstimatesTitle.Text + " ("+SalesOrderNumber.Text+")"
-                +"\n" +
+                "EstimateNumber: " + EstimatesTitle.Text + " (" + SalesOrderNumber.Text + ")"
+                + "\n" +
                 // Customer Name
-                CustomerTextBox.Text+": "+CustomerName.Text +"\n"+
+                CustomerTextBox.Text + ": " + CustomerName.Text + "\n" +
                 "\n" +
 
                 // Billing Info Copied
-                BillingAddress.Text+": "+BillToStreet.Text + "\n"+
+                BillingAddress.Text + ": " + BillToStreet.Text + "\n" +
                 BillToLine2.Text + "\n" +
                 BillToLine3.Text + "\n" +
                 BillingCity.Text + ": " + BillToCity.Text + "\n" +
                 "\n" +
+                // Add State
+                // Add Country
+
 
                 // Shipping Info Copied
                 ShipToTextBox.Text + ShipToName.Text + "\n" +
-                ShipToAddress.Text +": "+ ShipToStreet.Text + "\n" +
+                ShipToAddress.Text + ": " + ShipToStreet.Text + "\n" +
                 ShipToLine2.Text + "\n" +
                 ShipToLine3.Text + "\n" +
-                ShippingCity.Text+": "+ShipToCity.Text + "\n" 
+                ShippingCity.Text + ": " + ShipToCity.Text + "\n"
+                //Add Country
 
-
+                // Contact Info
+                //Add Contact Name
+                //Add Contact Email
+                //Add Contact Phone
+                //Add Contact cell no
 
                 );
+        }
+
+        private void ShippingState_Copy_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
