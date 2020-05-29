@@ -48,9 +48,17 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             // hardcoded Queries locked behind the load event to prevent mistaken queries.
-            string estimateString = "SELECT es.EstimateID, es.EstimateNo, so.SalesOrderNo, es.CustRefNo, c.[Name] as [Customer Name]," +
-                "city.DescriptionShort as [City name], st.StateProvCode as [State], es.SubTotal, es.TotalTaxes, " +
-                "es.EntryDate, es.DueDate, e.UserName, es.TermsCodeID " +
+            string estimateString = "SELECT " +
+                "es.EstimateID, es.EstimateNo, so.SalesOrderNo, es.CustRefNo, " +
+
+                "c.[Name] as [Customer Name], " +
+                "con.[Name] as [Contact Name], " +
+                "con.[Phone], con.email, " +
+                
+                "city.DescriptionShort as [City name], st.StateProvCode as [State], " +
+                "es.SubTotal, es.TotalTaxes, " +
+                "es.EntryDate, es.DueDate, e.UserName, es.TermsCodeID, " +
+                "con.CellPhone " +
                 "FROM Estimate es " +
                 "INNER JOIN Customers c on es.CustomerID = c.CustomerID " +
                 "INNER JOIN Addresses a on es.AddressID = a.AddressID " +
@@ -58,7 +66,8 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
                 "INNER JOIN StateProv st on a.StateProvID = st.StateProvID " +
                 "INNER JOIN SalesOrder so on es.EstimateID = so.EstimateID " +
                 "INNER JOIN SalesReps sr on es.SalesRepID = sr.SalesRepID " +
-                "INNER JOIN Employees e on sr.EmployeeID = e.EmployeeID;";
+                "INNER JOIN Employees e on sr.EmployeeID = e.EmployeeID " +
+                "INNER JOIN Contacts con on es.ContactID = con.ContactID;";
     
     //"WHERE e.CustomerID = c.CustomerID";
 
@@ -74,6 +83,7 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
             //EstimateResults.Columns[0].Visibility = Visibility.Hidden;
 
             EstimateResults.Columns[0].Visibility = Visibility.Hidden;
+            EstimateResults.Columns[14].Visibility = Visibility.Hidden;
         }
 
         string searchString;

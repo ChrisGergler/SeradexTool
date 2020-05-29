@@ -81,7 +81,7 @@ namespace SeradexToolv2.Views
 
         private void OpenSalesorder(object sender, MouseButtonEventArgs e)
         {
-            if (SalesOrderNumber.Content.ToString() != "No Sales Number Available")
+            if (SalesOrderNumber.Text.ToString() != "No Sales Number Available")
             {
                 MessageBox.Show("This should launch the Sales order Window.");
             }
@@ -97,13 +97,13 @@ namespace SeradexToolv2.Views
             // DataTable Customer = Utility.useQuery("SELECT [Name] FROM Customers WHERE Customers.CustomerID = " + EstimateKeys["CustomerID"]);
 
             //Header
-            EstimatesTitle.Content = EstimateKeys["EstimateNo"].ToString();
+            EstimatesTitle.Text = EstimateKeys["EstimateNo"].ToString();
 
 
-            try { SalesOrderNumber.Content = "Sales Order: " + Utility.useQuery("SELECT a.SalesOrderNo FROM SalesOrder a WHERE a.EstimateID = \'" + estimateID + "\'").Rows[0][0].ToString(); }
+            try { SalesOrderNumber.Text = "Sales Order: " + Utility.useQuery("SELECT a.SalesOrderNo FROM SalesOrder a WHERE a.EstimateID = \'" + estimateID + "\'").Rows[0][0].ToString(); }
             catch (Exception)
             {
-                SalesOrderNumber.Content = "No Sales Number Available";
+                SalesOrderNumber.Text = "No Sales Number Available";
             };
 
 
@@ -143,8 +143,8 @@ namespace SeradexToolv2.Views
             catch (Exception)
             {
                 BillToStreet.Text = "No Address Listed";
-                BillingAddress.Content = "";
-                BillingCity.Content = "";
+                BillingAddress.Text = "";
+                BillingCity.Text = "";
                 BillToLine2.Text = "";
                 BillToLine3.Text = "";
             }
@@ -212,8 +212,8 @@ namespace SeradexToolv2.Views
                 }
 
                 ShipToStreet.Text = "No Address Listed";
-                ShipToAddress.Content = "";
-                ShippingCity.Content = "";
+                ShipToAddress.Text = "";
+                ShippingCity.Text = "";
                 ShipToLine2.Text = "";
                 ShipToLine3.Text = "";
             }
@@ -222,16 +222,20 @@ namespace SeradexToolv2.Views
             double subtotal = Math.Round(Convert.ToDouble(EstimateKeys["SubTotal"]), 2);
             double taxtotal = Math.Round(Convert.ToDouble(EstimateKeys["TotalTaxes"]), 2);
 
-            SubtotalDisplay.Content = "$" + subtotal.ToString();
-            TaxTotalDisplay.Content = "$" + taxtotal.ToString();
-            GrandTotalDisplay.Content = GrandTotalDisplay.Content + Convert.ToString(Math.Round(subtotal + taxtotal, 2));
+            SubtotalDisplay.Text = "$" + subtotal.ToString();
+            TaxTotalDisplay.Text = "$" + taxtotal.ToString();
+            GrandTotalDisplay.Text = GrandTotalDisplay.Text + Convert.ToString(Math.Round(subtotal + taxtotal, 2));
 
-            PaymentTermsDisplay.Content = Utility.useQuery("SELECT a.TermsCode FROM TermsCodes a WHERE a.TermsCodeID = " + EstimateKeys["TermsCodeID"]).Rows[0][0].ToString();
+            PaymentTermsDisplay.Text = Utility.useQuery("SELECT a.TermsCode FROM TermsCodes a WHERE a.TermsCodeID = " + EstimateKeys["TermsCodeID"]).Rows[0][0].ToString();
             /////////////////////////////////////////////
             ///End of Displays
 
             string debugstring = EstimateKeys["CustRefNo"].ToString();
 
+            ContactName.Text = EstimateKeys["Contact Name"].ToString();
+            ContactEmail.Text = EstimateKeys["email"].ToString();
+
+            //Contact Cell Phone (If available)
             VantageNumber.Text = debugstring;
 
         }
@@ -353,7 +357,34 @@ namespace SeradexToolv2.Views
             catch { }
         }
 
-       
+        private void CopyDetails_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(
 
+                // ES and SO numbers
+                "EstimateNumber: "+EstimatesTitle.Text + " ("+SalesOrderNumber.Text+")"
+                +"\n" +
+                // Customer Name
+                CustomerTextBox.Text+": "+CustomerName.Text +"\n"+
+                "\n" +
+
+                // Billing Info Copied
+                BillingAddress.Text+": "+BillToStreet.Text + "\n"+
+                BillToLine2.Text + "\n" +
+                BillToLine3.Text + "\n" +
+                BillingCity.Text + ": " + BillToCity.Text + "\n" +
+                "\n" +
+
+                // Shipping Info Copied
+                ShipToTextBox.Text + ShipToName.Text + "\n" +
+                ShipToAddress.Text +": "+ ShipToStreet.Text + "\n" +
+                ShipToLine2.Text + "\n" +
+                ShipToLine3.Text + "\n" +
+                ShippingCity.Text+": "+ShipToCity.Text + "\n" 
+
+
+
+                );
+        }
     }
 }
