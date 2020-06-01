@@ -39,8 +39,12 @@
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="BillToLine2" Text="Building A" HorizontalAlignment="Left" Margin="92,44,0,0" Grid.Row="1" VerticalAlignment="Top" Width="256" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="0" Grid.ColumnSpan="2"/>
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="BillToLine3" Text="Suite Z" HorizontalAlignment="Left" Margin="92,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="256" Height="14" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="0" Grid.ColumnSpan="2"/>
 
-                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="BillingCity" Text="Billing City" Grid.Row="1" VerticalAlignment="Top" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="0,72,65,0" Grid.Column="0"/>
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="BillingCity" Text="Billing City" Grid.Row="1" VerticalAlignment="Top" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="0,72,225,0" Grid.Column="0"/>
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="BillToCity" Text="The City of Townsville" HorizontalAlignment="Left" Margin="92,72,0,0" Grid.Row="1" VerticalAlignment="Top" Width="220" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="0"/>
+
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="BillToState" Text="State" HorizontalAlignment="Left" Margin="92,88,0,0" Grid.Row="1" VerticalAlignment="Top" Width="220" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="0"/>
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="BillingZip" Text="Zip" Grid.Row="1" VerticalAlignment="Top" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="0,104,225,0" Grid.Column="0"/>
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="BillToZip" Text="Zip" HorizontalAlignment="Left" Margin="92,104,0,0" Grid.Row="1" VerticalAlignment="Top" Width="220" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="0"/>
 
 
                     <!-- Shipping Address Information -->
@@ -61,8 +65,8 @@
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ContactTextBox" Text="Contact" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Padding="0" FontFamily="Lucida Sans" FontSize="11" Height="13" Width="56"/>
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ContactName" Text="Contact Name Goes here" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="1" Margin="61,0,0,0" FontFamily="Lucida Sans" FontSize="11" Height="13" Width="234"/>
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ContactEmail" Text="contact@email.com" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="1" Margin="0,18,0,0" FontFamily="Lucida Sans" FontSize="11" Height="13" Width="294"/>
-
-
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ContactPhone" Text="203-203-2032" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="1" Margin="0,33,0,0" FontFamily="Lucida Sans" FontSize="11" Height="13" Width="294"/>
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ContactCell" Text="860-860-8608" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="1" Margin="1,48,0,0" FontFamily="Lucida Sans" FontSize="11" Height="13" Width="294"/>
 
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="VantageTextBox" Text="Vantage:" Grid.Column="2" Grid.Row="1" Padding="0" Margin="0,92,118,17"/>
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="VantageNumber" Text="No Number" Grid.Column="2" Grid.Row="1" Padding="0" Margin="61,92,0,17"/>
@@ -88,6 +92,8 @@
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShipToState" Text="State" HorizontalAlignment="Left" Margin="102,89,0,0" Grid.Row="1" VerticalAlignment="Top" Width="218" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1"/>
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShippingZip" Text="Zip Code" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="87" Height="14" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="3,104,0,0" Grid.Column="1" TextChanged="ShippingState_Copy_TextChanged"/>
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="ShipToZip" Text="Zip" HorizontalAlignment="Left" Margin="102,105,0,0" Grid.Row="1" VerticalAlignment="Top" Width="218" Height="13" FontSize="10" FontFamily="Lucida Sans" Padding="0" Grid.Column="1"/>
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="BillingState" Text="State" Grid.Row="1" VerticalAlignment="Top" Height="13" FontFamily="Lucida Sans" FontSize="10" Padding="0" Margin="0,88,225,0" Grid.Column="0"/>
+
                     <!--<ToolTip x:Name="CopyFunction"/> -->
 
 
@@ -133,11 +139,11 @@
                         <!-- 10 -->
                     </Grid.RowDefinitions>
 
-                    <TextBox  IsReadOnly="True" BorderThickness="0" Grid.ColumnSpan="2" Text="Line Number" HorizontalAlignment="Center" MinWidth="72px"/>
-                    <ComboBox x:Name="LineItems" Grid.Column="1" Grid.ColumnSpan="3" Margin="4,4,4,4" SelectionChanged="LineItems_SelectionChanged">
+                    <TextBox  IsReadOnly="True" BorderThickness="0" Grid.ColumnSpan="2" Text="Line Number" Padding="0" HorizontalAlignment="Left" MinWidth="72px" Margin="44,8,0,9"/>
+                    <ComboBox x:Name="LineItems" Grid.Column="2" Grid.ColumnSpan="3" Margin="4,4,4,4" SelectionChanged="LineItems_SelectionChanged">
                         <!-- List out the line items here, easy switch of info below -->
                     </ComboBox>
-                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="Vendors" Text="Vendor" Grid.Row="6" Grid.Column="0" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold"/>
+                    <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="Vendors" Text="Details" Grid.Row="6" Grid.Column="0" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold"/>
                     <DataGrid x:Name="VendorGrid" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="13" Grid.RowSpan="3" Margin="4px" />
 
                     <TextBox  IsReadOnly="True" BorderThickness="0" Text="Materials" Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom" FontSize="16" FontWeight="Bold"/>

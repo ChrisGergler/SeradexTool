@@ -57,16 +57,17 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
         private void fillInfo()
         {
-            SalesOrderTitle.Content = SalesOrderKeys["SalesOrderNo"].ToString();
+            SalesOrderTitle.Text = SalesOrderKeys["SalesOrderNo"].ToString();
 
             // Builds an awkward Query to get an Estimate Number to display
-            EstimateNumber.Content = Utility.useQuery("SELECT es.EstimateNo FROM Estimate es, SalesOrder so WHERE so.SalesOrderID = "
+            EstimateNumber.Text = Utility.useQuery("SELECT es.EstimateNo FROM Estimate es, SalesOrder so WHERE so.SalesOrderID = "
                 + SalesOrderKeys["SalesOrderID"].ToString() + " AND so.EstimateID = es. EstimateID").Rows[0]["EstimateNo"].ToString();
 
             CustomerName.Text =
                Convert.ToString(Utility.useQuery("SELECT a.[Name] FROM Customers a, SalesOrder b " +
                "WHERE b.CustomerID = a.CustomerID AND b.SalesOrderID = " + salesOrderID).Rows[0]["Name"]);
 
+            //Customer Billing Information
             DataTable billingAddress = Utility.useQuery(
                 "SELECT DISTINCT so.SalesOrderNo, t1.CustomerBillToID, t1.CustomerID, t1.[Name], " +
                 "t2.AddressL1, t2.AddressL2, t2.AddressL3, t3.DescriptionShort, t4.DescriptionShort, t5.DescriptionTiny, t2.PostalCode " +
@@ -81,7 +82,6 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
             billingAddress.Columns[7].ColumnName = "City";
             billingAddress.Columns[8].ColumnName = "State";
             billingAddress.Columns[9].ColumnName = "County";
-            //Customer Billing
 
             try
             {
@@ -95,12 +95,13 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
             catch (Exception)
             {
                 BillToStreet.Text = "No Address Listed";
-                BillingAddress.Content = "";
-                BillingCity.Content = "";
+                BillingAddress.Text = "";
+                BillingCity.Text = "";
                 BillToLine2.Text = "";
                 BillToLine3.Text = "";
             }
 
+            // Shipping Information
             DataTable shippingAddress = Utility.useQuery(
                 "SELECT SalesOrder.SalesOrderID, SalesOrder.CustomerShipToID, ship.[Name] as [Customer Name], " +
                 "ship.AddressID, a.AddressL1, a.AddressL2, a.AddressL3, city.DescriptionShort as [City], st.StateProvCode as [State], " +
@@ -112,49 +113,46 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
                 "INNER JOIN StateProv st on a.StateProvID = st.StateProvID " +
                 "WHERE SalesOrder.SalesOrderID = \'" + salesOrderID + "\'"
                 );
-
             try {ShipToName.Text = shippingAddress.Rows[0]["CustomerName"].ToString(); } 
             catch (Exception) 
                     {
                         ShipToName.Text = "";
-                        ShipToAddress.Content = ""
+                        ShipToAddress.Text = ""
                     ;}
             try {ShipToStreet.Text = shippingAddress.Rows[0]["AddressL1"].ToString(); }
             catch (Exception) {ShipToStreet.Text = "No Address Listed"; }
             try {ShipToLine2.Text = shippingAddress.Rows[0]["AddressL2"].ToString(); }
-            catch (Exception) { }
+            catch (Exception) { ShipToLine2.Text = ""; }
             try {ShipToLine3.Text = shippingAddress.Rows[0]["AddressL3"].ToString(); }
-            catch (Exception) {}
+            catch (Exception) { ShipToLine3.Text = ""; }
             try { ShipToCity.Text = shippingAddress.Rows[0]["City"].ToString(); }
-            catch (Exception) {ShippingCity.Content = "";  }
+            catch (Exception) {ShippingCity.Text = "";  }
             try { ShipToState.Text = shippingAddress.Rows[0]["State"].ToString(); }
-            catch (Exception) { }
+            catch (Exception) { ShipToState.Text = ""; }
             try { ShipToZip.Text = shippingAddress.Rows[0]["PostalCode"].ToString(); }
-            catch (Exception) { }
+            catch (Exception) { ShipToZip.Text = ""; }
 
 
 
-        
-
-
-                
-                
-                
-                ShipToLine2.Text = "";
-                ShipToLine3.Text = "";
-
+            // Costs
             double subtotal = Math.Round(Convert.ToDouble(SalesOrderKeys["SubTotal"]), 2);
             double taxtotal = Math.Round(Convert.ToDouble(SalesOrderKeys["TotalTaxes"]), 2);
 
-            SubtotalDisplay.Content = "$" + subtotal.ToString();
-            TaxTotalDisplay.Content = "$" + taxtotal.ToString();
-            GrandTotalDisplay.Content = GrandTotalDisplay.Content + Convert.ToString(Math.Round(subtotal + taxtotal, 2));
+            SubtotalDisplay.Text = "$" + subtotal.ToString();
+            TaxTotalDisplay.Text = "$" + taxtotal.ToString();
+            GrandTotalDisplay.Text = GrandTotalDisplay.Text + Convert.ToString(Math.Round(subtotal + taxtotal, 2));
 
-            PaymentTermsDisplay.Content = Utility.useQuery("SELECT a.TermsCode FROM TermsCodes a WHERE a.TermsCodeID = " + SalesOrderKeys["TermsCodeID"]).Rows[0][0].ToString();
+            PaymentTermsDisplay.Text = Utility.useQuery("SELECT a.TermsCode FROM TermsCodes a WHERE a.TermsCodeID = " + SalesOrderKeys["TermsCodeID"]).Rows[0][0].ToString();
 
-            ContactName.Text = SalesOrderKeys["Contact Name"].ToString();
-            VantageNo.Content = SalesOrderKeys["CustRefNo"].ToString();
+            //Contact Information
+            try { ContactName.Text = SalesOrderKeys["Contact Name"].ToString(); }
+            catch { ContactName.Text = ""; }
+            try { ContactPhone.Text = SalesOrderKeys["Phone"].ToString(); }
+            catch { ContactPhone.Text = ""; }
+            try { ContactCell.Text = SalesOrderKeys["Cell"].ToString(); }
+            catch { ContactCell.Text = ""; }
 
+            VantageNo.Text = SalesOrderKeys["CustRefNo"].ToString();
 
         }
         /// <summary>

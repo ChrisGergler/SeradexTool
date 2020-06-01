@@ -115,7 +115,7 @@ namespace SeradexToolv2.Views
 
             DataTable billingAddress = Utility.useQuery(
                 "SELECT DISTINCT e.EstimateNo, t1.CustomerBillToID, t1.CustomerID, t1.[Name], t2.AddressL1, " +
-                "t2.AddressL2, t2.AddressL3, t3.DescriptionShort, t4.DescriptionShort, " +
+                "t2.AddressL2, t2.AddressL3, t3.DescriptionShort as [City], t4.StateProvCode as [State], " +
                 "t5.DescriptionTiny, t2.PostalCode " +
                 "FROM CustomerBillTo t1 " +
                 "INNER JOIN Addresses t2 ON t1.AddressID = t2.AddressID " +
@@ -125,28 +125,23 @@ namespace SeradexToolv2.Views
                 "INNER JOIN Estimate e on e.CustomerID = t1.CustomerID " +
                 "WHERE e.EstimateID = \'" + estimateID + "\'"
                 );
-            billingAddress.Columns[7].ColumnName = "City";
-            billingAddress.Columns[8].ColumnName = "State";
-            billingAddress.Columns[9].ColumnName = "County";
+
             //Customer Billing
 
-            try
-            {
-                BillToStreet.Text = billingAddress.Rows[0]["AddressL1"].ToString();
-                BillToCity.Text = billingAddress.Rows[0]["City"].ToString();
-                BillToLine2.Text = billingAddress.Rows[0]["AddressL2"].ToString();
-                BillToLine3.Text = billingAddress.Rows[0]["AddressL3"].ToString();
+            try {BillToStreet.Text = billingAddress.Rows[0]["AddressL1"].ToString(); } 
+            catch (Exception) {BillToStreet.Text = "No Address Listed";
+                BillingAddress.Text = "";}
+            try {BillToLine2.Text = billingAddress.Rows[0]["AddressL2"].ToString(); } 
+            catch (Exception) {BillToLine2.Text = "";; }
+            try {BillToLine3.Text = billingAddress.Rows[0]["AddressL3"].ToString(); } 
+            catch (Exception) {BillToLine3.Text = ""; }
+            try {BillToCity.Text = billingAddress.Rows[0]["City"].ToString(); } 
+            catch (Exception) {BillingCity.Text = ""; }
+            try { BillToState.Text = billingAddress.Rows[0]["State"].ToString(); }
+            catch (Exception) { BillToState.Text = ""; }
+            try { BillToZip.Text = billingAddress.Rows[0]["PostalCode"].ToString(); } 
+            catch (Exception) { BillToState.Text = ""; }
 
-
-            }
-            catch (Exception)
-            {
-                BillToStreet.Text = "No Address Listed";
-                BillingAddress.Text = "";
-                BillingCity.Text = "";
-                BillToLine2.Text = "";
-                BillToLine3.Text = "";
-            }
             // Billing City
             // Billing Country
             // Billing Zip
@@ -193,16 +188,20 @@ namespace SeradexToolv2.Views
             GrandTotalDisplay.Text = GrandTotalDisplay.Text + Convert.ToString(Math.Round(subtotal + taxtotal, 2));
 
             PaymentTermsDisplay.Text = Utility.useQuery("SELECT a.TermsCode FROM TermsCodes a WHERE a.TermsCodeID = " + EstimateKeys["TermsCodeID"]).Rows[0][0].ToString();
-            /////////////////////////////////////////////
-            ///End of Displays
+ 
 
-            string debugstring = EstimateKeys["CustRefNo"].ToString();
+            try { ContactName.Text = EstimateKeys["Contact Name"].ToString(); }
+            catch { ContactName.Text = ""; }
+            try { ContactEmail.Text = EstimateKeys["email"].ToString(); }
+            catch { ContactEmail.Text = ""; }
+            try { ContactPhone.Text = EstimateKeys["Phone"].ToString(); }
+            catch { ContactPhone.Text = ""; }
+            try { ContactCell.Text = EstimateKeys["Cell"].ToString(); }
+            catch { ContactCell.Text = ""; }
 
-            ContactName.Text = EstimateKeys["Contact Name"].ToString();
-            ContactEmail.Text = EstimateKeys["email"].ToString();
 
-            //Contact Cell Phone (If available)
-            VantageNumber.Text = debugstring;
+            try { VantageNumber.Text = EstimateKeys["CustRefNo"].ToString(); }
+            catch { VantageNumber.Text = ""; }
 
         }
         /// <summary>
@@ -212,6 +211,9 @@ namespace SeradexToolv2.Views
         /// 
         /// ////////////////////////////////////////////////////////////////////////
         /// </summary>
+
+
+
         DataTable BoMData = new DataTable("BillOfMaterials");
         DataTable OpsData = new DataTable("Operations");
         DataView bomview;
@@ -335,11 +337,13 @@ namespace SeradexToolv2.Views
                 "\n" +
 
                 // Billing Info Copied
-                BillingAddress.Text + ": " + BillToStreet.Text + "\n" +
+                "Billing Address Information\n" + BillToStreet.Text + "\n" +
                 BillToLine2.Text + "\n" +
                 BillToLine3.Text + "\n" +
-                BillingCity.Text + ": " + BillToCity.Text + "\n" +
-                "\n" +
+                BillToCity.Text + "\n" +
+                BillToState.Text + "\n" +
+               // BillToCountry.Text + "\n" +
+                BillToZip.Text + "\n"+
                 // Add State
                 // Add Country
 
@@ -349,7 +353,9 @@ namespace SeradexToolv2.Views
                 ShipToAddress.Text + ": " + ShipToStreet.Text + "\n" +
                 ShipToLine2.Text + "\n" +
                 ShipToLine3.Text + "\n" +
-                ShippingCity.Text + ": " + ShipToCity.Text + "\n"
+                ShipToCity.Text + ": " + ShipToCity.Text + "\n" +
+                ShipToState.Text + "\n" //+
+                //ShipToCountry.Text 
                 //Add Country
 
                 // Contact Info
