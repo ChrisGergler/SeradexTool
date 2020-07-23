@@ -38,23 +38,25 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            string fillString = "SELECT SalesOrder.SalesOrderID, SalesOrderNo, Estimate.EstimateNo, c.[Name] as [Customer Name]," +
-                " city.DescriptionShort as [City Name], st.StateProvCode as [State], SalesOrder.SubTotal, SalesOrder.TotalTaxes, " +
-                "SalesOrder.EntryDate, SalesOrder.DueDate, e.UserName " +
-                " FROM SalesOrder " +
-"Inner Join Customers c on SalesOrder.CustomerID = c.CustomerID " +
-"Inner Join Addresses a on SalesOrder.AddressID = a.AddressID " +
-"Inner Join Cities city on a.CityID = city.CityID " +
-"Inner Join StateProv st on a.StateProvID = st.StateProvID " +
-"Inner Join Estimate on Estimate.EstimateID = SalesOrder.EstimateID " +
-"Inner Join SalesReps sr on SalesOrder.SalesRepID = sr.SalesRepID " +
-"Inner Join Employees e on sr.EmployeeID = e.EmployeeID;";
+            string fillString = "SELECT SalesOrder.SalesOrderID, SalesOrderNo, Estimate.EstimateNo, " +
+                "SalesOrder.CustRefNo, c.[Name] as [Customer Name], con.[Name] as [Contact Name], " +
+                "city.DescriptionShort as [City Name], st.StateProvCode as [State], SalesOrder.SubTotal, SalesOrder.TotalTaxes, " +
+                "SalesOrder.EntryDate, SalesOrder.DueDate, e.UserName, SalesOrder.TermsCodeID " +
+                "FROM SalesOrder " +
+                "Inner Join Customers c on SalesOrder.CustomerID = c.CustomerID " +
+                "Inner join CustomerShipTo b on SalesOrder.CustomerShipToID = b.CustomerShipToID " +
+                "Inner Join Addresses a on b.AddressID = a.AddressID " +
+                "Inner Join Cities city on a.CityID = city.CityID " +
+                "Inner Join StateProv st on a.StateProvID = st.StateProvID " +
+                "Inner Join Estimate on Estimate.EstimateID = SalesOrder.EstimateID " +
+                "Inner Join SalesReps sr on SalesOrder.SalesRepID = sr.SalesRepID " +
+                "Inner Join Employees e on sr.EmployeeID = e.EmployeeID " +
+                "Inner Join Contacts con on SalesOrder.ContactID = con.ContactID;";
 
 
 
             //Data = Utility.populateEstimatesTable();
             Data = Utility.useQuery(fillString);
-
             View = new DataView(Data);
             SalesOrderGrid.ItemsSource = View;
             SalesOrderGrid.Columns[0].Visibility = Visibility.Hidden;
@@ -74,15 +76,11 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
                     break;
 
                 case 2:
-
                     searchString = "[EstimateNo] LIKE \'*" + SearchBox.Text + "*\'";
-                    // More search options
                     break;
 
                 case 3:
-
                     searchString = "[City Name] LIKE \'*" + SearchBox.Text + "*\'";
-                    // More search options
                     break;
             }
 
@@ -92,7 +90,6 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
         private void GridDoubleClick(object sender, RoutedEventArgs e)
         {
             findCell("SalesOrderID", View, SalesOrderGrid);
-
         }
 
         private void findCell(string s, DataView v, DataGrid g)
