@@ -74,15 +74,13 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
 
             if (loaded == false)
             { 
-            //Data = Utility.populateEstimatesTable();
             Data = Utility.useQuery(estimateString);
             View = new DataView(Data);
-            EstimateResults.ItemsSource = View; 
-            loaded = true;
+            EstimateResults.ItemsSource = View; //Push view to our XAML Datagrid
+                loaded = true; //Prevents multiple loads of same data.
             }
 
-            //EstimateResults.Columns[0].Visibility = Visibility.Hidden;
-
+            // Results exist but are for debugging the query
             EstimateResults.Columns[0].Visibility = Visibility.Hidden;
             EstimateResults.Columns[14].Visibility = Visibility.Hidden;
         }
