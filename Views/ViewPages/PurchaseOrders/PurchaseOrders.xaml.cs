@@ -25,7 +25,7 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
     {
 
         Toolkit Utility = new Toolkit();                // Access to useful functions and query builders for security
-        string searchString;                            // Used to pass from UI to Encapsulated functions safely
+        
         bool loaded;                                    // Prevents loading PO list from DB multiple times on a single open
 
         // Create the table and view here, assign it on load, and leave it public to filter and adjust. NEVER PASS THIS BACK TO DB.
@@ -39,13 +39,6 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
 
         // Page Loaded - Make initial query for Purchase Orders
 
-        private void oSearchFor_KeyUp(object sender, KeyEventArgs e)
-        {
-            // For each keypress, pass a filter into the Data grid.
-            // Note that bugs occur when nothing gets selected in the grid
-            // and the doubleclick feature is invoked.
-            // Set default selection to position 0
-        }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -55,12 +48,12 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
             string queryString = "SELECT " +
                 "po.PONo, vend.[Name] [Vendor Name], city.DescriptionShort [City], st.DescriptionShort [State], " + // PO Number, Vendor name, CHECK CITY VS SERADEX, CHECK STATE VS SERADEX, 
                 "po.TotalTaxes, po.SubTotal, po.TotalTaxes+po.SubTotal [Grand Total], po.Reference, po.DateCreated, po.DueDate, po.Completed, " +
-                "po.Comment" +
-                "FROM [dbo].[PO] po" +
-                "LEFT OUTER JOIN [dbo].[Vendors] vend on po.VendorID = vend.VendorID" +
-                "LEFT OUTER JOIN [dbo].[Addresses] ad on po.AddressID = ad.AddressID" +
-                "Inner Join [dbo].[Cities] city on ad.CityID = city.CityID" +
-                "Inner Join [dbo].[StateProv] st on ad.StateProvID = st.StateProvID" +
+                "po.Comment " +
+                "FROM [dbo].[PO] po " +
+                "LEFT OUTER JOIN [dbo].[Vendors] vend on po.VendorID = vend.VendorID " +
+                "LEFT OUTER JOIN [dbo].[Addresses] ad on po.AddressID = ad.AddressID " +
+                "INNER JOIN [dbo].[Cities] city on ad.CityID = city.CityID " +
+                "INNER JOIN [dbo].[StateProv] st on ad.StateProvID = st.StateProvID " +
                 "ORDER BY po.PONo";
 
             if(loaded == false)
@@ -73,6 +66,42 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
 
         }
 
+        private void oSearchFor_KeyUp(object sender, KeyEventArgs e)
+        {
+
+            string searchString;
+
+            switch(oSearchBy.SelectedIndex)
+            {
+                case 0: // Purchase Order
+                    searchString = "[PONo] LIKE \'*" + oSearchFor.Text + "*\'";
+                    break;
+
+                case 1: // Grand Total
+                    searchString = "[Grand Total] LIKE \'*" + oSearchFor.Text + "*\'";
+                    break;
+
+                case 2: // Creation Date
+                    searchString = "[DateCreated] LIKE \'*" + oSearchFor.Text + "*\'";
+                    break;
+
+                case 3: // Vendor
+                    searchString = "[Vendor Name] LIKE \'*" + oSearchFor.Text + "*\'";
+                    break;
+
+                case 4: // City
+                    searchString = "[City] LIKE \'*" + oSearchFor.Text + "*\'";
+                    break;
+
+                case 5: // State
+                    searchString = "[State] LIKE \'*" + oSearchFor.Text + "*\'";
+                    break;
+            }
+
+        }
+
+
+
         // Private search function
         //     Sets up a view filter using searchString assignment
         //     Get oSearchBy and oSearchFor
@@ -82,33 +111,7 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
         /* Prebuild switch statement
             switch(oSearchBy.SelectedIndex)
             {
-                case 0: // Purchase Order
-                    searchString = "[PurchaseOrder] LIKE \'*" + oSearchFor.Text + "*\'";
-                    break;
-
-                        case 0: // Purchase Order
-                    searchString = "[PurchaseOrder] LIKE \'*" + oSearchFor.Text + "*\'";
-                    break;
-
-                        case 1: // Sales Order
-                    searchString = "[SalesOrder] LIKE \'*" + oSearchFor.Text + "*\'";
-                    break;
-
-                        case 2: // Invoice
-                    searchString = "[InvoiceNum] LIKE \'*" + oSearchFor.Text + "*\'";
-                    break;
-
-                        case 3: // Customer
-                    searchString = "[Customer] LIKE \'*" + oSearchFor.Text + "*\'";
-                    break;
-
-                        case 4: // City
-                    searchString = "[City] LIKE \'*" + oSearchFor.Text + "*\'";
-                    break;
-
-                        case 5: // State
-                    searchString = "[State] LIKE \'*" + oSearchFor.Text + "*\'";
-                    break;
+                
             }
             View.RowFilter = searchString;
         */

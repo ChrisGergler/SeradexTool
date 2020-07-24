@@ -50,13 +50,13 @@
         <ComboBox x:Name="oSearchBy" Margin="4px"
                   Grid.Row="2" Grid.Column="0"
                   MinWidth="72px"
-                  Height="36px"
+                  Height="24px"
                   FontFamily="Open Sans" 
-                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                  HorizontalContentAlignment="Left" VerticalContentAlignment="Center">
             
                     <ComboBoxItem Name="byPurhcaseOrderNum" Content="Purchase Order" IsSelected="True"/>
-                    <ComboBoxItem Name="bySalesOrderNum" Content="Sales Order"/>
-                    <ComboBoxItem Name="byInvoiceNum" Content="Invoice"/>
+                    <ComboBoxItem Name="byGrandTotal" Content="Grand Total"/>
+                    <ComboBoxItem Name="byDateCreated" Content="Date Created"/>
                     <ComboBoxItem Name="byCustomerName" Content="Customer"/>
                     <ComboBoxItem Name="byCity" Content="City"/>
                     <ComboBoxItem Name="byState" Content="State"/>
@@ -65,13 +65,14 @@
         <TextBox x:Name="oSearchFor" Margin="4px"
                  Grid.Row="2" Grid.Column="1"
                  MinWidth="72px"
-                 Height="36px"
+                 Height="24px"
                  BorderThickness="0,0,0,1"
                  BorderBrush="#666666"
                  KeyUp="oSearchFor_KeyUp"/>
 
         <!-- Start of Row 4 -->
-        <DataGrid x:Name="PurchaseOrderGrid" Grid.Row="3" Grid.ColumnSpan="6"/>
+        <DataGrid x:Name="PurchaseOrderGrid" Grid.Row="3" Grid.ColumnSpan="6"
+                  />
 
     </Grid>
 </Page>

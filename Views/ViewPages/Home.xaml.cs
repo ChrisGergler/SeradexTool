@@ -32,5 +32,10 @@ namespace SeradexToolv2.Views.ViewPages
         {
             this.NavigationService.Navigate(new Uri("\\Views\\ViewPages\\SalesOrders\\SalesOrders.xaml", UriKind.Relative));
         }
+
+        private void PurchaseOrders_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("\\Views\\ViewPages\\PurchaseOrders\\PurchaseOrders.xaml", UriKind.Relative));
+        }
     }
 }
