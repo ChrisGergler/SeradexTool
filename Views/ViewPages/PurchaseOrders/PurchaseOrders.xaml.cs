@@ -46,7 +46,7 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
 
             // Hardcode the query for security and saftey of software and database
             string queryString = "SELECT " +
-                "po.PONo, vend.[Name] [Vendor Name], city.DescriptionShort [City], st.DescriptionShort [State], " + // PO Number, Vendor name, CHECK CITY VS SERADEX, CHECK STATE VS SERADEX, 
+                "po.PONo [PO Number], vend.[Name] [Vendor Name], city.DescriptionShort [City], st.DescriptionShort [State], " + // PO Number, Vendor name, CHECK CITY VS SERADEX, CHECK STATE VS SERADEX, 
                 "po.TotalTaxes, po.SubTotal, po.TotalTaxes+po.SubTotal [Grand Total], po.Reference, po.DateCreated, po.DueDate, po.Completed, " +
                 "po.Comment " +
                 "FROM [dbo].[PO] po " +
@@ -69,59 +69,65 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
         private void oSearchFor_KeyUp(object sender, KeyEventArgs e)
         {
 
-            string searchString;
+            
 
             switch(oSearchBy.SelectedIndex)
             {
                 case 0: // Purchase Order
-                    searchString = "[PONo] LIKE \'*" + oSearchFor.Text + "*\'";
+                    var searchOne = "[PONo] LIKE \'*" + oSearchFor.Text + "*\'";
+                    View.RowFilter = searchOne;
                     break;
 
                 case 1: // Grand Total
-                    searchString = "[Grand Total] LIKE \'*" + oSearchFor.Text + "*\'";
+                    //var searchTwo = "[Grand Total] LIKE \'*" + oSearchFor.Text + "*\'";
+                   // View.RowFilter = searchTwo;
                     break;
 
                 case 2: // Creation Date
-                    searchString = "[DateCreated] LIKE \'*" + oSearchFor.Text + "*\'";
+                    var searchThree = "[DateCreated] LIKE \'*" + oSearchFor.Text + "*\'";
+                    View.RowFilter = searchThree;
                     break;
 
                 case 3: // Vendor
-                    searchString = "[Vendor Name] LIKE \'*" + oSearchFor.Text + "*\'";
+                    var searchFour = "[Vendor Name] LIKE \'*" + oSearchFor.Text + "*\'";
+                    View.RowFilter = searchFour;
                     break;
 
                 case 4: // City
-                    searchString = "[City] LIKE \'*" + oSearchFor.Text + "*\'";
+                   var searchFive = "[City] LIKE \'*" + oSearchFor.Text + "*\'";
+                    View.RowFilter = searchFive;
                     break;
 
                 case 5: // State
-                    searchString = "[State] LIKE \'*" + oSearchFor.Text + "*\'";
+                    var searchSix = "[State] LIKE \'*" + oSearchFor.Text + "*\'";
+                    View.RowFilter = searchSix;
                     break;
             }
 
         }
 
 
-
-        // Private search function
-        //     Sets up a view filter using searchString assignment
-        //     Get oSearchBy and oSearchFor
-        //     oSearchBy = column to filter by
-        //     oSearchFor = parameters to filter by
-        //     The "LIKE" is wildcarded for better results
-        /* Prebuild switch statement
-            switch(oSearchBy.SelectedIndex)
-            {
-                
-            }
-            View.RowFilter = searchString;
-        */
-
         //private find cell on Grid (string s, DataView v, DataGrid g)
         //      Opens up the details page in a separate window.
         //      Scan through the row to find the PO number cell
         //      Pass that information on through to the next window.
 
+        private void findCell(string s, DataView v, DataGrid g)
+        {
+            try
+            {
+                int y = g.SelectedIndex;
+                DataRow passToNextWindow = v[y].Row;
+                string answer = (string)v[y][s].ToString();
+                Window detailView = new DetailView(answer, passToNextWindow);
+                detailView.Show();
+            }
+            catch { MessageBox.Show("Error in launching window."); }
+        }
 
-
+        private void PurchaseOrderGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            findCell("[PO Number]", View, PurchaseOrderGrid);
+        }
     }
 }

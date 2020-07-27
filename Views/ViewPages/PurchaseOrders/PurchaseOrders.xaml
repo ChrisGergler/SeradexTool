@@ -72,7 +72,7 @@
 
         <!-- Start of Row 4 -->
         <DataGrid x:Name="PurchaseOrderGrid" Grid.Row="3" Grid.ColumnSpan="6"
-                  />
+                  MouseDoubleClick="PurchaseOrderGrid_MouseDoubleClick"/>
 
     </Grid>
 </Page>
