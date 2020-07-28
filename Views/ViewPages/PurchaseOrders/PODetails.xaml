@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:SeradexToolv2.Views.ViewPages.PurchaseOrders"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PODetails">
+      Title="PODetails"
+        Loaded="Window_Loaded">
 
     <Grid>
         <TabControl>
@@ -38,34 +39,34 @@
                     
                     <!-- Row 2 -->
                     <Label Content="Vendor" Grid.Row="1"/>
-                    <TextBox IsReadOnly="True" Grid.Row="1" Grid.Column="1" Text="VendorName" />
+                    <TextBox x:Name="vendorName" IsReadOnly="True" Grid.Row="1" Grid.Column="1" Text="VendorName" />
     
                     <Label Content="Ship To" Grid.Row="1" Grid.Column="3"/>
-                    <TextBox IsReadOnly="True" Grid.Row="1" Grid.Column="4" Text="Shipping Name"/>
+                    <TextBox x:Name="shipName" IsReadOnly="True" Grid.Row="1" Grid.Column="4" Text="Shipping Name"/>
 
 
                     <Button Content="Copy Details" Grid.Row="1" Grid.Column="5"/>
                     
                     <!-- Row 3 -->
                     <Label Content="Address" Grid.Row="2" Grid.Column="0"/>
-                    <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="2" Text="VendorStreet"/>
+                    <TextBox x:Name="vendorStreet"  IsReadOnly="True" Grid.Column="1" Grid.Row="2" Text="VendorStreet"/>
 
                     <Label Content="Address" Grid.Row="2" Grid.Column="3"/>
-                    <TextBox IsReadOnly="True" Grid.Column="4" Grid.Row="2" Text="ShippingStreet"/>
+                    <TextBox x:Name="shipStreet" IsReadOnly="True" Grid.Column="4" Grid.Row="2" Text="ShippingStreet"/>
 
                     <!-- Row 4-->
-                    <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="3" Text="VendorCity"/>
+                    <TextBox x:Name="vendorCity" IsReadOnly="True" Grid.Column="1" Grid.Row="3" Text="VendorCity"/>
 
-                    <TextBox IsReadOnly="True" Grid.Column="4" Grid.Row="3" Text="ShippingCity"/>
+                    <TextBox x:Name="shipCity" IsReadOnly="True" Grid.Column="4" Grid.Row="3" Text="ShippingCity"/>
                     <!-- Row 5-->
-                    <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="4" Text="VendorState"/>
+                    <TextBox x:Name="vendorState" IsReadOnly="True" Grid.Column="1" Grid.Row="4" Text="VendorState"/>
 
-                    <TextBox IsReadOnly="True" Grid.Column="4" Grid.Row="4" Text="ShippingState"/>
+                    <TextBox x:Name="shipState" IsReadOnly="True" Grid.Column="4" Grid.Row="4" Text="ShippingState"/>
                     
                     <!-- Row 6 -->
-                    <TextBox IsReadOnly="True" Grid.Row="5" Grid.Column="1" Text="VendorZip"/>
+                    <TextBox x:Name="vendorZip" IsReadOnly="True" Grid.Row="5" Grid.Column="1" Text="VendorZip" Visibility="Hidden"/>
 
-                    <TextBox IsReadOnly="True" Grid.Row="5" Grid.Column="4" Text="ShippingZip"/>
+                    <TextBox x:Name="shipZip" IsReadOnly="True" Grid.Row="5" Grid.Column="4" Text="ShippingZip" Visibility="Hidden"/>
 
                     <!-- Row 7 -->
                     <DataGrid x:Name="poLineItems" Grid.Row="6" Grid.ColumnSpan="6" Margin="6px"/>

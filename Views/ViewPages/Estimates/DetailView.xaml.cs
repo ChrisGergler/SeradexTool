@@ -128,18 +128,21 @@ namespace SeradexToolv2.Views
 
             //Customer Billing
 
-            try {BillToStreet.Text = billingAddress.Rows[0]["AddressL1"].ToString(); } 
-            catch (Exception) {BillToStreet.Text = "No Address Listed";
-                BillingAddress.Text = "";}
-            try {BillToLine2.Text = billingAddress.Rows[0]["AddressL2"].ToString(); } 
-            catch (Exception) {BillToLine2.Text = "";; }
-            try {BillToLine3.Text = billingAddress.Rows[0]["AddressL3"].ToString(); } 
-            catch (Exception) {BillToLine3.Text = ""; }
-            try {BillToCity.Text = billingAddress.Rows[0]["City"].ToString(); } 
-            catch (Exception) {BillingCity.Text = ""; }
+            try { BillToStreet.Text = billingAddress.Rows[0]["AddressL1"].ToString(); }
+            catch (Exception)
+            {
+                BillToStreet.Text = "No Address Listed";
+                BillingAddress.Text = "";
+            }
+            try { BillToLine2.Text = billingAddress.Rows[0]["AddressL2"].ToString(); }
+            catch (Exception) { BillToLine2.Text = ""; ; }
+            try { BillToLine3.Text = billingAddress.Rows[0]["AddressL3"].ToString(); }
+            catch (Exception) { BillToLine3.Text = ""; }
+            try { BillToCity.Text = billingAddress.Rows[0]["City"].ToString(); }
+            catch (Exception) { BillingCity.Text = ""; }
             try { BillToState.Text = billingAddress.Rows[0]["State"].ToString(); }
             catch (Exception) { BillToState.Text = ""; }
-            try { BillToZip.Text = billingAddress.Rows[0]["PostalCode"].ToString(); } 
+            try { BillToZip.Text = billingAddress.Rows[0]["PostalCode"].ToString(); }
             catch (Exception) { BillToState.Text = ""; }
 
             // Billing City
@@ -158,18 +161,18 @@ namespace SeradexToolv2.Views
                 "INNER JOIN StateProv st on a.StateProvID = st.StateProvID " +
                 "WHERE Estimate.EstimateID = \'" + estimateID + "\'");
 
-            try {ShipToName.Text = shippingAddress.Rows[0]["Customer Name"].ToString(); }
-            catch (Exception) {ShipToStreet.Text = "No Address Listed"; };
-            try {ShipToStreet.Text = shippingAddress.Rows[0][4].ToString(); } 
-            catch (Exception) {ShipToAddress.Text = ""; }
-            try {ShipToCity.Text = shippingAddress.Rows[0]["City"].ToString(); } 
-            catch (Exception) {ShippingCity.Text = ""; }
-            try {ShipToLine2.Text = shippingAddress.Rows[0]["AddressL2"].ToString(); } 
+            try { ShipToName.Text = shippingAddress.Rows[0]["Customer Name"].ToString(); }
+            catch (Exception) { ShipToStreet.Text = "No Address Listed"; };
+            try { ShipToStreet.Text = shippingAddress.Rows[0][4].ToString(); }
+            catch (Exception) { ShipToAddress.Text = ""; }
+            try { ShipToCity.Text = shippingAddress.Rows[0]["City"].ToString(); }
+            catch (Exception) { ShippingCity.Text = ""; }
+            try { ShipToLine2.Text = shippingAddress.Rows[0]["AddressL2"].ToString(); }
             catch (Exception) { ShipToLine2.Text = ""; }
-            try {ShipToLine3.Text = shippingAddress.Rows[0]["AddressL3"].ToString(); } 
-            catch (Exception) {ShipToLine3.Text = ""; }
-            try {ShipToState.Text = shippingAddress.Rows[0]["State"].ToString(); } 
-            catch (Exception) {ShipToCity.Text = ""; }
+            try { ShipToLine3.Text = shippingAddress.Rows[0]["AddressL3"].ToString(); }
+            catch (Exception) { ShipToLine3.Text = ""; }
+            try { ShipToState.Text = shippingAddress.Rows[0]["State"].ToString(); }
+            catch (Exception) { ShipToCity.Text = ""; }
             try { ShipToZip.Text = shippingAddress.Rows[0]["PostalCode"].ToString(); }
             catch (Exception) { ShipToCity.Text = ""; }
 
@@ -188,7 +191,7 @@ namespace SeradexToolv2.Views
             GrandTotalDisplay.Text = GrandTotalDisplay.Text + Convert.ToString(Math.Round(subtotal + taxtotal, 2));
 
             PaymentTermsDisplay.Text = Utility.useQuery("SELECT a.TermsCode FROM TermsCodes a WHERE a.TermsCodeID = " + EstimateKeys["TermsCodeID"]).Rows[0][0].ToString();
- 
+
 
             try { ContactName.Text = EstimateKeys["Contact Name"].ToString(); }
             catch { ContactName.Text = ""; }
@@ -342,8 +345,8 @@ namespace SeradexToolv2.Views
                 BillToLine3.Text + "\n" +
                 BillToCity.Text + "\n" +
                 BillToState.Text + "\n" +
-               // BillToCountry.Text + "\n" +
-                BillToZip.Text + "\n"+
+                // BillToCountry.Text + "\n" +
+                BillToZip.Text + "\n" +
                 // Add State
                 // Add Country
 
@@ -355,8 +358,8 @@ namespace SeradexToolv2.Views
                 ShipToLine3.Text + "\n" +
                 ShipToCity.Text + ": " + ShipToCity.Text + "\n" +
                 ShipToState.Text + "\n" //+
-                //ShipToCountry.Text 
-                //Add Country
+                                        //ShipToCountry.Text 
+                                        //Add Country
 
                 // Contact Info
                 //Add Contact Name

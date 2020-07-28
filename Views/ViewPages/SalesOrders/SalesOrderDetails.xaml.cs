@@ -113,20 +113,21 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
                 "INNER JOIN StateProv st on a.StateProvID = st.StateProvID " +
                 "WHERE SalesOrder.SalesOrderID = \'" + salesOrderID + "\'"
                 );
-            try {ShipToName.Text = shippingAddress.Rows[0]["CustomerName"].ToString(); } 
-            catch (Exception) 
-                    {
-                        ShipToName.Text = "";
-                        ShipToAddress.Text = ""
-                    ;}
-            try {ShipToStreet.Text = shippingAddress.Rows[0]["AddressL1"].ToString(); }
-            catch (Exception) {ShipToStreet.Text = "No Address Listed"; }
-            try {ShipToLine2.Text = shippingAddress.Rows[0]["AddressL2"].ToString(); }
+            try { ShipToName.Text = shippingAddress.Rows[0]["CustomerName"].ToString(); }
+            catch (Exception)
+            {
+                ShipToName.Text = "";
+                ShipToAddress.Text = ""
+            ;
+            }
+            try { ShipToStreet.Text = shippingAddress.Rows[0]["AddressL1"].ToString(); }
+            catch (Exception) { ShipToStreet.Text = "No Address Listed"; }
+            try { ShipToLine2.Text = shippingAddress.Rows[0]["AddressL2"].ToString(); }
             catch (Exception) { ShipToLine2.Text = ""; }
-            try {ShipToLine3.Text = shippingAddress.Rows[0]["AddressL3"].ToString(); }
+            try { ShipToLine3.Text = shippingAddress.Rows[0]["AddressL3"].ToString(); }
             catch (Exception) { ShipToLine3.Text = ""; }
             try { ShipToCity.Text = shippingAddress.Rows[0]["City"].ToString(); }
-            catch (Exception) {ShippingCity.Text = "";  }
+            catch (Exception) { ShippingCity.Text = ""; }
             try { ShipToState.Text = shippingAddress.Rows[0]["State"].ToString(); }
             catch (Exception) { ShipToState.Text = ""; }
             try { ShipToZip.Text = shippingAddress.Rows[0]["PostalCode"].ToString(); }

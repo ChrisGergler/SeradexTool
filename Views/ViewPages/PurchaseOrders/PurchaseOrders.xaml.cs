@@ -1,20 +1,8 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using SeradexToolv2.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SeradexToolv2.ViewModels;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-using System.Security.Cryptography.X509Certificates;
-using System.Data;
 
 namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
 {
@@ -25,7 +13,7 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
     {
 
         Toolkit Utility = new Toolkit();                // Access to useful functions and query builders for security
-        
+
         bool loaded;                                    // Prevents loading PO list from DB multiple times on a single open
 
         // Create the table and view here, assign it on load, and leave it public to filter and adjust. NEVER PASS THIS BACK TO DB.
@@ -57,7 +45,7 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
                 "INNER JOIN [dbo].[StateProv] st on ad.StateProvID = st.StateProvID " +
                 "ORDER BY po.PONo";
 
-            if(loaded == false)
+            if (loaded == false)
             {
                 Data = Utility.useQuery(queryString);
                 View = new DataView(Data);
@@ -70,9 +58,9 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
         private void oSearchFor_KeyUp(object sender, KeyEventArgs e)
         {
 
-            
 
-            switch(oSearchBy.SelectedIndex)
+
+            switch (oSearchBy.SelectedIndex)
             {
                 case 0: // Purchase Order
                     var searchOne = "[PONo] LIKE \'*" + oSearchFor.Text + "*\'";
@@ -80,8 +68,8 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
                     break;
 
                 case 1: // Grand Total
-                    //var searchTwo = "[Grand Total] LIKE \'*" + oSearchFor.Text + "*\'";
-                   // View.RowFilter = searchTwo;
+                        //var searchTwo = "[Grand Total] LIKE \'*" + oSearchFor.Text + "*\'";
+                        // View.RowFilter = searchTwo;
                     break;
 
                 case 2: // Creation Date
@@ -95,7 +83,7 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
                     break;
 
                 case 4: // City
-                   var searchFive = "[City] LIKE \'*" + oSearchFor.Text + "*\'";
+                    var searchFive = "[City] LIKE \'*" + oSearchFor.Text + "*\'";
                     View.RowFilter = searchFive;
                     break;
 
@@ -115,10 +103,10 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
 
         private void findCell(string s, DataView v, DataGrid g)
         {
-            
+
             int y = g.SelectedIndex; // Get row number
             DataRow pass = v[y].Row; // Get row at dataview's index
-            string number = (string)v[y][s].ToString(); // Grab PO number out of view from selected row
+            string number = v[y][s].ToString(); // Grab PO number out of view from selected row
             Window PODetails = new PODetails(number, pass); //Create the PO Details window, hand off PO number and row data
             MessageBox.Show(number);
             PODetails.Show();

@@ -1,18 +1,9 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using SeradexToolv2.ViewModels;
+﻿using SeradexToolv2.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SeradexToolv2.Views.ViewPages.SalesOrders
 {
@@ -65,10 +56,10 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
         string searchString;
         private void executeSearch(object sender, KeyEventArgs e)
         {
-            switch(SearchParam.SelectedIndex)
+            switch (SearchParam.SelectedIndex)
             {
                 case 0:
-                    searchString = "SalesOrderNo LIKE \'*"+SearchBox.Text+"*\'";
+                    searchString = "SalesOrderNo LIKE \'*" + SearchBox.Text + "*\'";
                     break;
 
                 case 1:
@@ -97,16 +88,17 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
             try
             {
                 int y = g.SelectedIndex;
-            DataRow passToNextWindow = v[y].Row;
-             string answer = ((string)View[y][s].ToString());
+                DataRow passToNextWindow = v[y].Row;
+                string answer = View[y][s].ToString();
                 Window openWindow = new SalesOrderDetails(answer, passToNextWindow);
                 openWindow.Show();
             }
-            catch (Exception) { //MessageBox.Show("Double-clicked something before selecting a Sales order. \nTry selecting your sales order first.", "NoSo Error");
+            catch (Exception)
+            { //MessageBox.Show("Double-clicked something before selecting a Sales order. \nTry selecting your sales order first.", "NoSo Error");
 
             }
 
-           
+
 
         }
 
