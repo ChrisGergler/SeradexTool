@@ -1,4 +1,4 @@
-﻿<Page x:Class="SeradexToolv2.Views.ViewPages.PurchaseOrders.PODetails"
+﻿<Window x:Class="SeradexToolv2.Views.ViewPages.PurchaseOrders.PODetails"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,6 +9,76 @@
       Title="PODetails">
 
     <Grid>
+        <TabControl>
+            <TabItem x:Name="tabPODetails" Header="Purchase Order">
+                <Grid x:Name="MainBody" MinWidth="120" MinHeight="120" Margin="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- Row 1 -->
+                    <Label Content="Purhcase Order Details" Grid.Row="0" Grid.ColumnSpan="2"/>
+                    <Label Content="Invoice Number: " Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2"/>
+                    
+                    <!-- Row 2 -->
+                    <Label Content="Vendor" Grid.Row="1"/>
+                    <TextBox IsReadOnly="True" Grid.Row="1" Grid.Column="1" Text="VendorName" />
+    
+                    <Label Content="Ship To" Grid.Row="1" Grid.Column="3"/>
+                    <TextBox IsReadOnly="True" Grid.Row="1" Grid.Column="4" Text="Shipping Name"/>
+
+
+                    <Button Content="Copy Details" Grid.Row="1" Grid.Column="5"/>
+                    
+                    <!-- Row 3 -->
+                    <Label Content="Address" Grid.Row="2" Grid.Column="0"/>
+                    <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="2" Text="VendorStreet"/>
+
+                    <Label Content="Address" Grid.Row="2" Grid.Column="3"/>
+                    <TextBox IsReadOnly="True" Grid.Column="4" Grid.Row="2" Text="ShippingStreet"/>
+
+                    <!-- Row 4-->
+                    <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="3" Text="VendorCity"/>
+
+                    <TextBox IsReadOnly="True" Grid.Column="4" Grid.Row="3" Text="ShippingCity"/>
+                    <!-- Row 5-->
+                    <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="4" Text="VendorState"/>
+
+                    <TextBox IsReadOnly="True" Grid.Column="4" Grid.Row="4" Text="ShippingState"/>
+                    
+                    <!-- Row 6 -->
+                    <TextBox IsReadOnly="True" Grid.Row="5" Grid.Column="1" Text="VendorZip"/>
+
+                    <TextBox IsReadOnly="True" Grid.Row="5" Grid.Column="4" Text="ShippingZip"/>
+
+                    <!-- Row 7 -->
+                    <DataGrid x:Name="poLineItems" Grid.Row="6" Grid.ColumnSpan="6" Margin="6px"/>
+
+                    <!-- Row 8 -->
+                    <Label Grid.Row="7" Grid.Column="4" Content="Grand Total"/>
+                    <TextBox Grid.Row="7" Grid.Column="5" Text="GrandTotalCost"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        
+        
+        
         
     </Grid>
-</Page>
+</Window>

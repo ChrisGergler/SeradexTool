@@ -47,8 +47,9 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
             // Hardcode the query for security and saftey of software and database
             string queryString = "SELECT " +
                 "po.PONo [PO Number], vend.[Name] [Vendor Name], city.DescriptionShort [City], st.DescriptionShort [State], " + // PO Number, Vendor name, CHECK CITY VS SERADEX, CHECK STATE VS SERADEX, 
-                "po.TotalTaxes, po.SubTotal, po.TotalTaxes+po.SubTotal [Grand Total], po.Reference, po.DateCreated, po.DueDate, po.Completed, " +
+                "po.TotalTaxes [Taxes], po.SubTotal [Sub total], po.TotalTaxes+po.SubTotal [Grand Total], po.Reference [Reference Numbers], po.DateCreated [Created], po.DueDate, po.Completed, " +
                 "po.Comment " +
+                ", po.* " +
                 "FROM [dbo].[PO] po " +
                 "LEFT OUTER JOIN [dbo].[Vendors] vend on po.VendorID = vend.VendorID " +
                 "LEFT OUTER JOIN [dbo].[Addresses] ad on po.AddressID = ad.AddressID " +
@@ -114,20 +115,18 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
 
         private void findCell(string s, DataView v, DataGrid g)
         {
-            try
-            {
-                int y = g.SelectedIndex;
-                DataRow passToNextWindow = v[y].Row;
-                string answer = (string)v[y][s].ToString();
-                Window detailView = new DetailView(answer, passToNextWindow);
-                detailView.Show();
-            }
-            catch { MessageBox.Show("Error in launching window."); }
+            
+            int y = g.SelectedIndex; // Get row number
+            DataRow pass = v[y].Row; // Get row at dataview's index
+            string number = (string)v[y][s].ToString(); // Grab PO number out of view from selected row
+            Window PODetails = new PODetails(number, pass); //Create the PO Details window, hand off PO number and row data
+            MessageBox.Show(number);
+            PODetails.Show();
         }
 
         private void PurchaseOrderGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            findCell("[PO Number]", View, PurchaseOrderGrid);
+            findCell("PO Number", View, PurchaseOrderGrid);
         }
     }
 }
