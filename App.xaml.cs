@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace SeradexToolv2
+namespace LSG_Databox
 {
     /// <summary>
     /// Interaction logic for App.xaml

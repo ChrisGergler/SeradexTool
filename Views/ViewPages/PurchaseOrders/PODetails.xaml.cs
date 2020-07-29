@@ -1,8 +1,8 @@
-﻿using SeradexToolv2.ViewModels;
+﻿using LSG_Databox.ViewModels;
 using System.Data;
 using System.Windows;
 
-namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
+namespace LSG_Databox.Views.ViewPages.PurchaseOrders
 {
     /// <summary>
     /// Interaction logic for PODetails.xaml
@@ -44,10 +44,10 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
             try
             {
                 Items = Utility.useQuery(
-                    "SELECT * " +
-                    "FROM PODetails p " +
-                    "LEFT INNER JOIN PO on PO.poID = p.POID " +
-                    "WHERE PO.poID = " + poID
+                    "SELECT pd.LineNo, pd.ItemNo [Item Number], pd.ItemVendorNumber [Vendor Item Number]"
+                    + "pd.* "
+                    + "FROM PO "
+                    + "INNER JOIN PODetails pd on PO.POID = pd.POID"
                     );
 
                 View = new DataView(Items);
@@ -79,6 +79,37 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
             vendorState.Text = Vendor.Rows[0]["State"].ToString();
 
             DataTable shippingAddress; // UseQuery, join city, state, and country tables.
+
+
+
+            shippingAddress = Utility.useQuery(
+                    "SELECT DISTINCT "
+                    + "a.AddressL1, a.AddressL2, a.AddressL3, c.DescriptionShort [City], st.DescriptionShort [State] "
+                    + "FROM Addresses a "
+                    + "LEFT OUTER JOIN PO on a.AddressID = PO.ShipToAddressID "
+                    + "INNER JOIN Cities c on a.CityID = c.CityID "
+                    + "INNER JOIN StateProv st on a.StateProvID = st.StateProvID "
+                    + "WHERE PO.poID = "
+                    + poID.ToString()
+                    );
+
+
+            try
+            {
+                //shipName.Text
+                shipStreet.Text = shippingAddress.Rows[0]["AddressL1"].ToString() + " " + shippingAddress.Rows[0]["AddressL2"].ToString()
+                    + " " + shippingAddress.Rows[0]["AddressL3"].ToString();
+            }
+            catch { shipStreet.Text = ""; }
+            try
+            {
+                shipCity.Text = shippingAddress.Rows[0]["City"].ToString();
+            }
+            catch { shipCity.Text = ""; }
+            try
+            {
+                shipState.Text = shippingAddress.Rows[0]["State"].ToString();
+            } catch{ shipState.Text = ""; }
 
             double GrandTotal = 0; // Set to 0 for integrity. Calc and convert to get grand total.
         }

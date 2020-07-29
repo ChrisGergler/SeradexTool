@@ -1,4 +1,4 @@
-﻿using SeradexToolv2.ViewModels;
+﻿using LSG_Databox.ViewModels;
 using System;
 using System.Data;
 using System.Diagnostics;
@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SeradexToolv2.Views
+namespace LSG_Databox.Views
 {
     /// <summary>
     /// Interaction logic for DetailView.xaml

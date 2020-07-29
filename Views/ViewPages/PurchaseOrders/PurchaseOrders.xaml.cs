@@ -1,10 +1,10 @@
-﻿using SeradexToolv2.ViewModels;
+﻿using LSG_Databox.ViewModels;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
+namespace LSG_Databox.Views.ViewPages.PurchaseOrders
 {
     /// <summary>
     /// Interaction logic for PurchaseOrders.xaml
@@ -33,7 +33,10 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
             // Run query for PO data
 
             // Hardcode the query for security and saftey of software and database
-            string queryString = "SELECT " +
+
+            if (loaded == false)
+            {
+                Data = Utility.useQuery("SELECT " +
                 "po.PONo [PO Number], vend.[Name] [Vendor Name], city.DescriptionShort [City], st.DescriptionShort [State], " + // PO Number, Vendor name, CHECK CITY VS SERADEX, CHECK STATE VS SERADEX, 
                 "po.TotalTaxes [Taxes], po.SubTotal [Sub total], po.TotalTaxes+po.SubTotal [Grand Total], po.Reference [Reference Numbers], po.DateCreated [Created], po.DueDate, po.Completed, " +
                 "po.Comment " +
@@ -43,11 +46,8 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
                 "LEFT OUTER JOIN [dbo].[Addresses] ad on po.AddressID = ad.AddressID " +
                 "INNER JOIN [dbo].[Cities] city on ad.CityID = city.CityID " +
                 "INNER JOIN [dbo].[StateProv] st on ad.StateProvID = st.StateProvID " +
-                "ORDER BY po.PONo";
+                "ORDER BY po.PONo");
 
-            if (loaded == false)
-            {
-                Data = Utility.useQuery(queryString);
                 View = new DataView(Data);
                 PurchaseOrderGrid.ItemsSource = View; //Push view to our XAML Datagrid
                 loaded = true; //Prevents multiple loads of same data.

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Navigation;
 
-namespace SeradexToolv2.Views
+namespace LSG_Databox.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

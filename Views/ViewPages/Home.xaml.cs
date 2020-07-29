@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SeradexToolv2.Views.ViewPages
+namespace LSG_Databox.Views.ViewPages
 {
     /// <summary>
     /// Interaction logic for Home.xaml

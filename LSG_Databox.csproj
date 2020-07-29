@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Configurations>Debug;Release;TestRelease</Configurations>
+    <Authors>Christopher Gergler</Authors>
+    <Product>Database Viewing Software</Product>
+    <Description>Utilized for the viewing of the database established and containing information from Seradex.</Description>
+    <Copyright>Christopher Gergler, 5/6/2020</Copyright>
+    <AssemblyVersion>1.0.0.2</AssemblyVersion>
+    <FileVersion>1.0.0.3</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\DetailViewPages\**" />
+    <EmbeddedResource Remove="Views\DetailViewPages\**" />
+    <None Remove="Views\DetailViewPages\**" />
+    <Page Remove="Views\DetailViewPages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="PublishProfiles\" />
+  </ItemGroup>
+
+</Project>

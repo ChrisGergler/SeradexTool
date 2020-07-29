@@ -1,11 +1,11 @@
-﻿using SeradexToolv2.ViewModels;
+﻿using LSG_Databox.ViewModels;
 using System;
 using System.Data;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SeradexToolv2.Views.ViewPages.SalesOrders
+namespace LSG_Databox.Views.ViewPages.SalesOrders
 {
     /// <summary>
     /// Interaction logic for SalesOrderDetails.xaml
@@ -92,7 +92,7 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
 
             }
-            catch (Exception)
+            catch
             {
                 BillToStreet.Text = "No Address Listed";
                 BillingAddress.Text = "";
@@ -284,10 +284,10 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
 
 
             try { info = bomview[y]["ItemSpecID"].ToString(); }
-            catch
-            {
+#pragma warning disable CA1031 // Do not catch general exception types
+            catch{};
+#pragma warning restore CA1031 // Do not catch general exception types
 
-            };
             // MessageBox.Show(info);
             laborDetails(info);
             /*
