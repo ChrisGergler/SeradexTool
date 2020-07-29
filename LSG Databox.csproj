@@ -8,8 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Views\DetailViewPages\" />
+    <Compile Remove="Views\DetailViewPages\**" />
+    <EmbeddedResource Remove="Views\DetailViewPages\**" />
+    <None Remove="Views\DetailViewPages\**" />
+    <Page Remove="Views\DetailViewPages\**" />
   </ItemGroup>
 
   <ItemGroup>

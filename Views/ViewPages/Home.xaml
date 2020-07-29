@@ -28,6 +28,7 @@
         </Grid.ColumnDefinitions>
         <Button x:Name="btnEstimates" Content="Estimates" Background="#FFD7F3F2" Grid.RowSpan="3" Grid.ColumnSpan="4" Margin="6,6,6,6" FontFamily="Open Sans ExtraBold" FontSize="48" Click="Estimates_Click" Cursor="Hand"/>
         <Button x:Name="btnSalesorders" Content="Sales orders" Background="#FFD7F3F2" Grid.RowSpan="3" Grid.ColumnSpan="4" Margin="6,6,6,6" FontFamily="Open Sans ExtraBold" FontSize="48" Grid.Column="4" Click="SalesOrders_Click" Cursor="Hand"/>
+        <Button x:Name="btnPurchaseOrders" Content="Purchase Orders" Background="#FFD7F3F2" Grid.RowSpan="3" Grid.ColumnSpan="4" Grid.Row="3"  Margin="6" FontFamily="Open Sans ExtraBold" FontSize="48" Click="PurchaseOrders_Click"/>
     </Grid>
 
 
