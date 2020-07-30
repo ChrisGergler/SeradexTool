@@ -1,8 +1,8 @@
-﻿using SeradexToolv2.ViewModels;
+﻿using LSG_Databox.ViewModels;
 using System.Data;
 using System.Windows;
 
-namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
+namespace LSG_Databox.Views.ViewPages.PurchaseOrders
 {
     /// <summary>
     /// Interaction logic for PODetails.xaml
@@ -17,7 +17,7 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
         DataRow poKeys;
         DataView View;
 
-        string poID;
+        string poNum;
 
 
         // Establish initialiation with values passed in.
@@ -25,8 +25,35 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
         public PODetails(string value, DataRow row)
         {
             InitializeComponent();
-            poID = value;
+            poNum = value;
             poKeys = row;
+
+            try
+            {
+                Items = Utility.useQuery(
+                    "SELECT " +
+                    "pd.[LineNo], " +
+                    "pd.[ItemNo], " +
+                    "pd.[ItemVendorNumber], " +
+                    "pd.[Description], " +
+                    "pd.[QtyToBuy], " +
+                    "pd.[QtyReceivedToDate], " +
+                    "pd.[QtyInvoicedToDate], " +
+                    "pd.UnitCost [Unit Cost], " +
+                    "pd.ListPrice, " +
+                    "pd.DiscountAmt, " +
+                    "pd.ExtendedCost, " +
+                    "pd.Comment, " +
+                    "pd.OwnerNo [Sales Order] " +
+                    "FROM PODetails pd " +
+                    "INNER JOIN PO on pd.POID = PO.POID " + 
+                    "WHERE PO.PONo = \'" + poNum + "\'"
+                    );
+
+                View = new DataView(Items);
+                poLineItems.ItemsSource = View;
+            }
+            catch { MessageBox.Show("Error at view grid population."); }
 
         }
 
@@ -41,19 +68,7 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
 
 
             // Pull PO Details to populate viewgrid
-            try
-            {
-                Items = Utility.useQuery(
-                    "SELECT * " +
-                    "FROM PODetails p " +
-                    "LEFT INNER JOIN PO on PO.poID = p.POID " +
-                    "WHERE PO.poID = " + poID
-                    );
 
-                View = new DataView(Items);
-                poLineItems.ItemsSource = View;
-            }
-            catch { MessageBox.Show("Error at view grid population."); }
 
 
             // Pull vendor information to populate header
@@ -68,7 +83,7 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
                     "Inner Join Cities c on a.CityID = c.CityID " +
                     "Inner Join StateProv s on a.StateProvID = s.StateProvID " +
                     "LEFT OUTER JOIN PO po on v.VendorID = po.VendorID " +
-                    "WHERE po.VendorID = v.VendorID");
+                    "WHERE po.PONo = \'" + poNum + "\'");
             }
             catch { MessageBox.Show("Error at Vendor query"); }
 
@@ -80,7 +95,61 @@ namespace SeradexToolv2.Views.ViewPages.PurchaseOrders
 
             DataTable shippingAddress; // UseQuery, join city, state, and country tables.
 
-            double GrandTotal = 0; // Set to 0 for integrity. Calc and convert to get grand total.
+
+
+            shippingAddress = Utility.useQuery(
+                    "SELECT " +
+                    "vend.[Name] [Vendor Name], cust.[Name] [Customer Name], " +
+                    "a.AddressL1, a.AddressL2, a.AddressL3, " +
+                    "c.DescriptionShort [City], st.DescriptionShort [State] " +
+                    "FROM Addresses a " +
+                    "INNER JOIN PO on a.AddressID = PO.ShipToAddressID " +
+                    "LEFT OUTER JOIN CustomerShipTo cust on PO.CustomerShipToID = cust.CustomerShipToID " +
+                    "LEFT OUTER JOIN Vendors vend on PO.ShipToVendorID = vend.AddressID " +
+                    "INNER JOIN Cities c on a.CityID = c.CityID " +
+                    "INNER JOIN StateProv st on a.StateProvID = st.StateProvID " +
+                    "WHERE PO.PONo = \'" + poNum +"\'"
+                    );
+
+
+            try
+            {
+                //shipName.Text
+                shipStreet.Text = shippingAddress.Rows[0]["AddressL1"].ToString() + " " + shippingAddress.Rows[0]["AddressL2"].ToString()
+                    + " " + shippingAddress.Rows[0]["AddressL3"].ToString();
+            }
+            catch { shipStreet.Text = ""; }
+            try
+            {
+                shipCity.Text = shippingAddress.Rows[0]["City"].ToString();
+            }
+            catch { shipCity.Text = ""; }
+            try
+            {
+                shipState.Text = shippingAddress.Rows[0]["State"].ToString();
+            } catch{ shipState.Text = ""; }
+
+            try { 
+                if(poKeys.Table.Rows[0]["CustomerShipToID"].ToString()=="")
+                {
+                    if(poKeys.Table.Rows[0]["ShipToVendorID"].ToString() == "")
+                    {
+                        
+                    }
+                    else
+                    {
+                        shipName.Text = shippingAddress.Rows[0]["Vendor Name"].ToString();
+                    }
+
+                }
+                else
+                {
+                    shipName.Text = shippingAddress.Rows[0]["Customer Name"].ToString();
+                }
+            }
+            catch { };
+
+            grandTotal.Text = poKeys["Grand Total"].ToString(); // Set to 0 for integrity. Calc and convert to get grand total.
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

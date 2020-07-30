@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace SeradexToolv2.Views.ViewPages.BillOfMaterials
+namespace LSG_Databox.Views.ViewPages.BillOfMaterials
 {
     /// <summary>
     /// Interaction logic for BillOfMaterials.xaml

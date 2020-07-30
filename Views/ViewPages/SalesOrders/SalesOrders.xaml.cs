@@ -1,11 +1,11 @@
-﻿using SeradexToolv2.ViewModels;
+﻿using LSG_Databox.ViewModels;
 using System;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SeradexToolv2.Views.ViewPages.SalesOrders
+namespace LSG_Databox.Views.ViewPages.SalesOrders
 {
     /// <summary>
     /// Interaction logic for SalesOrders.xaml
@@ -39,7 +39,7 @@ namespace SeradexToolv2.Views.ViewPages.SalesOrders
                 "Inner Join Addresses a on b.AddressID = a.AddressID " +
                 "Inner Join Cities city on a.CityID = city.CityID " +
                 "Inner Join StateProv st on a.StateProvID = st.StateProvID " +
-                "Inner Join Estimate on Estimate.EstimateID = SalesOrder.EstimateID " +
+                "LEFT OUTER JOIN Estimate on Estimate.EstimateID = SalesOrder.EstimateID " +
                 "Inner Join SalesReps sr on SalesOrder.SalesRepID = sr.SalesRepID " +
                 "Inner Join Employees e on sr.EmployeeID = e.EmployeeID " +
                 "Inner Join Contacts con on SalesOrder.ContactID = con.ContactID;";

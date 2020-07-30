@@ -1,10 +1,10 @@
-﻿using SeradexToolv2.ViewModels;
+﻿using LSG_Databox.ViewModels;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SeradexToolv2.Views.ViewPages.Estimates
+namespace LSG_Databox.Views.ViewPages.Estimates
 {
 
     /// <summary>
@@ -32,9 +32,15 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             // hardcoded Queries locked behind the load event to prevent mistaken queries.
-            string estimateString = "SELECT " +
+            //string estimateString = 
+
+            //"WHERE e.CustomerID = c.CustomerID";
+
+            if (loaded == false)
+            {
+                Data = Utility.useQuery("SELECT " +
                 "es.EstimateID, es.EstimateNo, so.SalesOrderNo, es.CustRefNo, " +
-                "es.SalesRepID [Sales Rep], " +
+                "e.FirstName + ' ' + e.LastName [Sales Rep], " +
 
                 "c.[Name] as [Customer Name], " +
                 "con.[Name] as [Contact Name], " +
@@ -51,16 +57,10 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
                 "INNER JOIN Addresses a on ship.AddressID = a.AddressID " +
                 "INNER JOIN Cities city on a.CityID = city.CityID " +
                 "INNER JOIN StateProv st on a.StateProvID = st.StateProvID " +
-                "INNER JOIN SalesOrder so on es.EstimateID = so.EstimateID " +
+                "LEFT OUTER JOIN SalesOrder so on es.EstimateID = so.EstimateID " +
                 "INNER JOIN SalesReps sr on es.SalesRepID = sr.SalesRepID " +
                 "INNER JOIN Employees e on sr.EmployeeID = e.EmployeeID " +
-                "INNER JOIN Contacts con on es.ContactID = con.ContactID;";
-
-            //"WHERE e.CustomerID = c.CustomerID";
-
-            if (loaded == false)
-            {
-                Data = Utility.useQuery(estimateString);
+                "INNER JOIN Contacts con on es.ContactID = con.ContactID;");
                 View = new DataView(Data);
                 EstimateResults.ItemsSource = View; //Push view to our XAML Datagrid
                 loaded = true; //Prevents multiple loads of same data.
@@ -94,6 +94,7 @@ namespace SeradexToolv2.Views.ViewPages.Estimates
                     break;
 
                 case 4:
+                    searchString = "[Sales Rep] LIKE \'*" + SearchBox.Text + "*\'";
                     break;
             }
             View.RowFilter = searchString;

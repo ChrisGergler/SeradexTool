@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace SeradexToolv2.Views.ViewPages
+namespace LSG_Databox.Views.ViewPages
 {
     /// <summary>
     /// Interaction logic for Home.xaml
@@ -27,6 +27,11 @@ namespace SeradexToolv2.Views.ViewPages
         private void PurchaseOrders_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new Uri("\\Views\\ViewPages\\PurchaseOrders\\PurchaseOrders.xaml", UriKind.Relative));
+        }
+
+        private void btnInvoices_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
