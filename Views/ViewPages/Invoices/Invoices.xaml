@@ -26,7 +26,7 @@
         <Label></Label>
         
         <!-- Row 1 -->
-        <Label x:Name="InvoiceTitle" Content="Invoice: " Grid.Row="0" Grid.Column="0"/>
+        <Label x:Name="InvoiceTitle" Content="Invoice Search" Grid.Row="0" Grid.Column="0"/>
         
         <!-- Row 2 -->
         <Label x:Name="SearchLabel" Content="Search By" Grid.Row="1" VerticalAlignment="Bottom"/>
