@@ -1,4 +1,4 @@
-﻿using LSG_Databox.ViewModels;
+﻿using LSGDatabox.ViewModels;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LSG_Databox.Views.ViewPages.Invoices
+namespace LSGDatabox.Views.ViewPages.Invoices
 {
     /// <summary>
     /// Interaction logic for Invoices.xaml
@@ -43,7 +43,7 @@ namespace LSG_Databox.Views.ViewPages.Invoices
                 int y = g.SelectedIndex;
                 DataRow pass = v[y].Row;
                 string answer = v[y][s].ToString();
-                // Window invoiceDetails
+                Window invoiceDetails = new InvoiceDetais(answer, pass);
             }
             catch { }
         }
@@ -79,6 +79,11 @@ namespace LSG_Databox.Views.ViewPages.Invoices
                     break;
 
             }
+        }
+
+        private void invoiceResults_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            findCell("InvoiceNo", view, invoiceResults);
         }
     }
 }

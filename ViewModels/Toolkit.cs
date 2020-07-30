@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Data;
 
-namespace LSG_Databox.ViewModels
+namespace LSGDatabox.ViewModels
 {
     class Toolkit
     {

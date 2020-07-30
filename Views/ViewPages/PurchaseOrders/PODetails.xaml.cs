@@ -1,8 +1,8 @@
-﻿using LSG_Databox.ViewModels;
+﻿using LSGDatabox.ViewModels;
 using System.Data;
 using System.Windows;
 
-namespace LSG_Databox.Views.ViewPages.PurchaseOrders
+namespace LSGDatabox.Views.ViewPages.PurchaseOrders
 {
     /// <summary>
     /// Interaction logic for PODetails.xaml

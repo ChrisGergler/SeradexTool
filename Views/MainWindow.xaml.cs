@@ -1,6 +1,6 @@
 ﻿using System.Windows.Navigation;
 
-namespace LSG_Databox.Views
+namespace LSGDatabox.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

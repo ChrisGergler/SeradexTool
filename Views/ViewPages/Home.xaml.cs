@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace LSG_Databox.Views.ViewPages
+namespace LSGDatabox.Views.ViewPages
 {
     /// <summary>
     /// Interaction logic for Home.xaml

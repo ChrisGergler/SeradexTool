@@ -1,4 +1,4 @@
-﻿using LSG_Databox.ViewModels;
+﻿using LSGDatabox.ViewModels;
 using System;
 using System.Data;
 using System.Diagnostics;
@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace LSG_Databox.Views
+namespace LSGDatabox.Views
 {
     /// <summary>
     /// Interaction logic for DetailView.xaml
