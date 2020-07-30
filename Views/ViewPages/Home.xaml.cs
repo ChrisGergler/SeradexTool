@@ -28,5 +28,10 @@ namespace LSG_Databox.Views.ViewPages
         {
             this.NavigationService.Navigate(new Uri("\\Views\\ViewPages\\PurchaseOrders\\PurchaseOrders.xaml", UriKind.Relative));
         }
+
+        private void btnInvoices_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

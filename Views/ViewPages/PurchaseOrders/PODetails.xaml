@@ -23,7 +23,7 @@
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
-                    
+
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="3*"/>
@@ -32,21 +32,21 @@
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <!-- Row 1 -->
                     <Label Content="Purhcase Order Details" Grid.Row="0" Grid.ColumnSpan="2"/>
                     <Label Content="Invoice Number: " Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2"/>
-                    
+
                     <!-- Row 2 -->
                     <Label Content="Vendor" Grid.Row="1"/>
                     <TextBox x:Name="vendorName" IsReadOnly="True" Grid.Row="1" Grid.Column="1" Text="VendorName" />
-    
+
                     <Label Content="Ship To" Grid.Row="1" Grid.Column="3"/>
-                    <TextBox x:Name="shipName" IsReadOnly="True" Grid.Row="1" Grid.Column="4" Text="Shipping Name"/>
+                    <TextBox x:Name="shipName" IsReadOnly="True" Grid.Row="1" Grid.Column="4" Text=""/>
 
 
-                    <Button Content="Copy Details" Grid.Row="1" Grid.Column="5"/>
-                    
+                    <Button Content="Copy Details" Grid.Row="1" Grid.Column="5" IsEnabled="false"/>
+
                     <!-- Row 3 -->
                     <Label Content="Address" Grid.Row="2" Grid.Column="0"/>
                     <TextBox x:Name="vendorStreet"  IsReadOnly="True" Grid.Column="1" Grid.Row="2" Text="VendorStreet"/>
@@ -62,7 +62,7 @@
                     <TextBox x:Name="vendorState" IsReadOnly="True" Grid.Column="1" Grid.Row="4" Text="VendorState"/>
 
                     <TextBox x:Name="shipState" IsReadOnly="True" Grid.Column="4" Grid.Row="4" Text="ShippingState"/>
-                    
+
                     <!-- Row 6 -->
                     <TextBox x:Name="vendorZip" IsReadOnly="True" Grid.Row="5" Grid.Column="1" Text="VendorZip" Visibility="Hidden"/>
 
@@ -73,13 +73,13 @@
 
                     <!-- Row 8 -->
                     <Label Grid.Row="7" Grid.Column="4" Content="Grand Total"/>
-                    <TextBox Grid.Row="7" Grid.Column="5" Text="GrandTotalCost"/>
+                    <TextBox x:Name="grandTotal" Grid.Row="7" Grid.Column="4" Text="GrandTotalCost" Grid.ColumnSpan="2" Height="23" Margin="149,0,6,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
         </TabControl>
-        
-        
-        
-        
+
+
+
+
     </Grid>
 </Window>

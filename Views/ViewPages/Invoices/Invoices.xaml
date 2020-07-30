@@ -18,14 +18,31 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="8*"/>
+            <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Label></Label>
         
+        <!-- Row 1 -->
+        <Label x:Name="InvoiceTitle" Content="Invoice: " Grid.Row="0" Grid.Column="0"/>
+        
+        <!-- Row 2 -->
+        <Label x:Name="SearchLabel" Content="Search By" Grid.Row="1" VerticalAlignment="Bottom"/>
+
+        <Label x:Name="parameterLabel" Content="For" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom"/>
+        
         <!-- Row 3 -->
-        <DataGrid Grid.Row="2" Grid.ColumnSpan="5" Margin="6px"/>
+        <ComboBox Name="SearchBy"  Grid.Row="2" Margin="4px">
+            <ComboBoxItem Content="Invoice Number"/>
+            <ComboBoxItem Content="Vendor"/>
+        </ComboBox>
+
+        <TextBox x:Name="SearchText" Grid.Row="2" Grid.Column="1" Margin="4px" />
+
+        <!-- Row 4 -->
+        <DataGrid Grid.Row="3" Grid.ColumnSpan="5" Margin="6px"/>
 
     </Grid>
 </Page>
