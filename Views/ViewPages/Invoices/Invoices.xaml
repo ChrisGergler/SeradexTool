@@ -34,15 +34,15 @@
         <Label x:Name="parameterLabel" Content="For" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom"/>
         
         <!-- Row 3 -->
-        <ComboBox Name="SearchBy"  Grid.Row="2" Margin="4px">
+        <ComboBox Name="SearchBy" VerticalAlignment="Center" Grid.Row="2" Margin="4px">
             <ComboBoxItem Content="Invoice Number"/>
             <ComboBoxItem Content="Vendor"/>
         </ComboBox>
 
-        <TextBox x:Name="SearchText" Grid.Row="2" Grid.Column="1" Margin="4px" />
+        <TextBox x:Name="SearchText" Grid.Row="2" Grid.Column="1" Margin="4px" KeyUp="SearchText_KeyUp" />
 
         <!-- Row 4 -->
-        <DataGrid Grid.Row="3" Grid.ColumnSpan="5" Margin="6px"/>
+        <DataGrid x:Name="invoiceResults" Grid.Row="3" Grid.ColumnSpan="5" Margin="6px"/>
 
     </Grid>
 </Page>
