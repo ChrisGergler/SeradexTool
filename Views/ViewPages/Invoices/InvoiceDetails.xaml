@@ -5,8 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:LSGDatabox.Views.ViewPages.Invoices"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="InvoiceDetais">
+      d:DesignHeight="720" d:DesignWidth="980"
+      Title="InvoiceDetais"
+      Loaded="Window_Loaded">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -27,26 +28,26 @@
         </Grid.ColumnDefinitions>
 
         <!-- Title and INV Number -->
-        <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2" 
+        <Label x:Name="Title" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2" 
                Content="Invoice " Loaded="Label_Loaded"
                FontSize="24px"/>
 
         
         <!-- Bill To Information -->
-        <Label Grid.Row="1" Grid.Column="0"
+        <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"
                Content="Bill To"/>
         <TextBox Grid.Row="1" Grid.Column="1"
                  Margin="2px" x:Name="BillingName"/>
         <TextBox Grid.Row="2" Grid.Column="1"
-                 Margin="2px" x:Name="BillingAddress"/>
+                 Margin="2px" x:Name="BillingStreet"/>
         <TextBox Grid.Row="3" Grid.Column="1"
                  Margin="2px" x:Name="BillingCity"/>
         <TextBox Grid.Row="4" Grid.Column="1"
                  Margin="2px" x:Name="BillingState"/>
 
         <!-- ShipTo? -->
-        <Label Grid.Row="1" Grid.Column="2"
-               Content="Ship To"/>
+        <Label Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right"
+               Content="Ship To Address"/>
         <TextBox Grid.Row="1" Grid.Column="3"
                  Margin="2px" x:Name="ShipToName"/>
         <TextBox Grid.Row="2" Grid.Column="3"

@@ -60,8 +60,13 @@ namespace LSGDatabox.Views.ViewPages.SalesOrders
             SalesOrderTitle.Text = SalesOrderKeys["SalesOrderNo"].ToString();
 
             // Builds an awkward Query to get an Estimate Number to display
-            EstimateNumber.Text = Utility.useQuery("SELECT es.EstimateNo FROM Estimate es, SalesOrder so WHERE so.SalesOrderID = "
-                + SalesOrderKeys["SalesOrderID"].ToString() + " AND so.EstimateID = es. EstimateID").Rows[0]["EstimateNo"].ToString();
+            try
+            {
+                EstimateNumber.Text = Utility.useQuery("SELECT es.EstimateNo FROM Estimate es, SalesOrder so WHERE so.SalesOrderID = "
+                    + SalesOrderKeys["SalesOrderID"].ToString() + " AND so.EstimateID = es. EstimateID").Rows[0]["EstimateNo"].ToString();
+            }
+            catch { }
+
 
             CustomerName.Text =
                Convert.ToString(Utility.useQuery("SELECT a.[Name] FROM Customers a, SalesOrder b " +

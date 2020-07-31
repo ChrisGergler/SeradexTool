@@ -33,27 +33,15 @@ namespace LSGDatabox.Views.ViewPages.Invoices
             InitializeComponent();
         }
 
-        // Utilized for finding the Invoice Number cell based on any doubleclick in the grids
-        private void findCell(string s, DataView v, DataGrid g)
-        {
-            // Calls the information based on invoice number by searching the selected row
 
-            try
-            {
-                int y = g.SelectedIndex;
-                DataRow pass = v[y].Row;
-                string answer = v[y][s].ToString();
-                Window invoiceDetails = new InvoiceDetais(answer, pass);
-            }
-            catch { }
-        }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             // Assign information to the view
             if (loaded == false)
             {
-                invoiceSearch = Utility.useQuery("SELECT * " +
+                invoiceSearch = Utility.useQuery("SELECT " +
+                    "inv.InvoiceNo, inv.BalanceOwing [Remaining Balance], * " +
                     "FROM Invoice inv"
                     );
                 view = new DataView(invoiceSearch);
@@ -83,7 +71,31 @@ namespace LSGDatabox.Views.ViewPages.Invoices
 
         private void invoiceResults_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            findCell("InvoiceNo", view, invoiceResults);
+
+            try
+            {
+                findCell("InvoiceNo", view, invoiceResults);
+            }
+            catch { MessageBox.Show("InvoiceNo, View, and Results failed to pass"); }
         }
+
+
+
+        // Utilized for finding the Invoice Number cell based on any doubleclick in the grids
+        private void findCell(string s, DataView v, DataGrid g)
+        {
+            // Calls the information based on invoice number by searching the selected row
+
+            try
+            {
+                int y = g.SelectedIndex;
+                DataRow pass = v[y].Row;
+                string answer = v[y][s].ToString();
+                Window invoiceDetails = new InvoiceDetais(answer, pass);
+                invoiceDetails.Show();
+            }
+            catch { MessageBox.Show("Dun Goofed buddy"); }
+        }
+
     }
 }
