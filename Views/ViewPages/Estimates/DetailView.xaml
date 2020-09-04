@@ -72,7 +72,7 @@
                     <TextBox  IsReadOnly="True" BorderThickness="0" x:Name="VantageNumber" Text="No Number" Grid.Column="2" Grid.Row="1" Padding="0" Margin="61,92,0,17"/>
 
                     <!-- Product Information-->
-                    <DataGrid x:Name="ItemsQuoted" Grid.Row="2" Margin="4,0,4,4" Grid.ColumnSpan="4" IsReadOnly="True" SelectionUnit="FullRow"/>
+                    <DataGrid x:Name="ItemsQuoted" Grid.Row="2" Margin="4,0,4,4" Grid.ColumnSpan="4" IsReadOnly="True" SelectionUnit="CellOrRowHeader"/>
                     <Button x:Name="Folder" Content="Open Folder" Grid.Column="3" Margin="20,0,30,0" VerticalAlignment="Center" Click="GoToFolder" ClickMode="Release" Height="20" MaxHeight="20" MaxWidth="96" MinHeight="20" MinWidth="82"/>
 
                     <!-- Math and/or Totals (if saved correctly)-->
