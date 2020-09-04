@@ -16,9 +16,9 @@ using System.Windows.Shapes;
 namespace LSGDatabox.Views.ViewPages.Invoices
 {
     /// <summary>
-    /// Interaction logic for InvoiceDetais.xaml
+    /// Interaction logic for InvoiceDetails.xaml
     /// </summary>
-    public partial class InvoiceDetais : Window
+    public partial class InvoiceDetails : Window
     {
 
         Toolkit Utility = new Toolkit();
@@ -27,7 +27,7 @@ namespace LSGDatabox.Views.ViewPages.Invoices
         DataRow invoiceKeys;
         string invoiceID;
 
-        public InvoiceDetais(string value, DataRow row)
+        public InvoiceDetails(string value, DataRow row)
         {
             InitializeComponent();
 

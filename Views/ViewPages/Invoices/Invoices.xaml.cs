@@ -41,8 +41,13 @@ namespace LSGDatabox.Views.ViewPages.Invoices
             if (loaded == false)
             {
                 invoiceSearch = Utility.useQuery("SELECT " +
-                    "inv.InvoiceNo, inv.BalanceOwing [Remaining Balance], * " +
-                    "FROM Invoice inv"
+                    "inv.InvoiceNo, c.[Name], inv.BalanceOwing [Remaining Balance], so.SalesOrderNo [Sales Order], city.DescriptionShort [City], ad.AddressL1, * " +
+                    "FROM Invoice inv " +
+                    "LEFT OUTER JOIN SalesOrder so on inv.SalesOrderID = so.SalesOrderID " +
+                    "LEFT OUTER JOIN Addresses ad on inv.ShipToAddressID = ad.AddressID " +
+                    "LEFT OUTER JOIN Cities city on ad.CityID = city.CityID " +
+                    "LEFT OUTER JOIN StateProv st on ad.StateProvID = st.StateProvID " +
+                    "LEFT OUTER JOIN Customers c on inv.CustomerID = c.CustomerID "
                     );
                 view = new DataView(invoiceSearch);
                 invoiceResults.ItemsSource = view;
@@ -91,7 +96,7 @@ namespace LSGDatabox.Views.ViewPages.Invoices
                 int y = g.SelectedIndex;
                 DataRow pass = v[y].Row;
                 string answer = v[y][s].ToString();
-                Window invoiceDetails = new InvoiceDetais(answer, pass);
+                Window invoiceDetails = new InvoiceDetails(answer, pass);
                 invoiceDetails.Show();
             }
             catch { MessageBox.Show("Dun Goofed buddy"); }
