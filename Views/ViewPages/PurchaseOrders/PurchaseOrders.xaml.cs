@@ -1,10 +1,10 @@
-﻿using LSG_Databox.ViewModels;
+﻿using LSGDatabox.ViewModels;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace LSG_Databox.Views.ViewPages.PurchaseOrders
+namespace LSGDatabox.Views.ViewPages.PurchaseOrders
 {
     /// <summary>
     /// Interaction logic for PurchaseOrders.xaml

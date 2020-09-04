@@ -1,11 +1,11 @@
-﻿using LSG_Databox.ViewModels;
+﻿using LSGDatabox.ViewModels;
 using System;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace LSG_Databox.Views.ViewPages.SalesOrders
+namespace LSGDatabox.Views.ViewPages.SalesOrders
 {
     /// <summary>
     /// Interaction logic for SalesOrders.xaml

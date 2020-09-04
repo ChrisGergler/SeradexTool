@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace LSG_Databox.Views.ViewPages.BillOfMaterials
+namespace LSGDatabox.Views.ViewPages.BillOfMaterials
 {
     /// <summary>
     /// Interaction logic for BillOfMaterials.xaml

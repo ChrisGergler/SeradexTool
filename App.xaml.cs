@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace LSG_Databox
+namespace LSGDatabox
 {
     /// <summary>
     /// Interaction logic for App.xaml
