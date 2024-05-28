@@ -33,7 +33,7 @@ namespace LSGDatabox.ViewModels
         // Private Methods
 
         //Use to connect to DB. This one could be changed to less-hardcoded as needed. But for the most part we'll keep it safe. May replace with a config file later which will be easier to patch as needed
-        private static string ConnectString() { return "Data Source=LSG-SQL\\Seradex;Initial Catalog=ActiveM_Lauretano;Integrated Security=SSPI;applicationIntent=ReadOnly;"; }
+        private static string ConnectString() { return "Data Source=Seradex;applicationIntent=ReadOnly;"; } // Correct connection string to properly formatted mssql server
 
     }// End of Class Estimates Functions
 }// End of Seradex Models Namespace
